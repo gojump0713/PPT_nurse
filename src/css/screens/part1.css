@@ -62,6 +62,26 @@
   color: var(--c-muted);
 }
 
+/* 거버닝 아래 — 평가체계 변화 한 줄 (발주 측 수정 지시) */
+.s01__shift {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 34px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  font-size: 27px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: rgba(255, 255, 255, 0.86);
+  word-break: keep-all;
+}
+.s01__shift-arrow {
+  font-weight: 800;
+  color: var(--c-accent);
+}
+
 .s01__ask {
   position: absolute;
   top: 50%;
@@ -585,11 +605,32 @@
 }
 .s06__note {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
   opacity: 0;
   transition: opacity 520ms var(--ease);
+  word-break: keep-all;
 }
 .s06__note.is-in {
-  opacity: 0.6;
+  opacity: 1;
+}
+.s06__note-lead {
+  font-size: 21px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.62);
+}
+.s06__note-main {
+  font-size: 27px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: rgba(255, 255, 255, 0.92);
+}
+.s06__note-sub {
+  margin-top: 2px;
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.45);
 }
 
 /* -------------------------------------------------------------
@@ -1630,6 +1671,31 @@
 @keyframes s12-blink {
   0%, 100% { box-shadow: 0 0 0 0 rgba(229, 72, 77, 0); }
   50% { box-shadow: 0 0 22px 0 rgba(229, 72, 77, 0.35); }
+}
+
+/* LAYER 2 아래 삽입 문구 (발주 측 수정 지시) */
+.s12__note {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 25px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: rgba(255, 255, 255, 0.78);
+  word-break: keep-all;
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity var(--t-reveal) var(--ease),
+    transform var(--t-reveal) var(--ease);
+}
+.s12__note.is-in {
+  opacity: 1;
+  transform: none;
+}
+.s12__note em {
+  font-style: normal;
+  font-weight: 800;
+  color: var(--c-accent);
 }
 
 .s12__formula {

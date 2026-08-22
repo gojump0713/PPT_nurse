@@ -10,3 +10,6 @@ dist/
 # 자동 캡처 결과 (tools/shoot.mjs)
 tools/shots/
 tools/shots-dist/
+
+# Claude Code 로컬 세션 설정·워크트리
+.claude/

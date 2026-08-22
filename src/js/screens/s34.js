@@ -6,7 +6,7 @@
 import { h, rv } from '../lib/dom.js';
 import { metaOf } from '../../data/screens.js';
 import { ScreenRoot } from '../components/screen.js';
-import { CTA } from '../components/index.js';
+import { BgVideo } from '../components/index.js';
 
 const meta = metaOf(34);
 
@@ -55,22 +55,23 @@ export function create() {
     h('span.s34__ending-brand', 'TILON')
   );
 
-  const ctas = h('div.s34__ctas',
-    CTA('보건계열 CBT 데모 신청', { solid: true }),
-    CTA('병원 전산부서 기술 미팅')
-  );
+  // 발주 측 수정 지시 — CTA(데모 신청 · 기술 미팅) 삭제
 
-  const el = ScreenRoot(meta, { header: false, className: 's34' },
+  // 클로징 무드 배경 — S06 은하수 영상을 낮은 투명도로 재사용 (경로 리터럴 유지)
+  const bg = BgVideo('assets/video/bg-galaxy.mp4', { opacity: 0.2 });
+
+  const el = ScreenRoot(meta, { header: false, className: 's34 has-bgvid' },
     h('div.s34__tracks', left, converge, right, logo),
     h('div.s34__msgs', msg1, msg2),
-    ending,
-    ctas
+    ending
   );
+  el.appendChild(bg);
 
   return {
     el,
     enter(sch) {
       document.body.dataset.part = 'TILON';
+      sch.at(0, () => bg.play(sch));
       // ① 좌우 트랙 노드 동시 진행
       sch.at(300, () => {
         left.classList.add('is-in');
@@ -87,16 +88,13 @@ export function create() {
       const after = 700 + gap * LEFT.nodes.length;
       sch.at(after, () => el.classList.add('is-converged'));
       sch.at(after + 900, () => logo.classList.add('is-in'));
-      // ③ 최종 메시지 2행 → 엔딩 타이포 → CTA
+      // ③ 최종 메시지 2행 → 엔딩 타이포
       sch.at(after + 1500, () => msg1.classList.add('is-in'));
       sch.at(after + 2000, () => msg2.classList.add('is-in'));
       sch.at(after + 2700, () => ending.classList.add('is-in'));
-      sch.at(after + 3300, () => {
-        ctas.classList.add('is-in');
-        Array.from(ctas.children).forEach((c, i) =>
-          sch.at(i * 160, () => c.classList.add('is-in'))
-        );
-      });
+    },
+    leave() {
+      bg.stop();
     },
     steps: [],
   };

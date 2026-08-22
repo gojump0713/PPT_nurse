@@ -7,5 +7,6 @@ import { createDemo } from './demo.js';
 
 export function create() {
   // 경로는 리터럴로 — 빌드가 정적 스캔으로 배포 대상 에셋을 고른다
-  return createDemo(17, 'assets/video/demo-cbt-001.mp4', 'CBT 학생 화면 · 로그인부터 문항 풀이까지');
+  // 발주 측 수정 지시 — 이 화면은 소리가 기본으로 켜진 채 재생
+  return createDemo(17, 'assets/video/demo-cbt-001.mp4', 'CBT 학생 화면 · 로그인부터 문항 풀이까지', { sound: true });
 }

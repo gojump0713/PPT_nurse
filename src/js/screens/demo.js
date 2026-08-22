@@ -15,25 +15,33 @@ import { ScreenRoot } from '../components/screen.js';
  * @param {number} id      SCREEN 번호
  * @param {string} src     영상 경로 — 빌드 정적 스캔을 위해 호출부에서 리터럴로 넘긴다
  * @param {string} caption 화면 하단 캡션
+ * @param {{sound?: boolean}} opts  sound: true 면 소리가 기본으로 켜진 채 재생
+ *   (화면 진입은 클릭/키 입력이라는 사용자 제스처 뒤라 유음 자동재생이 허용된다.
+ *    그래도 정책상 차단되면 음소거 재생으로 폴백해 영상이 멈추지 않게 한다)
  */
-export function createDemo(id, src, caption) {
+export function createDemo(id, src, caption, opts = {}) {
   const meta = metaOf(id);
+  const startWithSound = !!opts.sound;
 
   const video = h('video.demo__video', {
     src,
-    muted: true,
+    muted: !startWithSound,
     autoplay: true,
     playsInline: true,
     preload: 'auto',
     controls: false,
   });
-  video.setAttribute('muted', '');
+  if (!startWithSound) video.setAttribute('muted', '');
   video.loop = false; // 반복 없음
 
   const progress = h('div.demo__progress-fill');
   const timeEl = h('span.demo__time', '0:00');
   const endBadge = h('div.demo__end', '재생 완료');
 
+  const syncSoundBtn = () => {
+    soundBtn.classList.toggle('is-on', !video.muted);
+    soundBtn.firstChild.textContent = video.muted ? '🔇' : '🔊';
+  };
   const soundBtn = h('button.demo__sound', {
     type: 'button',
     dataset: { noAdvance: '1' },
@@ -42,11 +50,11 @@ export function createDemo(id, src, caption) {
       click: (e) => {
         e.stopPropagation();
         video.muted = !video.muted;
-        soundBtn.classList.toggle('is-on', !video.muted);
-        soundBtn.firstChild.textContent = video.muted ? '🔇' : '🔊';
+        syncSoundBtn();
       },
     },
-  }, h('span', '🔇'), h('small', '소리'));
+  }, h('span', startWithSound ? '🔊' : '🔇'), h('small', '소리'));
+  if (startWithSound) soundBtn.classList.add('is-on');
 
   const stage = rv('scale', 'div.demo__stage',
     video,
@@ -77,7 +85,17 @@ export function createDemo(id, src, caption) {
     el.classList.remove('is-ended');
     try { video.currentTime = 0; } catch { /* 아직 메타데이터 전 */ }
     const p = video.play();
-    if (p && typeof p.catch === 'function') p.catch(() => { /* 정책상 차단되면 정지 상태 유지 */ });
+    if (p && typeof p.catch === 'function') {
+      p.catch(() => {
+        // 유음 자동재생이 차단된 경우 — 음소거로 폴백해 재생은 이어간다
+        if (!video.muted) {
+          video.muted = true;
+          syncSoundBtn();
+          const p2 = video.play();
+          if (p2 && typeof p2.catch === 'function') p2.catch(() => { /* 정지 상태 유지 */ });
+        }
+      });
+    }
   };
 
   video.addEventListener('timeupdate', onTime);

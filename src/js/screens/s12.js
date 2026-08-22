@@ -44,6 +44,11 @@ export function create() {
     h('div.s12__chips', ...l2chips)
   );
 
+  // 발주 측 수정 지시 — 2번째 박스(Secure Exam Environment) 아래 문구
+  const note = h('p.s12__note',
+    '시험 시스템보다 더 중요한 것은 ', h('em', '‘시험환경을 보장하는 기술’'), '입니다.'
+  );
+
   const formula = h('div.s12__formula',
     h('span.s12__f', 'CBT System'),
     h('span.s12__f-op', '+'),
@@ -54,7 +59,7 @@ export function create() {
 
   const el = ScreenRoot(meta, { className: 's12' },
     gov,
-    h('div.s12__body', layer1, gap, layer2),
+    h('div.s12__body', layer1, gap, layer2, note),
     formula
   );
 
@@ -74,7 +79,8 @@ export function create() {
       (sch) => {
         el.classList.add('is-bonded');
         sch.stagger(l2chips, (c) => c.classList.add('is-in'), { start: 500, gap: 90 });
-        sch.at(1300, () => formula.classList.add('is-in'));
+        sch.at(1200, () => note.classList.add('is-in'));
+        sch.at(1600, () => formula.classList.add('is-in'));
       },
     ],
   };

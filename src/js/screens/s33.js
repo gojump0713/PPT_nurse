@@ -6,9 +6,8 @@
 import { h, rv } from '../lib/dom.js';
 import { metaOf } from '../../data/screens.js';
 import { ScreenRoot } from '../components/screen.js';
-import { Governing, BigNumber, SourceFooter } from '../components/index.js';
+import { Governing, BigNumber } from '../components/index.js';
 import { icons } from '../components/icons.js';
-import { CONFIG } from '../../data/config.js';
 
 const meta = metaOf(33);
 
@@ -65,10 +64,14 @@ export function create() {
   );
   const prods = h('div.s33__prods', ...prodEls);
 
-  const foot = SourceFooter(
-    CONFIG.companyFiguresConfirmed
-      ? '틸론 회사소개서 기준'
-      : '연혁 · 인증 수치는 최신 회사소개서 기준으로 확정 삽입 필요 [확인 필요]'
+  // 발주 측 수정 지시 — 확인 필요 문구 삭제, 회사소개 웹페이지 링크로 대체
+  // (클릭 시 별도 창으로 열리고, 페이지는 넘어가지 않는다 — nav 가 a 클릭을 무시)
+  const foot = rv('fade', 'p.srcfoot.s33__foot',
+    h('a.s33__link', {
+      href: 'https://kwon007009-stack.github.io/jiwon13/',
+      target: '_blank',
+      rel: 'noopener noreferrer',
+    }, '틸론 회사소개 자세히 보기', h('span.s33__link-arrow', '↗'))
   );
 
   const el = ScreenRoot(meta, { className: 's33' },

@@ -68,7 +68,8 @@ export function create() {
 
   const startCarousel = (sch) => {
     showSlide(0);
-    sch.every(4000, () => showSlide(index + 1));
+    // 발주 측 수정 지시 — 화면(막) 전환을 기존 4초보다 1.5배 빠르게
+    sch.every(2667, () => showSlide(index + 1));
   };
 
   return {

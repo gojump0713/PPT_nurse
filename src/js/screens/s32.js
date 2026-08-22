@@ -46,7 +46,11 @@ export function create() {
     h('div.s32__plate-label', 'TILON Technology Base')
   );
 
-  const gov = Governing(meta.governing, { size: 'sm', center: true });
+  // 발주 측 수정 지시 — 지정 위치에서 줄을 바꾼다 (자동 줄바꿈에 맡기지 않음)
+  const gov = Governing(
+    '사람은 자유롭게 배우고 일하되, 데이터와 환경은 안전하게<br>두 제안은 하나의 기반 위에 있습니다.',
+    { size: 'sm', center: true }
+  );
 
   const el = ScreenRoot(meta, { header: false, className: 's32' },
     header,

@@ -1,6 +1,7 @@
 /**
  * SCREEN 20 — 이동하는 진료, 상주하는 데이터
- * 1막: 데이터가 단말과 함께 따라다닌다 → 2막(자동): 데이터는 중앙에 고정되고 화면만 동행.
+ * 1막: 데이터가 단말과 함께 따라다닌다 → 2막(클릭): 데이터는 중앙에 고정되고 화면만 동행.
+ * (발주 측 수정 지시 — 2막은 자동이 아니라 클릭으로 전환, 2막 하단 문구 삽입)
  */
 
 import { h, rv } from '../lib/dom.js';
@@ -75,9 +76,16 @@ export function create() {
     h('div.s20__act.is-a2', h('b', '2막'), '데이터는 중앙에, 의료진에게는 화면만')
   );
 
+  // 2막 하단 삽입 문구 (발주 측 수정 지시)
+  const closing = h('div.s20__closing',
+    h('p.s20__closing-lead', '진료는 움직이지만, 데이터는 보호되어야 합니다'),
+    h('p.s20__closing-sub', '병원의 과제는 ‘어디서나 일하는 것’이 아니라 ‘어디서나 안전하게 일하는 것’입니다.')
+  );
+
   const el = ScreenRoot(meta, { className: 's20' },
     h('div.s20__top', gov, acts),
-    h('div.s20__body', rv('up', 'div.s20__planwrap', plan), dock)
+    h('div.s20__body', rv('up', 'div.s20__planwrap', plan), dock),
+    closing
   );
 
   const planwrap = el.querySelector('.s20__planwrap');
@@ -89,12 +97,16 @@ export function create() {
       sch.at(400, () => gov.classList.add('is-in'));
       sch.at(760, () => planwrap.classList.add('is-in'));
       sch.stagger(roomEls, (r) => r.classList.add('is-in'), { start: 900, gap: 130 });
-      // 1막 시작 — 의료진 이동 + 데이터 꼬리 잔상
+      // 1막 시작 — 의료진 이동 + 데이터 꼬리 잔상 (2막은 클릭으로)
       sch.at(1600, () => el.classList.add('is-act1'));
-      // 2막(자동) — 데이터 회수 → 중앙 고정 → 화면만 동행
-      sch.at(1600 + 6000, () => el.classList.add('is-act2'));
-      sch.stagger(dockTags, (t) => t.classList.add('is-in'), { start: 8000, gap: 130 });
     },
-    steps: [],
+    steps: [
+      // 클릭 1회: 2막 — 데이터 회수 → 중앙 고정 → 화면만 동행 + 하단 문구
+      (sch) => {
+        el.classList.add('is-act2');
+        sch.stagger(dockTags, (t) => t.classList.add('is-in'), { start: 400, gap: 130 });
+        sch.at(1300, () => closing.classList.add('is-in'));
+      },
+    ],
   };
 }

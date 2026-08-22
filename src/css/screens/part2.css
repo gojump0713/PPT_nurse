@@ -284,6 +284,43 @@
   max-width: 1380px;
 }
 
+/* 아래쪽 가운데 삽입 문구 — 클릭(수렴)과 함께 사라진다 (발주 측 수정 지시) */
+.s19__bottom {
+  position: absolute;
+  left: 50%;
+  bottom: 54px;
+  transform: translateX(-50%) translateY(14px);
+  width: 1500px;
+  text-align: center;
+  word-break: keep-all;
+  opacity: 0;
+  transition:
+    opacity 620ms var(--ease),
+    transform 620ms var(--ease);
+  pointer-events: none;
+}
+.s19__bottom.is-in {
+  opacity: 1;
+  transform: translateX(-50%);
+}
+.s19__bottom-lead {
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: rgba(255, 255, 255, 0.92);
+}
+.s19__bottom-sub {
+  margin-top: 8px;
+  font-size: 22px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
+}
+.s19.is-merging .s19__bottom {
+  opacity: 0;
+  transform: translateX(-50%) translateY(14px);
+  transition: opacity 420ms var(--ease), transform 420ms var(--ease);
+}
+
 /* -------------------------------------------------------------
    S20 — 병원 평면도 2막
    ------------------------------------------------------------- */
@@ -518,6 +555,35 @@
   opacity: 1;
 }
 
+/* 2막 하단 삽입 문구 (발주 측 수정 지시) — 클릭으로 2막 전환 후 등장 */
+.s20__closing {
+  flex: none;
+  text-align: center;
+  word-break: keep-all;
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 620ms var(--ease),
+    transform 620ms var(--ease);
+  pointer-events: none;
+}
+.s20__closing.is-in {
+  opacity: 1;
+  transform: none;
+}
+.s20__closing-lead {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: rgba(255, 255, 255, 0.92);
+}
+.s20__closing-sub {
+  margin-top: 6px;
+  font-size: 20px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.58);
+}
+
 .s20__dock {
   display: flex;
   align-items: center;
@@ -702,11 +768,62 @@
   box-shadow: 0 0 0 2px var(--c-accent), 0 0 50px -10px var(--c-accent-glow);
 }
 
+/* 1막 문구 ↔ 분실 판정 배지가 같은 자리를 나눠 쓰는 컨테이너 */
+.s21__swap {
+  position: relative;
+  min-height: 122px;
+}
+
+/* 1막 중간 삽입 문구 (발주 측 수정 지시) */
+.s21__insight {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) translateY(12px);
+  width: 1560px;
+  text-align: center;
+  word-break: keep-all;
+  opacity: 0;
+  transition:
+    opacity 620ms var(--ease),
+    transform 620ms var(--ease);
+  pointer-events: none;
+}
+.s21__insight.is-in {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+}
+.s21__insight-lead {
+  font-size: 27px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: rgba(255, 255, 255, 0.92);
+}
+.s21__insight-lead em {
+  font-style: normal;
+  color: var(--c-accent);
+}
+.s21__insight-sub {
+  margin-top: 8px;
+  font-size: 21px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
+}
+/* 분실 시나리오(클릭)가 재생되면 문구는 물러난다 */
+.s21.is-lost .s21__insight {
+  opacity: 0;
+  transform: translate(-50%, -50%) translateY(-10px);
+  transition: opacity 420ms var(--ease), transform 420ms var(--ease);
+}
+
 .s21__verdict {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) translateY(16px);
   display: flex;
   align-items: center;
   gap: 20px;
-  align-self: center;
   padding: 22px 34px;
   border-radius: var(--r-lg);
   border: 1px solid var(--c-accent-line);
@@ -719,7 +836,7 @@
 }
 .s21.is-safe .s21__verdict {
   opacity: 1;
-  transform: none;
+  transform: translate(-50%, -50%);
 }
 .s21__verdict-icon {
   color: var(--c-accent);
@@ -927,6 +1044,27 @@
 }
 .s23__hint.is-in {
   opacity: 0.55;
+}
+
+/* 하단 삽입 문구 (발주 측 수정 지시) */
+.s23__closing {
+  flex: none;
+  margin-bottom: 10px;
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: rgba(255, 255, 255, 0.92);
+  word-break: keep-all;
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 620ms var(--ease),
+    transform 620ms var(--ease);
+}
+.s23__closing.is-in {
+  opacity: 1;
+  transform: none;
 }
 
 /* -------------------------------------------------------------

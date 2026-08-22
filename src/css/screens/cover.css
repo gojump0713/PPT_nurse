@@ -139,16 +139,18 @@
   white-space: nowrap;
   text-shadow: 0 6px 40px rgba(0, 0, 0, 0.7);
 }
-/* §5 ‘시험’·‘진료’ 두 단어를 먼저 눈에 띄게 */
+/* 발주 측 수정 지시 — ‘시험’·‘진료’·‘환경’은 ‘국시’와 동일한 글꼴·굵기로 통일 */
 .cover__line b {
-  font-weight: 900;
+  font-family: inherit;
+  font-weight: inherit;
   color: #fff;
 }
-/* ‘환경’은 본문과 같은 폰트·같은 크기. 강조는 색으로만 한다. */
+/* ‘환경’도 본문과 같은 폰트·크기·굵기. 강조는 색으로만 한다. */
 .cover__keyword {
   display: inline-block; /* 퇴장 시 scale 이 먹도록 */
+  font-family: inherit;
   font-size: inherit;
-  font-weight: 900;
+  font-weight: inherit;
   letter-spacing: inherit;
   color: #fff;
   transition:

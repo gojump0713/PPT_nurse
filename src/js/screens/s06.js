@@ -6,7 +6,7 @@
 import { h, rv } from '../lib/dom.js';
 import { metaOf } from '../../data/screens.js';
 import { ScreenRoot } from '../components/screen.js';
-import { Governing, SourceFooter } from '../components/index.js';
+import { Governing, BgVideo } from '../components/index.js';
 
 const meta = metaOf(6);
 
@@ -42,22 +42,27 @@ export function create() {
 
   const diagram = h('div.s06__diagram', ...ringEls, ...labelEls);
 
-  const note = SourceFooter(
-    '확장 시 신규 구축이 아닌 기존 플랫폼 증설 · 학과별 시스템 난립 방지',
-    { inline: true }
+  // 발주 측 수정 지시 — 하단 문구 3줄로 교체
+  const note = rv('fade', 'div.s06__note',
+    h('p.s06__note-lead', '보건계열 전체가 같은 변화 앞에 있습니다'),
+    h('p.s06__note-main', 'CBT는 한 학과 시스템이 아니라 보건계열 디지털 평가환경이 될 수 있습니다.'),
+    h('p.s06__note-sub', '확장 시 구축이 아닌 기존 플랫폼 증설, 학과별 시스템 난립 방지')
   );
-  note.classList.add('s06__note');
 
-  const el = ScreenRoot(meta, { className: 's06' },
+  // 중심에서 도는 은하수 — 동심원 확장과 겹치는 무드 배경 (경로 리터럴 유지)
+  const bg = BgVideo('assets/video/bg-galaxy.mp4', { opacity: 0.32 });
+
+  const el = ScreenRoot(meta, { className: 's06 has-bgvid' },
     gov,
     h('div.s06__body', diagram),
     note
   );
+  el.appendChild(bg);
 
   return {
     el,
     enter(sch) {
-      sch.at(0, () => el.headerEl.classList.add('is-in'));
+      sch.at(0, () => { el.headerEl.classList.add('is-in'); bg.play(sch); });
       sch.at(400, () => gov.classList.add('is-in'));
       // 중심원(간호)만 먼저 → 바깥 원이 0.5s 간격으로 ripple 확장
       sch.at(900, () => {
@@ -71,6 +76,9 @@ export function create() {
         });
       }
       sch.at(900 + 500 * RINGS.length + 200, () => note.classList.add('is-in'));
+    },
+    leave() {
+      bg.stop();
     },
     steps: [],
   };

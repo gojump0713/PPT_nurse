@@ -391,6 +391,32 @@ export function VideoPlayer({ src, poster, slides = [], captions = [], badge, st
 }
 
 /* ---------------------------------------------------------------
+   BgVideo — 화면 전체 배경 영상 레이어 (무음 루프 · 어둡게 눌러 콘텐츠 뒤에 깐다)
+   실패(파일 없음 · 자동재생 차단) 시 조용히 제거되어 기존 배경으로 폴백된다.
+   호출부에서 src 를 리터럴로 넘겨야 빌드 정적 스캔에 잡힌다.
+   --------------------------------------------------------------- */
+export function BgVideo(src, { opacity = 0.34 } = {}) {
+  const video = h('video', {
+    src, muted: true, loop: true, autoplay: true, playsInline: true, preload: 'auto',
+  });
+  video.setAttribute('muted', '');
+  const el = h('div.bgvid', { style: { '--bgvid-opacity': String(opacity) } },
+    video, h('div.bgvid__scrim'));
+
+  el.play = (sch) => {
+    let ok = false;
+    const drop = () => el.remove();
+    const p = video.play();
+    if (p && typeof p.catch === 'function') p.catch(drop);
+    video.addEventListener('error', drop, { once: true });
+    video.addEventListener('playing', () => { ok = true; el.classList.add('is-in'); }, { once: true });
+    if (sch) sch.at(1600, () => { if (!ok) drop(); });
+  };
+  el.stop = () => { if (video.parentNode) video.pause(); };
+  return el;
+}
+
+/* ---------------------------------------------------------------
    CTAButton — 골드 포인트 (S21 · S24)
    --------------------------------------------------------------- */
 export function CTA(label, { solid = false, dir = 'up', style, onClick } = {}) {

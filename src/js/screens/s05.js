@@ -6,7 +6,7 @@
 import { h, rv } from '../lib/dom.js';
 import { metaOf } from '../../data/screens.js';
 import { ScreenRoot } from '../components/screen.js';
-import { Governing, Timeline, SourceFooter } from '../components/index.js';
+import { Governing, Timeline, SourceFooter, BgVideo } from '../components/index.js';
 
 const meta = metaOf(5);
 
@@ -37,16 +37,20 @@ export function create() {
     '2028년 응시생 기준으로 역산해 보면, 이 설계의 시작점은 2026년, 바로 지금입니다.'
   );
 
-  const el = ScreenRoot(meta, { className: 's05' },
+  // CBT 환경에서 응시 중인 학생 모습 — 무드 배경 영상 (경로 리터럴 유지)
+  const bg = BgVideo('assets/video/bg-cbt-student.mp4', { opacity: 0.28 });
+
+  const el = ScreenRoot(meta, { className: 's05 has-bgvid' },
     h('div.s05__top', gov, badge),
     h('div.s05__body', tl),
     foot
   );
+  el.appendChild(bg);
 
   return {
     el,
     enter(sch) {
-      sch.at(0, () => el.headerEl.classList.add('is-in'));
+      sch.at(0, () => { el.headerEl.classList.add('is-in'); bg.play(sch); });
       sch.at(400, () => gov.classList.add('is-in'));
       const end = tl.play(sch, { start: 900, gap: 800 });
       // 역산 배지가 마지막에 등장 + 펄스 1회 → "지금"이라는 결론
@@ -56,6 +60,9 @@ export function create() {
       });
       sch.at(end + 1600, () => badge.classList.remove('is-pulse'));
       sch.at(end + 700, () => foot.classList.add('is-in'));
+    },
+    leave() {
+      bg.stop();
     },
     steps: [],
   };

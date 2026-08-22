@@ -82,7 +82,7 @@ export function create() {
     ].filter(Boolean))
   );
 
-  const foot = SourceFooter('※ 개념 예시 — 축적 그래프는 구조 설명을 위한 도식입니다');
+  const foot = SourceFooter('시험이 끝나도 문제와 데이터는 대학에 남아야 합니다');
 
   const el = ScreenRoot(meta, { className: 's11' },
     gov,

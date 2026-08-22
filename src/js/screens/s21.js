@@ -46,6 +46,16 @@ export function create() {
   );
   const effects = h('div.s21__effects', ...effectEls);
 
+  // 1막 중간 삽입 문구 (발주 측 수정 지시) — 분실 시나리오(클릭) 재생 시 사라진다
+  const insight = h('div.s21__insight',
+    h('p.s21__insight-lead',
+      'VDI는 ', h('em', '‘원격접속 기술’'), '이 아니라 의료정보를 중앙에 두고 사용하는 업무환경 기술입니다.'
+    ),
+    h('p.s21__insight-sub',
+      '사람을 믿지 않는 보안이 아니라, 사람이 실수해도 데이터를 보호할 수 있는 환경을 만드는 것'
+    )
+  );
+
   const verdict = h('div.s21__verdict',
     icons.shieldCheck({ size: 34, className: 's21__verdict-icon' }),
     h('div',
@@ -56,7 +66,8 @@ export function create() {
 
   const el = ScreenRoot(meta, { className: 's21' },
     gov,
-    rv('up', 'div.s21__body', chain, verdict),
+    // 삽입 문구와 분실 판정 배지는 같은 자리를 나눠 쓴다 (1막 = 문구 · 클릭 후 = 배지)
+    rv('up', 'div.s21__body', chain, h('div.s21__swap', insight, verdict)),
     effects
   );
 
@@ -75,8 +86,9 @@ export function create() {
           if (i > 0) links[i - 1].classList.add('is-lit');
         });
       });
-      // 효과 7개 태그 등장
-      sch.stagger(effectEls, (e) => e.classList.add('is-in'), { start: 3100, gap: 120 });
+      // 1막 삽입 문구 → 효과 7개 태그 등장
+      sch.at(3100, () => insight.classList.add('is-in'));
+      sch.stagger(effectEls, (e) => e.classList.add('is-in'), { start: 3300, gap: 120 });
     },
     steps: [
       // 클릭 1회: 단말 분실 시나리오 재생 (2s)

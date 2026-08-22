@@ -73,9 +73,16 @@ export function create() {
     gov
   );
 
+  // 발주 측 수정 지시 — 아래쪽 가운데 문구. 클릭(수렴 모핑) 시 함께 사라진다.
+  const bottom = h('div.s19__bottom',
+    h('p.s19__bottom-lead', '사실 대학과 병원이 가진 고민은 다르지 않습니다'),
+    h('p.s19__bottom-sub', '대학은 시험정보를 보호하고, 병원은 환자정보를 보호합니다.')
+  );
+
   const el = ScreenRoot(meta, { header: false, className: 's19' },
     header,
     h('div.s19__split', uni, h('div.s19__seam'), hos),
+    bottom,
     merged
   );
 
@@ -96,6 +103,7 @@ export function create() {
         uni.querySelector('.s19__panel-result').classList.add('is-in');
         hos.querySelector('.s19__panel-result').classList.add('is-in');
       });
+      sch.at(2600, () => bottom.classList.add('is-in'));
     },
     steps: [
       // 클릭 1회: 패널 수렴 모핑(1.2s) + 공통 구조 등장 + 배경 톤 전환 + PART 교체

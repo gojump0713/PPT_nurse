@@ -989,3 +989,42 @@
 .body-text--lg {
   font-size: var(--fs-body-lg);
 }
+
+/* ---------------------------------------------------------------
+   BgVideo — 화면 배경 영상 레이어 (발주 측 수정 지시 — 배경 영상 삽입)
+   콘텐츠보다 뒤(z-index 0)에서 어둡게 눌러, 튀지 않는 무드 레이어로만 쓴다.
+   --------------------------------------------------------------- */
+.bgvid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 1400ms var(--ease);
+  pointer-events: none;
+}
+.bgvid.is-in {
+  opacity: var(--bgvid-opacity, 0.34);
+}
+.bgvid video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.82) brightness(0.78);
+}
+.bgvid__scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at center, transparent 0%, rgba(6, 11, 20, 0.55) 82%),
+    linear-gradient(180deg, rgba(6, 11, 20, 0.62) 0%, rgba(6, 11, 20, 0.22) 30%,
+      rgba(6, 11, 20, 0.22) 70%, rgba(6, 11, 20, 0.66) 100%);
+}
+/* 배경 영상을 쓰는 화면은 헤더·본문을 영상 위 레이어로 올린다 */
+.screen.has-bgvid > .hdr,
+.screen.has-bgvid > .screen__body {
+  position: relative;
+  z-index: 1;
+}

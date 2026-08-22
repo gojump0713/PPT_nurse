@@ -10,6 +10,7 @@
  *   25 ~ 30   주요 구축사례 슬라이드 6장
  *   31        PART 2 마무리 · 우선 적용업무
  *   32 ~ 34   PART 3 · TILON
+ *   35        틸론 브랜드 필름 (발주 측 수정 지시로 추가)
  */
 
 import * as intro from './intro.js';
@@ -48,6 +49,7 @@ import * as s31 from './s31.js';
 import * as s32 from './s32.js';
 import * as s33 from './s33.js';
 import * as s34 from './s34.js';
+import * as s35 from './s35.js';
 
 export const screens = [
   intro,
@@ -55,5 +57,5 @@ export const screens = [
   s01, s02, s03, s04, s05, s06, s07, s08, s09, s10,
   s11, s12, s13, s14, s15, s16, s17, s18, s19, s20,
   s21, s22, s23, s24, s25, s26, s27, s28, s29, s30,
-  s31, s32, s33, s34,
+  s31, s32, s33, s34, s35,
 ];
