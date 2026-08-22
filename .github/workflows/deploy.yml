@@ -40,8 +40,13 @@ jobs:
           echo "총 용량: $(du -sh dist | cut -f1)"
           test -f dist/index.html || { echo "index.html 누락"; exit 1; }
           test -f dist/src/js/main.js || { echo "main.js 누락"; exit 1; }
-          test "$(find dist/src/js/screens -name 's[0-9][0-9].js' | wc -l)" -eq 25 \
-            || { echo "화면 스크립트가 25개(표지 + 본편 24)가 아닙니다"; exit 1; }
+          # 개수를 고정하지 않고, 레지스트리가 import 하는 화면 모듈이 전부 있는지 대조한다
+          missing=0
+          for f in $(grep -oE "\./s[0-9]+\.js" dist/src/js/screens/index.js | sort -u); do
+            test -f "dist/src/js/screens/${f#./}" || { echo "화면 모듈 누락: $f"; missing=1; }
+          done
+          test "$missing" -eq 0 || exit 1
+          echo "화면 모듈 $(grep -cE "^import \* as s[0-9]+" dist/src/js/screens/index.js)개 확인"
 
       - uses: actions/configure-pages@v5
         with:
