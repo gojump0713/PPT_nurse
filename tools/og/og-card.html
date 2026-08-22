@@ -1,0 +1,142 @@
+<!doctype html>
+<!-- OG 공유 카드 (1200×630) — 헤드리스 Chrome 스크린샷으로 assets/images/og/og-cover.png 를 만든다.
+     재생성: node tools/og/render.mjs -->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face { font-family: 'NanumSquareNeo'; font-weight: 900; src: url('../../assets/fonts/NanumSquareNeo-900.woff2') format('woff2'); }
+  @font-face { font-family: 'NanumSquareNeo'; font-weight: 800; src: url('../../assets/fonts/NanumSquareNeo-800.woff2') format('woff2'); }
+  @font-face { font-family: 'NanumSquareNeo'; font-weight: 700; src: url('../../assets/fonts/NanumSquareNeo-700.woff2') format('woff2'); }
+  @font-face { font-family: 'A2Z'; font-weight: 800; src: url('../../assets/fonts/A2Z-800.woff2') format('woff2'); }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    position: relative;
+    font-family: 'NanumSquareNeo', sans-serif;
+    background:
+      radial-gradient(700px 500px at 18% -10%, rgba(28, 96, 239, 0.32), transparent 65%),
+      radial-gradient(640px 480px at 96% 108%, rgba(240, 180, 41, 0.20), transparent 60%),
+      radial-gradient(520px 420px at 78% 30%, rgba(28, 96, 239, 0.14), transparent 60%),
+      #0B1220;
+    color: #fff;
+  }
+  /* 도트 그리드 */
+  body::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(255,255,255,0.07) 1.5px, transparent 1.5px);
+    background-size: 34px 34px;
+  }
+
+  .left {
+    position: absolute; left: 76px; top: 0; bottom: 0; width: 600px;
+    display: flex; flex-direction: column; justify-content: center; gap: 26px;
+  }
+  .kicker {
+    display: flex; align-items: center; gap: 14px;
+    font-family: 'A2Z', 'NanumSquareNeo', sans-serif;
+    font-weight: 800; font-size: 22px; letter-spacing: 0.08em;
+    color: #9fb2c8;
+  }
+  .kicker b { color: #F0B429; }
+  .kicker .bar { width: 46px; height: 4px; border-radius: 2px; background: #F0B429; }
+  .title { font-weight: 900; font-size: 96px; line-height: 1.16; letter-spacing: -0.02em; }
+  .title em {
+    font-style: normal;
+    background: linear-gradient(100deg, #5B8CFF, #2E6BFF 55%, #79A7FF);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .sub { font-weight: 700; font-size: 30px; color: #c7d2de; line-height: 1.5; }
+  .chips { display: flex; gap: 12px; }
+  .chip {
+    padding: 10px 22px; border-radius: 100px;
+    border: 2px solid rgba(255,255,255,0.22);
+    font-family: 'A2Z', sans-serif; font-weight: 800; font-size: 21px; color: #dfe6ea;
+  }
+  .chip.gold { border-color: rgba(240,180,41,0.55); color: #F0B429; }
+
+  /* ---------- 우측: 마스코트 + CBT 모니터 ---------- */
+  .scene { position: absolute; right: 34px; bottom: 0; width: 500px; height: 630px; }
+  .mascot {
+    position: absolute; right: 292px; bottom: 46px;
+    width: 252px; z-index: 1;
+    filter: drop-shadow(0 18px 34px rgba(0,0,0,0.45));
+  }
+  .monitor {
+    position: absolute; right: 14px; bottom: 62px; width: 352px; z-index: 2;
+    border-radius: 18px;
+    background: #101a2e;
+    border: 5px solid #33445f;
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.06);
+    padding: 16px 18px 14px;
+  }
+  .m-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .m-title { font-weight: 800; font-size: 14.5px; color: #9fb2c8; white-space: nowrap; }
+  .m-timer {
+    font-family: 'A2Z', sans-serif; font-weight: 800; font-size: 16px;
+    color: #F0B429; border: 2px solid rgba(240,180,41,0.5); border-radius: 8px; padding: 3px 10px;
+  }
+  .m-bar { height: 8px; border-radius: 4px; background: #223252; overflow: hidden; margin-bottom: 14px; }
+  .m-bar i { display: block; height: 100%; width: 38%; border-radius: 4px; background: linear-gradient(90deg, #2E6BFF, #5B8CFF); }
+  .m-q { font-weight: 800; font-size: 16px; color: #eef2f6; margin-bottom: 12px; }
+  .m-opt {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 700; font-size: 16px; color: #8e99a5;
+    padding: 8px 12px; border-radius: 10px; margin-bottom: 6px;
+    border: 2px solid #223252;
+  }
+  .m-opt.on { color: #fff; border-color: #2E6BFF; background: rgba(46,107,255,0.16); }
+  .m-opt .n {
+    width: 24px; height: 24px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    border: 2px solid currentColor; font-size: 14px; flex: none;
+  }
+  .m-line { height: 10px; border-radius: 5px; background: #223252; }
+  .m-opt .m-line { flex: 1; border: 0; }
+  .m-opt.on .m-line { background: rgba(91,140,255,0.55); }
+  .stand { position: absolute; right: 152px; bottom: 42px; width: 84px; height: 22px; border-radius: 0 0 10px 10px; background: #33445f; }
+  .desk { position: absolute; right: 0px; bottom: 26px; width: 460px; height: 16px; border-radius: 8px; background: #1a2740; z-index: 0; }
+
+  /* AI 배지 — 모니터 모서리 스티커 */
+  .ai {
+    position: absolute; top: -18px; right: -14px;
+    padding: 9px 17px; border-radius: 100px;
+    background: linear-gradient(120deg, #2E6BFF, #5B8CFF);
+    font-family: 'A2Z', sans-serif; font-weight: 800; font-size: 19px; color: #fff;
+    box-shadow: 0 12px 30px -8px rgba(46,107,255,0.7);
+  }
+</style>
+</head>
+<body>
+  <div class="left">
+    <div class="kicker"><span class="bar"></span>영남이공대학교 간호학과 <b>×</b> TILON</div>
+    <div class="title">틸론 AI기반<br><em>CBT</em>소개</div>
+    <div class="sub">2028 간호사 국가시험 CBT 전환 대비,<br>시험을 준비하는 ‘환경’이 경쟁력입니다.</div>
+    <div class="chips">
+      <span class="chip">CBT</span>
+      <span class="chip">VDI</span>
+      <span class="chip gold">TILON</span>
+    </div>
+  </div>
+
+  <div class="scene">
+    <img class="mascot" src="mascot-nurse.png" alt="">
+    <div class="desk"></div>
+    <div class="stand"></div>
+    <div class="monitor">
+      <div class="ai">AI</div>
+      <div class="m-head">
+        <span class="m-title">간호사 국시 CBT · 문항 36/95</span>
+        <span class="m-timer">89:30</span>
+      </div>
+      <div class="m-bar"><i></i></div>
+      <div class="m-q">Q. 다음 환자 사례에서 우선순위 간호중재는?</div>
+      <div class="m-opt"><span class="n">①</span><span class="m-line"></span></div>
+      <div class="m-opt on"><span class="n">②</span><span class="m-line"></span></div>
+      <div class="m-opt"><span class="n">③</span><span class="m-line"></span></div>
+      <div class="m-opt"><span class="n">④</span><span class="m-line"></span></div>
+    </div>
+  </div>
+</body>
+</html>
