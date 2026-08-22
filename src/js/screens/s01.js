@@ -13,7 +13,7 @@ const meta = metaOf(1);
 
 export function create() {
   // 빠르게 변화하는 교육환경 — 무드용 배경 영상 (경로는 리터럴로: 빌드 정적 스캔 대상)
-  const bg = BgVideo('assets/video/bg-edu-change.mp4', { opacity: 0.3 });
+  const bg = BgVideo('assets/video/bg-edu-change.mp4', { opacity: 0.55 });
 
   const num = BigNumber('2028', { reveal: false, gradient: true });
   const numWrap = h('div.s01__num', num);

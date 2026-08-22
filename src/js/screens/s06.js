@@ -50,7 +50,7 @@ export function create() {
   );
 
   // 중심에서 도는 은하수 — 동심원 확장과 겹치는 무드 배경 (경로 리터럴 유지)
-  const bg = BgVideo('assets/video/bg-galaxy.mp4', { opacity: 0.32 });
+  const bg = BgVideo('assets/video/bg-galaxy.mp4', { opacity: 0.55 });
 
   const el = ScreenRoot(meta, { className: 's06 has-bgvid' },
     gov,
