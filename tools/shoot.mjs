@@ -129,7 +129,9 @@ const STEPS = stepsFlagIdx >= 0 ? parseInt(argv[stepsFlagIdx + 1], 10) : 99;
 const pages = argv
   .filter((a, i) => /^\d+$/.test(a) && !(stepsFlagIdx >= 0 && i === stepsFlagIdx + 1))
   .map(Number);
-const TARGETS = pages.length ? pages : Array.from({ length: 24 }, (_, i) => i + 1);
+/* 기본 대상은 표지(0) 포함 전 화면. 화면 수는 메타에서 가져와 하드코딩을 피한다. */
+const { META } = await import(new URL('../src/data/screens.js', import.meta.url).href);
+const TARGETS = pages.length ? pages : META.map((m) => m.id);
 
 /* --url 이 주어지면 로컬 서버 대신 실제 배포본을 검증한다 */
 const urlFlagIdx = process.argv.indexOf('--url');
