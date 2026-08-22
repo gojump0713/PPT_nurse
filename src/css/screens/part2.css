@@ -1,5 +1,6 @@
 /* =============================================================
-   part2.css — SCREEN 15 ~ 21 (브리지 ① · PART 2 · VDI)
+   part2.css — SCREEN 15 ~ 20 · 27 (브리지 ① · PART 2 · VDI)
+   S21~S26 은 구축사례 이미지 화면이라 screens/case.css 가 담당한다.
    ============================================================= */
 
 /* -------------------------------------------------------------
@@ -17,7 +18,7 @@
   gap: 14px;
 }
 .s15__part,
-.s22__part {
+.s28__part {
   display: flex;
   align-items: center;
   gap: 9px;
@@ -35,7 +36,7 @@
     opacity 900ms var(--ease);
 }
 .s15__part b,
-.s22__part b {
+.s28__part b {
   font-family: var(--font-display);
   font-size: 12px;
   font-weight: 800;
@@ -63,7 +64,7 @@
   background: rgba(14, 158, 142, 0.12);
 }
 .s15__part-arrow,
-.s22__part-arrow {
+.s28__part-arrow {
   color: var(--c-line-strong);
 }
 
@@ -1087,15 +1088,15 @@
 }
 
 /* -------------------------------------------------------------
-   S21 — 우선 적용업무 2×2
+   S27 — 우선 적용업무 2×2
    ------------------------------------------------------------- */
-.s21__top {
+.s27__top {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 40px;
 }
-.s21__counter {
+.s27__counter {
   flex: none;
   display: flex;
   align-items: baseline;
@@ -1108,17 +1109,17 @@
   opacity: 0;
   transition: opacity 520ms var(--ease);
 }
-.s21__counter.is-in {
+.s27__counter.is-in {
   opacity: 1;
 }
-.s21__counter-n {
+.s27__counter-n {
   font-family: var(--font-display);
   font-size: 26px;
   font-weight: 800;
   color: var(--c-accent);
 }
 
-.s21__grid {
+.s27__grid {
   flex: 1 1 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1127,7 +1128,7 @@
   margin: 24px 0;
   min-height: 0;
 }
-.s21__card {
+.s27__card {
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -1139,25 +1140,25 @@
     border-color 520ms var(--ease),
     background-color 520ms var(--ease);
 }
-.s21.is-expanded .s21__card {
+.s27.is-expanded .s27__card {
   border-color: var(--c-accent-line);
   background: linear-gradient(180deg, var(--c-accent-soft), transparent 56%), var(--c-card);
 }
-.s21__card-head {
+.s27__card-head {
   display: flex;
   align-items: center;
   gap: 14px;
 }
-.s21__icon {
+.s27__icon {
   color: var(--c-accent);
   flex: none;
 }
-.s21__card-title {
+.s27__card-title {
   font-size: 32px;
   font-weight: 800;
   letter-spacing: -0.02em;
 }
-.s21__card-count {
+.s27__card-count {
   margin-left: auto;
   font-family: var(--font-display);
   font-size: 15px;
@@ -1169,17 +1170,17 @@
   opacity: 0;
   transition: opacity 420ms var(--ease);
 }
-.s21.is-expanded .s21__card-count {
+.s27.is-expanded .s27__card-count {
   opacity: 1;
   border-color: var(--c-accent-line);
   color: var(--c-accent);
 }
-.s21__items {
+.s27__items {
   display: flex;
   flex-wrap: wrap;
   gap: 9px;
 }
-.s21__item {
+.s27__item {
   display: flex;
   align-items: center;
   gap: 9px;
@@ -1197,17 +1198,17 @@
     opacity 380ms var(--ease),
     transform 380ms var(--ease);
 }
-.s21__item.is-in {
+.s27__item.is-in {
   opacity: 1;
   transform: none;
 }
-.s21__check {
+.s27__check {
   font-size: 13px;
   font-weight: 800;
   color: var(--c-accent);
 }
 
-.s21__cta {
+.s27__cta {
   flex: none;
   display: flex;
   justify-content: center;
@@ -1217,7 +1218,7 @@
     opacity var(--t-reveal) var(--ease),
     transform var(--t-reveal) var(--ease);
 }
-.s21__cta.is-in {
+.s27__cta.is-in {
   opacity: 1;
   transform: none;
 }

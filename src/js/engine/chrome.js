@@ -61,8 +61,10 @@ export function mountChrome(stageEl, deck) {
   const render = () => {
     const meta = deck.meta;
     const part = PARTS[meta.part];
-    // 표지는 24화면 번호 체계 밖이므로 숫자 대신 COVER 만 표기한다
+    // 표지는 본편 번호 체계 밖이므로 숫자 대신 COVER 만 표기한다
     document.body.dataset.cover = meta.cover ? '1' : '0';
+    // 구축사례는 밝은 슬라이드라 UI 대비를 따로 잡는다
+    document.body.dataset.case = meta.caseSlide ? '1' : '0';
     partEl.textContent = meta.cover ? 'COVER' : part.label;
     numEl.textContent = pad2(meta.id);
     totalEl.textContent = ` / ${pad2(NUMBERED_TOTAL)}`;

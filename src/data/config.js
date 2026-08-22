@@ -9,11 +9,11 @@
  */
 
 export const CONFIG = {
-  /** S03 · S10 · S14 — 제주대 매뉴얼 실제 화면 캡처로 교체 완료 여부 */
+  /**
+   * S03 · S10 — 학생/교수 응시·관리 화면을 실제 캡처로 교체 완료 여부.
+   * (S14 는 실제 운영 현장 사진으로 교체 완료되어 대상에서 빠졌다)
+   */
   assetsFinal: false,
-
-  /** S14 — CBT 운영 데모 영상 경로. 파일을 넣고 경로를 지정하면 자동 재생된다. */
-  demoVideo: 'assets/video/cbt-demo.mp4',
 
   /** SCREEN 00(표지) — 배경 루프 영상. 12~15초 무음. 없으면 정지 화면으로 폴백. */
   coverVideo: 'assets/video/cover-loop.mp4',

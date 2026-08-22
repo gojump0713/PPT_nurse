@@ -1,92 +1,11 @@
 /**
- * SCREEN 21 — 영남대병원 우선 적용업무 선정
- * 판매가 아닌 진단 제안. "영역 → 구체 업무" 전개가 진단 프로세스의 미리보기.
+ * SCREEN 21 — 주요 구축사례 · 건강보험심사평가원
+ * 발주 측 제공 슬라이드를 한 장으로 배치한다. 구현은 case.js 공용 팩토리 참조.
  */
 
-import { h, rv } from '../lib/dom.js';
-import { metaOf } from '../../data/screens.js';
-import { ScreenRoot } from '../components/screen.js';
-import { Governing, CTA } from '../components/index.js';
-import { icons } from '../components/icons.js';
-
-const meta = metaOf(21);
-
-const AREAS = [
-  {
-    key: '의료진', icon: 'stethoscope',
-    items: ['병동 · 진료실 동일 환경', 'PACS · EMR 활용', '협진', '당직', '승인된 외부 업무'],
-  },
-  {
-    key: '연구', icon: 'flask',
-    items: ['민감데이터 격리', '임상 연구환경', '외부 연구자 협업', '반출 최소화'],
-  },
-  {
-    key: '행정', icon: 'doc',
-    items: ['개인정보 처리', '인터넷 · 업무망 분리', '출장 · 재택'],
-  },
-  {
-    key: 'IT', icon: 'gear',
-    items: ['표준 이미지', 'SW · 패치 중앙관리', '정책관리', '단말관리', '환경 재배포'],
-  },
-];
-
-const TOTAL = AREAS.reduce((n, a) => n + a.items.length, 0); // 17
+import { createCase } from './case.js';
 
 export function create() {
-  const gov = Governing(meta.governing, { size: 'sm' });
-
-  const cards = AREAS.map((a) => {
-    const itemEls = a.items.map((t) =>
-      h('li.s21__item', h('span.s21__check', '✓'), t)
-    );
-    const card = rv('up', 'div.s21__card',
-      h('div.s21__card-head',
-        icons[a.icon]({ size: 34, className: 's21__icon' }),
-        h('span.s21__card-title', a.key),
-        h('span.s21__card-count', `${a.items.length}`)
-      ),
-      h('ul.s21__items', ...itemEls)
-    );
-    card.itemEls = itemEls;
-    return card;
-  });
-
-  const grid = h('div.s21__grid', ...cards);
-
-  const counter = h('div.s21__counter',
-    h('span.s21__counter-n', '4'), '개 영역 · 후보 업무 ',
-    h('span.s21__counter-n', String(TOTAL)), '개'
-  );
-
-  const cta = CTA('우선순위 진단 미팅 — 전산부서와 함께', { solid: false });
-  const ctaBar = h('div.s21__cta', cta);
-
-  const el = ScreenRoot(meta, { className: 's21' },
-    h('div.s21__top', gov, counter),
-    grid,
-    ctaBar
-  );
-
-  return {
-    el,
-    enter(sch) {
-      sch.at(0, () => el.headerEl.classList.add('is-in'));
-      sch.at(400, () => gov.classList.add('is-in'));
-      sch.stagger(cards, (c) => c.classList.add('is-in'), { start: 800, gap: 140 });
-      sch.at(1400, () => counter.classList.add('is-in'));
-    },
-    steps: [
-      // 클릭 1회: 4장 동시 전개 + 체크리스트 순차 체크 → CTA 슬라이드업
-      (sch) => {
-        el.classList.add('is-expanded');
-        cards.forEach((c) => {
-          sch.stagger(c.itemEls, (i) => i.classList.add('is-in'), { start: 260, gap: 110 });
-        });
-        sch.at(1500, () => {
-          ctaBar.classList.add('is-in');
-          cta.classList.add('is-in');
-        });
-      },
-    ],
-  };
+  // 경로는 리터럴로 — 빌드가 정적 스캔으로 배포 대상 에셋을 고른다
+  return createCase(21, 'assets/images/ref/case-hira.webp');
 }

@@ -11,7 +11,13 @@
 import { Scheduler } from '../lib/anim.js';
 import { META, PARTS } from '../../data/screens.js';
 
-const BRIDGE_FROM = new Set([14, 21]); // 14→15, 21→22 는 1.2초 전용 전환 (§2)
+/**
+ * PART 브리지: 1.2초 전용 전환을 쓰는 "출발 화면 번호" (§2)
+ *   14 → 15 (CBT → VDI),  27 → 28 (VDI → TILON)
+ * 배열 인덱스가 아니라 SCREEN 번호로 판정한다. 표지·구축사례가 끼어들면서
+ * 인덱스가 밀려도 흔들리지 않게 하기 위함.
+ */
+const BRIDGE_FROM = new Set([14, 27]);
 
 export class Deck {
   /**
@@ -71,7 +77,8 @@ export class Deck {
     const isBridge =
       !immediate &&
       prev !== null &&
-      (BRIDGE_FROM.has(fromIndex + 1) && target === fromIndex + 1);
+      target === fromIndex + 1 &&
+      BRIDGE_FROM.has(META[fromIndex].id);
 
     // 이전 화면 정리
     this.sch.clear();

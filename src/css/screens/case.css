@@ -1,0 +1,45 @@
+/* =============================================================
+   case.css — SCREEN 21 ~ 26 (주요 구축사례 슬라이드)
+   완성된 16:9 슬라이드를 스테이지에 full-bleed 로 깐다.
+   ============================================================= */
+
+.case {
+  padding: 0;
+  overflow: hidden;
+}
+.case .screen__body {
+  position: relative;
+  padding: 0;
+}
+
+.case__frame {
+  position: absolute;
+  inset: 0;
+}
+.case__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/*
+  이 덱의 UI(페이지 인디케이터·클릭 인디케이터)는 흰색 계열이라
+  밝은 슬라이드 위에서는 보이지 않는다. 우하단에만 얇게 어둡게 깔아 가독성 확보.
+  슬라이드 내용(좌측 텍스트·우측 다이어그램)과 겹치지 않는 영역이다.
+*/
+.case__scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    46% 30% at 100% 100%,
+    rgba(4, 8, 15, 0.72) 0%,
+    rgba(4, 8, 15, 0.34) 46%,
+    transparent 78%
+  );
+}
+
+/* 구축사례 화면에서는 진행 바가 밝은 배경에 묻히므로 살짝 어둡게 받쳐 준다 */
+body[data-case='1'] .deck-progress {
+  background: rgba(0, 0, 0, 0.28);
+}

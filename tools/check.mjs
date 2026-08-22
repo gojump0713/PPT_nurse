@@ -98,8 +98,10 @@ console.log('\n[검수 ③] HTML이라서 가능한 연출 5종');
 const CHECKS = [
   { name: '카운트 모핑 (S02)', file: 'src/js/screens/s02.js', needle: 'countTo' },
   { name: '수렴 모핑 (S15)', file: 'src/js/screens/s15.js', needle: 'is-merging' },
-  { name: '수렴 모핑 (S22)', file: 'src/js/screens/s22.js', needle: 'is-landing' },
-  { name: '실화면 영상 (S14)', file: 'src/js/screens/s14.js', needle: 'VideoPlayer' },
+  { name: '수렴 모핑 (S28)', file: 'src/js/screens/s28.js', needle: 'is-landing' },
+  // S14 는 영상 대신 실제 운영 현장 사진으로 대체됨 (더 강한 증거)
+  { name: '실운영 현장 사진 (S14)', file: 'src/js/screens/s14.js', needle: 'jeju-pharm-cbt' },
+  { name: '표지 배경 영상 (S00)', file: 'src/js/screens/s00.js', needle: 'coverVideo' },
   { name: '지도 팝업 (S18)', file: 'src/js/screens/s18.js', needle: 'WorldMap' },
   { name: '자동 2막 (S16)', file: 'src/js/screens/s16.js', needle: 'is-act2' },
 ];
@@ -125,11 +127,11 @@ else ok('틸론 CI 이미지 확인');
 
 const { CONFIG } = await import(new URL('../src/data/config.js', import.meta.url).href);
 console.log('\n[발표 전 교체 대기]');
-if (!CONFIG.assetsFinal) warn('제주대 매뉴얼 실제 캡처 미반영 (S03 · S10 · S14) — config.assetsFinal');
-if (!fs.existsSync(path.join(ROOT, CONFIG.demoVideo))) warn(`CBT 데모 영상 없음 (${CONFIG.demoVideo}) — S14는 대체 화면으로 동작`);
+if (!CONFIG.assetsFinal) warn('응시·관리 화면 실제 캡처 미반영 (S03 · S10) — config.assetsFinal');
+if (!fs.existsSync(path.join(ROOT, CONFIG.coverVideo))) warn(`표지 배경 영상 없음 (${CONFIG.coverVideo}) — 정지 화면으로 폴백`);
 if (!CONFIG.globalFiguresVerified) warn('글로벌 병원 수치 재검증 미완료 (S18)');
 if (!CONFIG.domesticFiguresConfirmed) warn('국내 실적 수치 영업부서 확정 미완료 (S20)');
-if (!CONFIG.companyFiguresConfirmed) warn('회사 연혁 수치 확정 미완료 (S23)');
+if (!CONFIG.companyFiguresConfirmed) warn('회사 연혁 수치 확정 미완료 (S29)');
 
 console.log(fail === 0 ? '\n\x1b[32m검수 통과\x1b[0m\n' : `\n\x1b[31m검수 실패 ${fail}건\x1b[0m\n`);
 process.exit(fail === 0 ? 0 : 1);

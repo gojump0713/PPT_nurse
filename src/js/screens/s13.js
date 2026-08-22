@@ -41,16 +41,19 @@ export function create() {
     h('div.s13__shield-sub', 'Secure Exam Environment')
   );
 
+  // 「화면」 패킷은 CBT 시스템 → 학생 단말 방향으로, 두 노드를 잇는 선 위에서 움직인다
+  const packet = h('span.s13__packet', '화면');
+
   const right = rv('up', 'div.s13__col.s13__col--tilon',
     h('div.s13__col-head', h('span.s13__col-tag.is-accent', 'TILON'), '학생과 시스템 사이에 한 겹을 넣는 구조'),
     h('div.s13__arch.s13__arch--3',
       DNode('학생 단말', '화면만 표시', { ghost: true }),
-      h('div.s13__link.s13__link--a', h('span.s13__link-line')),
+      h('div.s13__link.s13__link--a', h('span.s13__link-line'), packet),
       h('div.s13__slot', shield, h('div.s13__ctags', ...shieldTags)),
       h('div.s13__link.s13__link--b', h('span.s13__link-line')),
       DNode('CBT 시스템', '문항 · 답안은 서버에만', { accent: true })
     ),
-    h('div.s13__flowline', h('span.s13__packet', '화면'), h('span.s13__flowlabel', '서버 → 단말: 화면만 전송'))
+    h('div.s13__flowline', h('span.s13__flowlabel', '서버 → 단말: 화면만 전송'))
   );
 
   const note = h('div.s13__note',

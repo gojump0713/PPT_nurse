@@ -1837,23 +1837,41 @@
   padding: 0 6px;
   border-top: 1px dashed var(--c-line);
 }
+
+/*
+  「화면」 패킷 — 학생 단말과 가상 시험환경을 잇는 연결선 위에 얹어,
+  서버 → 단말 방향(오른쪽 → 왼쪽)으로 흐른다.
+  선(.s13__link--a)을 기준 좌표계로 삼기 위해 부모에 position:relative 를 준다.
+*/
+.s13__link--a {
+  position: relative;
+  overflow: visible;
+}
 .s13__packet {
+  position: absolute;
+  top: 50%;
+  left: 0;
   padding: 4px 12px;
   border-radius: 100px;
   background: var(--c-accent);
   font-size: 13px;
   font-weight: 800;
+  line-height: 1.2;
   color: #fff;
+  white-space: nowrap;
+  box-shadow: 0 0 18px var(--c-accent-glow);
   opacity: 0;
+  transform: translate(0, -50%);
+  pointer-events: none;
 }
 .s13.is-flowing .s13__packet {
-  animation: s13-flow 2.2s var(--ease) infinite;
+  animation: s13-flow 2.4s var(--ease) infinite;
 }
 @keyframes s13-flow {
-  0% { opacity: 0; transform: translateX(560px); }
-  15% { opacity: 1; }
-  85% { opacity: 1; }
-  100% { opacity: 0; transform: translateX(0); }
+  0% { opacity: 0; transform: translate(100%, -50%); }
+  18% { opacity: 1; }
+  82% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-100%, -50%); }
 }
 .s13__flowlabel {
   font-size: 15px;
@@ -1888,19 +1906,22 @@
 .s14 .gov {
   margin-bottom: 22px;
 }
-.s14__stage {
+/* 실제 운영 현장 사진 — 원본이 1280×720 이라 과하게 늘리지 않고 높이에 맞춘다 */
+.s14__photo {
   flex: 1 1 auto;
   min-height: 0;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
-.s14__stage .vplayer {
-  width: 80%;
-}
-.s14__frame {
-  position: absolute;
-  inset: 0;
-  padding: 22px;
+.s14__photo img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--c-line);
+  box-shadow: var(--shadow-card);
 }
 .s14__bottom {
   flex: none;
@@ -1936,14 +1957,23 @@
 }
 .s14__caption {
   flex: none;
-  margin-top: 18px;
-  text-align: center;
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
   font-size: var(--fs-note);
   color: var(--c-muted);
   opacity: 0;
 }
 .s14__caption.is-in {
   opacity: 0.6;
+}
+.s14__caption-note {
+  padding: 3px 10px;
+  border-radius: 4px;
+  border: 1px solid var(--c-line);
+  font-size: 12px;
 }
 
 /* -------------------------------------------------------------
