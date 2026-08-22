@@ -62,7 +62,13 @@ export function create() {
     h('span.s09__cycle-loop', '↺')
   );
 
-  const foot = SourceFooter('※ 예시 데이터 — 실제 응시 결과가 아닌 설명용 프로필입니다');
+  const foot = SourceFooter([
+    h('span.s09__foot-lead',
+      'CBT는 이 차이를 데이터로 보여줍니다. 그러면 시험이 끝나는 순간이 끝이 아니라, ',
+      '분석하고, 취약영역을 찾고, 맞춤학습으로 잇고, 다시 평가하는 다음 학습의 시작점이 됩니다.'
+    ),
+    h('span.s09__foot-sub', '※ 예시 데이터 — 실제 응시 결과가 아닌 설명용 프로필입니다'),
+  ]);
 
   const el = ScreenRoot(meta, { className: 's09' },
     gov,

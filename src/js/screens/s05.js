@@ -6,7 +6,7 @@
 import { h, rv } from '../lib/dom.js';
 import { metaOf } from '../../data/screens.js';
 import { ScreenRoot } from '../components/screen.js';
-import { Governing, Timeline } from '../components/index.js';
+import { Governing, Timeline, SourceFooter } from '../components/index.js';
 
 const meta = metaOf(5);
 
@@ -33,9 +33,14 @@ export function create() {
     )
   );
 
+  const foot = SourceFooter(
+    '2028년 응시생 기준으로 역산해 보면, 이 설계의 시작점은 2026년, 바로 지금입니다.'
+  );
+
   const el = ScreenRoot(meta, { className: 's05' },
     h('div.s05__top', gov, badge),
-    h('div.s05__body', tl)
+    h('div.s05__body', tl),
+    foot
   );
 
   return {
@@ -50,6 +55,7 @@ export function create() {
         badge.classList.add('is-pulse');
       });
       sch.at(end + 1600, () => badge.classList.remove('is-pulse'));
+      sch.at(end + 700, () => foot.classList.add('is-in'));
     },
     steps: [],
   };

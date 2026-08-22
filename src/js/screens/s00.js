@@ -38,11 +38,12 @@ export function create() {
   /* ---------- 상단 보조 카피 (§7) ---------- */
   const kicker = rv('down', 'div.cover__kicker', 'DIGITAL EDUCATION', h('em', '×'), 'DIGITAL HEALTHCARE');
 
-  /* ---------- 제목 3행 (§4 §5) ---------- */
-  const line1 = rv('up', 'div.cover__line', '국시 ', h('b', '시험'), '도,');
-  const line2 = rv('up', 'div.cover__line', h('b', '진료'), '도 이제');
+  /* ---------- 제목 2행 ----------
+     사양서 §4는 3행 + ‘환경’만 확대(§5)였으나, 발주 측 수정 지시에 따라
+     2행 · 같은 폰트 · 같은 크기로 통일한다. ‘환경’은 크기 대신 색으로만 강조. */
+  const line1 = rv('up', 'div.cover__line', '국시 ', h('b', '시험'), '도, ', h('b', '진료'), '도');
   const keyword = h('span.cover__keyword', '‘환경’');
-  const line3 = rv('up', 'div.cover__line.cover__line--key', keyword, '이 경쟁력입니다');
+  const line2 = rv('up', 'div.cover__line', '이제 ', keyword, '이 경쟁력입니다.');
 
   /* ---------- 서브타이틀 (§6) ---------- */
   const sub = rv('up', 'p.cover__sub',
@@ -63,7 +64,7 @@ export function create() {
     stage,
     h('div.cover__content',
       kicker,
-      h('div.cover__title', line1, line2, line3),
+      h('div.cover__title', line1, line2),
       sub,
       hint
     ),
@@ -98,10 +99,9 @@ export function create() {
       sch.at(0, () => { stage.classList.add('is-in'); playVideo(sch); });
       sch.at(800, () => kicker.classList.add('is-in'));
       sch.at(1200, () => line1.classList.add('is-in'));
-      sch.at(1500, () => line2.classList.add('is-in'));
-      sch.at(1900, () => line3.classList.add('is-in'));
-      // §5 ‘환경’은 두 단어보다 0.5초 늦게, 더 강하게
-      sch.at(2400, () => keyword.classList.add('is-lit'));
+      sch.at(1600, () => line2.classList.add('is-in'));
+      // §5 ‘환경’은 나머지보다 0.5초 늦게 — 크기는 같고 색으로만 강조
+      sch.at(2100, () => keyword.classList.add('is-lit'));
       sch.at(2400, () => sub.classList.add('is-in'));
       sch.at(3000, () => logo.classList.add('is-in'));
       sch.at(3600, () => hint.classList.add('is-in'));

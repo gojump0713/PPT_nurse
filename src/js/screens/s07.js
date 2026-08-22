@@ -42,7 +42,10 @@ export function create() {
     cbtBand
   );
 
-  const foot = SourceFooter('초기 인프라 투자 필요 · 절감은 반복 운영에서 누적');
+  const foot = SourceFooter([
+    h('span.s07__foot-lead', 'CBT는 교수님들이 운영이 아닌 교육에 더 집중할 수 있도록 해드립니다'),
+    h('span.s07__foot-sub', '초기 인프라 투자 필요 · 절감은 반복 운영에서 누적'),
+  ]);
 
   const el = ScreenRoot(meta, { className: 's07' },
     gov,

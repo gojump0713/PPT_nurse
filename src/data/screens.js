@@ -106,7 +106,7 @@ export const META = [
     next: "운영이 편해지는 것보다 더 중요한 게 있습니다. 시험이 '같은 시험'이 되느냐의 문제입니다.",
   },
   {
-    id: 8, part: 'CBT', clicks: 0,
+    id: 8, part: 'CBT', clicks: 1,
     title: '동일 시험환경 기반 공정성 확보',
     governing: '공정성은 같은 문제를 주는 것만으로 완성되지 않습니다.',
     notes: [

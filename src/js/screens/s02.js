@@ -47,8 +47,14 @@ export function create() {
   );
 
   const aside = rv('up', 'div.s02__aside',
-    h('div.s02__aside-item', h('strong', '간호학총론'), ' 7분야 47영역'),
-    h('div.s02__aside-item', h('strong', '보건의약관계법규'), ' 13개 법 19영역 · ', h('em', '간호법 신설'))
+    h('div.s02__aside-row',
+      h('div.s02__aside-item', h('strong', '간호학총론'), ' 7분야 47영역'),
+      h('div.s02__aside-item', h('strong', '보건의약관계법규'), ' 13개 법 19영역 · ', h('em', '간호법 신설'))
+    ),
+    h('div.s02__aside-notes',
+      h('div.s02__aside-note', '과목 단위로 외워서 푸는 시험에서, 영역을 넘나드는 통합 역량 시험'),
+      h('div.s02__aside-note', '종이가 모니터로 바뀌는 것이 아니라, 시험을 치르는 행동 자체가 변화됨')
+    )
   );
 
   const behavior = h('div.s02__behavior',

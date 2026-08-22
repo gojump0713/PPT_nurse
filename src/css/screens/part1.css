@@ -89,7 +89,14 @@
   color: var(--c-accent);
 }
 .s01 .srcfoot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
   text-align: center;
+}
+.s01__foot-line::before {
+  content: '· ';
 }
 
 /* -------------------------------------------------------------
@@ -224,12 +231,33 @@
 }
 
 .s02__aside {
-  margin-top: 22px;
+  margin-top: 20px;
   display: flex;
-  justify-content: flex-end;
-  gap: 34px;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
   font-size: var(--fs-body);
   color: var(--c-muted);
+}
+.s02__aside-row {
+  display: flex;
+  gap: 34px;
+}
+.s02__aside-notes {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+}
+.s02__aside-note {
+  font-size: var(--fs-note);
+  line-height: 1.55;
+  color: var(--c-muted);
+  opacity: 0.62;
+  word-break: keep-all;
+}
+.s02__aside-note::before {
+  content: '· ';
 }
 .s02__aside-item strong {
   font-weight: 700;
@@ -695,6 +723,20 @@
   transform: none;
 }
 
+.s07 .srcfoot {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.s07__foot-lead {
+  font-size: var(--fs-body);
+  font-weight: 600;
+  color: #c3ccd3;
+}
+.s07__foot-sub {
+  font-size: var(--fs-note);
+}
+
 /* -------------------------------------------------------------
    S08 — 제각각 PC → 표준 정렬
    ------------------------------------------------------------- */
@@ -751,6 +793,9 @@
 
 .s08__formula {
   flex: none;
+  /* 클릭 전에는 빈 상자가 보이지 않도록 감춘다 (자리는 유지) */
+  opacity: 0;
+  transition: opacity 520ms var(--ease);
   margin-top: 30px;
   display: flex;
   align-items: center;
@@ -763,6 +808,9 @@
   transition:
     border-color 620ms var(--ease),
     box-shadow 620ms var(--ease);
+}
+.s08.is-aligned .s08__formula {
+  opacity: 1;
 }
 .s08__formula.is-done {
   border-color: var(--c-accent-line);
@@ -965,6 +1013,24 @@
   margin-left: 6px;
   font-size: 20px;
   color: var(--c-accent);
+}
+
+.s09 .srcfoot {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding-top: 16px;
+}
+.s09__foot-lead {
+  font-size: var(--fs-label);
+  font-weight: 500;
+  line-height: 1.6;
+  color: #c3ccd3;
+  word-break: keep-all;
+  max-width: 1500px;
+}
+.s09__foot-sub {
+  font-size: var(--fs-note);
 }
 
 /* -------------------------------------------------------------

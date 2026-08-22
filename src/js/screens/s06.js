@@ -20,7 +20,11 @@ const RINGS = [
 ];
 
 export function create() {
-  const gov = Governing(meta.governing, { size: 'lg', center: true });
+  // 지정된 위치에서 단락을 나눈다 (자동 줄바꿈에 맡기지 않음)
+  const gov = Governing(
+    '간호학과 CBT는 단일 학과 시스템이 아니라,<br>대학 디지털 평가환경의 시작점입니다.',
+    { size: 'lg', center: true }
+  );
 
   const ringEls = RINGS.map((r, i) =>
     h(`div.s06__ring${r.tone ? '.s06__ring--' + r.tone : ''}`, {

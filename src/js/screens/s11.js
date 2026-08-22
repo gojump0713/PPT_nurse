@@ -70,7 +70,7 @@ export function create() {
       ].filter(Boolean))
     ),
     h('div.s11__graph',
-      h('div.s11__graph-head', h('span', '검증 문항 수'), h('span.s11__graph-x', '시험 회차 1 → 10')),
+      h('div.s11__graph-head', h('span', '데이터로 검증된 문항 수'), h('span.s11__graph-x', '시험 회차 1 → 10')),
       h('div.s11__bars', ...barEls)
     )
   );

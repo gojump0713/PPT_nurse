@@ -144,17 +144,12 @@
   font-weight: 900;
   color: #fff;
 }
-.cover__line--key {
-  display: flex;
-  align-items: baseline;
-  gap: 4px;
-  font-weight: 800;
-}
-/* §5 ‘환경’만 가장 크게 (84~96px) */
+/* ‘환경’은 본문과 같은 폰트·같은 크기. 강조는 색으로만 한다. */
 .cover__keyword {
-  font-size: 94px;
+  display: inline-block; /* 퇴장 시 scale 이 먹도록 */
+  font-size: inherit;
   font-weight: 900;
-  letter-spacing: -0.045em;
+  letter-spacing: inherit;
   color: #fff;
   transition:
     color 700ms var(--ease),
@@ -211,16 +206,14 @@
 .cover.is-exiting .cover__sub,
 .cover.is-exiting .cover__hint,
 .cover.is-exiting .cover__logo,
-.cover.is-exiting .cover__line:not(.cover__line--key) {
+.cover.is-exiting .cover__line:first-child {
   opacity: 0;
   transition: opacity 420ms var(--ease);
 }
-.cover.is-exiting .cover__line--key {
-  transition: transform 560ms var(--ease);
-}
-.cover.is-exiting .cover__line--key > *:not(.cover__keyword) {
-  opacity: 0;
-  transition: opacity 300ms var(--ease);
+/* 마지막 행에서 ‘환경’만 남기고 나머지 글자를 지운다 */
+.cover.is-exiting .cover__line:last-child {
+  color: transparent;
+  transition: color 420ms var(--ease);
 }
 .cover.is-exiting .cover__keyword {
   transform: scale(1.08);

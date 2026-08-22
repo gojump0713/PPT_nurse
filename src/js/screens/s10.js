@@ -6,7 +6,7 @@
 import { h, rv } from '../lib/dom.js';
 import { metaOf } from '../../data/screens.js';
 import { ScreenRoot } from '../components/screen.js';
-import { Governing } from '../components/index.js';
+import { Governing, SourceFooter } from '../components/index.js';
 import { CbtProfessorMock, profCaption, PROF_VIEW_KEYS } from '../components/mocks.js';
 import { pendingBadge } from '../../data/config.js';
 
@@ -32,10 +32,9 @@ export function create() {
     h(`div.s10__slide${i === 0 ? '.is-active' : ''}`, { dataset: { view: k } }, CbtProfessorMock(k))
   );
 
-  const captionEl = h('div.s10__caption',
-    h('strong', profCaption(PROF_VIEW_KEYS[0])),
-    h('span', '제주대학교 CBT 교수 매뉴얼 — 실제 업무 화면')
-  );
+  // 캡션은 현재 보고 있는 화면 이름만 남긴다.
+  // (기관명·"실제 업무 화면" 문구는 발주 측 지시로 삭제)
+  const captionEl = h('div.s10__caption', h('strong', profCaption(PROF_VIEW_KEYS[0])));
 
   const dots = PROF_VIEW_KEYS.map((_, i) => h(`span.s10__dot${i === 0 ? '.is-on' : ''}`));
 
@@ -48,9 +47,12 @@ export function create() {
     ...tagEls
   );
 
+  const foot = SourceFooter('쌓인 시험 문항과 각종 데이터는, 시험이 끝나도 사라지지 않습니다.');
+
   const el = ScreenRoot(meta, { className: 's10' },
     gov,
-    h('div.s10__body', h('div.s10__left', viewer, captionEl), tagList)
+    h('div.s10__body', h('div.s10__left', viewer, captionEl), tagList),
+    foot
   );
 
   let index = 0;
@@ -80,6 +82,7 @@ export function create() {
         captionEl.classList.add('is-in');
       });
       sch.at(1200, () => startCarousel(sch));
+      sch.at(1600, () => foot.classList.add('is-in'));
     },
     resume(sch) {
       // 뒤로 이동으로 복원된 경우에도 캐러셀은 계속 돈다

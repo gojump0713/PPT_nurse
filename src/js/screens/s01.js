@@ -23,7 +23,10 @@ export function create() {
     '우리 학생들은 국가시험 전에 CBT를 몇 번 경험하게 됩니까?'
   );
 
-  const foot = SourceFooter('한국보건의료인국가시험원 발표(2025.11.17) · 간호법 시행규칙 부칙');
+  const foot = SourceFooter([
+    h('span.s01__foot-line', '한국보건의료인국가시험원, 2025년 11월 17일 발표'),
+    h('span.s01__foot-line', '간호법 시행규칙 부칙, 2028년 1월 1일 이후 시험부터 새 과목체계 적용 명시'),
+  ]);
 
   const stage = h('div.s01__stage', numWrap, lines, ask);
   const el = ScreenRoot(meta, { header: false, className: 's01' }, stage, foot);

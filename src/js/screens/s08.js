@@ -103,12 +103,16 @@ export function create() {
         counter.set(i + 1);
       }, { start: 800, gap: 180 });
       sch.at(900, () => counter.classList.add('is-in'));
-      // ② 동일한 표준 화면으로 스냅 정렬
-      sch.at(2900, () => el.classList.add('is-aligned'));
-      // ③ 공식이 항 하나씩 등장 후 = Fair Test 점등
-      sch.stagger(formulaEls, (f) => f.classList.add('is-in'), { start: 3900, gap: 320 });
-      sch.at(3900 + 320 * formulaEls.length + 200, () => formula.classList.add('is-done'));
     },
-    steps: [],
+    steps: [
+      // 클릭 1회: 6대가 동일한 표준 화면으로 스냅 정렬 → 공식이 항별로 등장
+      // (발표 멘트 "같은 문제를 줘도, 환경이 다르면 같은 시험이 아닙니다"와 타이밍을 맞추기 위해
+      //  자동 진행이 아니라 발표자 클릭으로 전환한다)
+      (sch) => {
+        el.classList.add('is-aligned');
+        sch.stagger(formulaEls, (f) => f.classList.add('is-in'), { start: 900, gap: 320 });
+        sch.at(900 + 320 * formulaEls.length + 200, () => formula.classList.add('is-done'));
+      },
+    ],
   };
 }

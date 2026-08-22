@@ -205,7 +205,8 @@ export function CbtProfessorMock(kind) {
   return h('div.pm',
     h('div.pm__chrome',
       h('span.pm__dot'), h('span.pm__dot'), h('span.pm__dot'),
-      h('span.pm__url', 'cbt.jejunu.ac.kr  ·  교수 관리자')
+      // 특정 기관 도메인을 쓰지 않는다 (목업이 실제 기관 화면으로 오해되지 않도록)
+      h('span.pm__url', 'CBT 교수 관리자')
     ),
     h('div.pm__body', view.build())
   );
