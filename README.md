@@ -10,6 +10,8 @@
 
 ---
 
+**배포본**: <https://gojump0713.github.io/PPT_nurse/>
+
 ## 실행
 
 정적 파일이지만 ES 모듈을 쓰므로 `file://` 이 아닌 로컬 서버로 열어야 합니다.
@@ -21,6 +23,26 @@ python -m http.server 5173
 ```
 
 발표장에서는 브라우저를 열고 **F** 키로 전체화면으로 전환하세요.
+
+> 발표 당일 네트워크를 신뢰할 수 없다면 저장소를 클론해 로컬 서버로 여는 편이 안전합니다.
+> 폰트·이미지가 전부 자체호스팅이라 첫 로드 이후에는 외부 요청이 전혀 없습니다.
+
+## 빌드 · 배포
+
+번들러가 없으므로 "빌드"는 **검수 → 조립 → 보고** 세 단계를 뜻합니다.
+
+```bash
+npm run build        # 검수 통과 시에만 dist/ 생성
+npm run preview      # http://localhost:5174 로 배포본 확인
+npm run verify:dist  # 빌드 후 dist/ 를 헤드리스 브라우저로 렌더 검증
+```
+
+- `tools/check.mjs` 검수를 통과하지 못하면 `dist/` 를 만들지 않고 중단합니다.
+- 소스에서 실제로 참조하는 에셋만 담습니다(현재 이미지 1개). 제외된 파일은 전부 콘솔에 출력됩니다 — 저장소에는 그대로 남습니다.
+- 산출물: **66개 파일 / 2.82 MB** (폰트 2.52 MB 포함)
+
+`main` 에 푸시하면 `.github/workflows/deploy.yml` 이 위 빌드를 그대로 실행하고
+GitHub Pages 로 배포합니다. 검수 실패 시 배포되지 않습니다.
 
 ## 조작
 
@@ -69,7 +91,10 @@ src/
     config.js               발표 전 교체 항목 플래그
 tools/
   check.mjs                 최종 검수 3문항 자동 점검
+  build.mjs                 검수 → dist/ 조립 → 포함/제외 보고
   shoot.mjs                 Chrome 헤드리스 자동 캡처 + 콘솔 오류 수집
+.github/workflows/
+  deploy.yml                push(main) → 검수·빌드 → GitHub Pages 배포
 ```
 
 **화면 모듈 계약** — `src/js/screens/sNN.js` 는 `create()` 하나만 노출합니다.

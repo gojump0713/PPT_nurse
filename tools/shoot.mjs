@@ -4,6 +4,7 @@
  *   node tools/shoot.mjs                 # 24화면 전부 캡처
  *   node tools/shoot.mjs 1 2 15 22       # 특정 화면만
  *   node tools/shoot.mjs --steps 2       # 각 화면에서 스텝을 2회까지 진행한 뒤 캡처
+ *   node tools/shoot.mjs --dist          # 소스 대신 배포 산출물(dist/)을 검증
  *
  * 결과: tools/shots/*.png  ·  콘솔 오류는 stdout 에 요약
  * 외부 의존 없음 (Node 내장 http/ws + 설치된 Chrome/Edge 사용)
@@ -17,8 +18,11 @@ import { fileURLToPath } from 'node:url';
 import os from 'node:os';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT = path.resolve(__dirname, '..');
-const OUT = path.join(__dirname, 'shots');
+const SERVE_DIST = process.argv.includes('--dist');
+const ROOT = SERVE_DIST
+  ? path.resolve(__dirname, '..', 'dist')
+  : path.resolve(__dirname, '..');
+const OUT = path.join(__dirname, SERVE_DIST ? 'shots-dist' : 'shots');
 const PORT = 5178;
 const CDP_PORT = 9333;
 

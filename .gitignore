@@ -9,3 +9,4 @@ dist/
 
 # 자동 캡처 결과 (tools/shoot.mjs)
 tools/shots/
+tools/shots-dist/
