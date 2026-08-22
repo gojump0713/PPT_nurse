@@ -40,8 +40,8 @@ jobs:
           echo "총 용량: $(du -sh dist | cut -f1)"
           test -f dist/index.html || { echo "index.html 누락"; exit 1; }
           test -f dist/src/js/main.js || { echo "main.js 누락"; exit 1; }
-          test "$(find dist/src/js/screens -name 's[0-9][0-9].js' | wc -l)" -eq 24 \
-            || { echo "화면 스크립트가 24개가 아닙니다"; exit 1; }
+          test "$(find dist/src/js/screens -name 's[0-9][0-9].js' | wc -l)" -eq 25 \
+            || { echo "화면 스크립트가 25개(표지 + 본편 24)가 아닙니다"; exit 1; }
 
       - uses: actions/configure-pages@v5
         with:

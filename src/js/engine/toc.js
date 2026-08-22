@@ -6,21 +6,21 @@ import { h, pad2 } from '../lib/dom.js';
 import { META, PARTS } from '../../data/screens.js';
 
 export function mountTOC(deck) {
-  const items = META.map((m) =>
-    h('button.toc__item', {
+  const items = META.map((m, i) =>
+    h(`button.toc__item${m.cover ? '.toc__item--cover' : ''}`, {
       type: 'button',
       dataset: { part: m.part, id: m.id },
       on: {
         click: (e) => {
           e.stopPropagation();
           close();
-          deck.goTo(m.id - 1, { immediate: true });
+          deck.goTo(i, { immediate: true });
         },
       },
     },
-      h('div.toc__num', pad2(m.id)),
-      h('div.toc__label', m.title),
-      h('div.toc__badge', `${PARTS[m.part].label}${m.clicks ? ` · 클릭 ${m.clicks}` : ''}`)
+      h('div.toc__num', m.cover ? '표지' : pad2(m.id)),
+      h('div.toc__label', m.cover ? '국시 시험도, 진료도 이제 ‘환경’이 경쟁력입니다' : m.title),
+      h('div.toc__badge', m.cover ? 'COVER' : `${PARTS[m.part].label}${m.clicks ? ` · 클릭 ${m.clicks}` : ''}`)
     )
   );
 

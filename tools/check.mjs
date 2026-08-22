@@ -22,7 +22,7 @@ const ROOT = path.resolve(__dirname, '..');
 const read = (p) => fs.readFileSync(path.join(ROOT, p), 'utf8');
 
 /* ---------- 메타 로드 (정적 파싱 대신 동적 import) ---------- */
-const { META, TOTAL_CLICKS } = await import(
+const { META, TOTAL_CLICKS, NUMBERED_TOTAL } = await import(
   new URL('../src/data/screens.js', import.meta.url).href
 );
 
@@ -49,6 +49,7 @@ stepCounts.forEach((s) => {
     bad(`SCREEN ${String(s.id).padStart(2, '0')}: 설계 ${s.declared}회 ≠ 구현 ${s.implemented}회`);
   }
 });
+ok(`화면 구성: 표지(SCREEN 00) + 본편 ${NUMBERED_TOTAL}화면`);
 const implTotal = stepCounts.reduce((a, s) => a + s.implemented, 0);
 if (implTotal <= 13) ok(`구현 클릭 합계 ${implTotal}회 (설계 ${TOTAL_CLICKS}회) — 기준 13회 이하 충족`);
 else bad(`구현 클릭 합계 ${implTotal}회 — 기준 13회 초과`);

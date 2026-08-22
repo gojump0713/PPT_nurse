@@ -153,9 +153,10 @@ export class Deck {
   first() { this.goTo(0); }
   last() { this.goTo(this.total - 1); }
 
-  /** 1-based 페이지 번호로 점프 */
+  /** SCREEN 번호로 점프 (0 = 표지, 1~24 = 본편). 번호와 배열 인덱스가 1:1 대응한다. */
   jump(pageNo) {
-    const i = Math.max(1, Math.min(this.total, Number(pageNo) || 1)) - 1;
+    const n = Number(pageNo);
+    const i = Math.max(0, Math.min(this.total - 1, Number.isFinite(n) ? n : 0));
     this.goTo(i, { immediate: true });
   }
 }

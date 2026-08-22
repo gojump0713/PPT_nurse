@@ -29,7 +29,11 @@ export function create() {
   const cbtBand = ProcessBand(CBT, { accent: true });
   cbtBand.classList.add('s07__band-cbt');
 
+  // PBT 띠 배경에 시험지 더미 사진을 흐리게 (작업지시서 S07 이미지 활용 · 선택)
   const pbtRow = h('div.s07__row',
+    h('div.s07__bg',
+      h('img', { src: 'assets/images/gen/s07-answer-sheets.webp', alt: '', loading: 'eager' })
+    ),
     h('div.s07__row-label', h('span.s07__tagline', '현행 PBT'), '지필시험 운영'),
     pbtBand
   );

@@ -356,6 +356,34 @@
   gap: 44px;
   margin-top: 20px;
 }
+/* 상단 트랙 배경 사진 — 어두운 사진이라 screen 합성으로 배경과 이어붙인다 */
+.s04__trackwrap {
+  position: relative;
+}
+.s04__bg {
+  position: absolute;
+  inset: -120px -140px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.s04__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 42%;
+  mix-blend-mode: screen;
+  opacity: 0.3;
+  filter: blur(2px) saturate(0.8);
+  /* 가장자리를 넉넉히 지워 띠처럼 잘려 보이지 않게 한다 */
+  mask-image: radial-gradient(58% 42% at 50% 50%, #000 0%, transparent 78%);
+  -webkit-mask-image: radial-gradient(58% 42% at 50% 50%, #000 0%, transparent 78%);
+}
+.s04__trackwrap .track {
+  position: relative;
+  z-index: 1;
+}
+
 .s04__node-icon {
   width: 30px;
   height: 30px;
@@ -600,6 +628,38 @@
   flex-direction: column;
   gap: 26px;
 }
+.s07__row {
+  position: relative;
+}
+/* PBT 띠 배경 사진 — 접힌 뒤(is-folded)에는 함께 사라져 CBT 띠로 시선이 옮겨간다 */
+.s07__bg {
+  position: absolute;
+  inset: -110px -130px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+  transition: opacity 720ms var(--ease);
+}
+.s07.is-folded .s07__bg {
+  opacity: 0;
+}
+.s07__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 46%;
+  mix-blend-mode: screen;
+  opacity: 0.42;
+  filter: blur(1.6px) saturate(0.75);
+  mask-image: radial-gradient(56% 44% at 52% 50%, #000 0%, transparent 78%);
+  -webkit-mask-image: radial-gradient(56% 44% at 52% 50%, #000 0%, transparent 78%);
+}
+.s07__row > .s07__row-label,
+.s07__row > .band {
+  position: relative;
+  z-index: 1;
+}
+
 .s07__row-label {
   display: flex;
   align-items: center;

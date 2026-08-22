@@ -142,19 +142,21 @@ export function mountNav(deck, { toc, notes }) {
     else deck.prev();
   }, { passive: true });
 
-  /* ---------- 해시 딥링크 (#7 → SCREEN 07) ---------- */
+  /* ---------- 해시 딥링크 (#0 → 표지, #7 → SCREEN 07) ---------- */
   const fromHash = () => {
-    const n = parseInt(String(location.hash).replace('#', ''), 10);
-    return Number.isFinite(n) && n >= 1 && n <= deck.total ? n : null;
+    const raw = String(location.hash).replace('#', '');
+    if (raw === '') return null;
+    const n = parseInt(raw, 10);
+    return Number.isFinite(n) && n >= 0 && n < deck.total ? n : null;
   };
   window.addEventListener('hashchange', () => {
     const n = fromHash();
-    if (n && n - 1 !== deck.index) deck.goTo(n - 1, { immediate: true });
+    if (n !== null && n !== deck.index) deck.goTo(n, { immediate: true });
   });
   deck.onChange(() => {
-    const want = `#${deck.index + 1}`;
+    const want = `#${deck.index}`;
     if (location.hash !== want) history.replaceState(null, '', want);
   });
 
-  return { initialIndex: (fromHash() || 1) - 1 };
+  return { initialIndex: fromHash() ?? 0 };
 }

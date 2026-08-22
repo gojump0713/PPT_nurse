@@ -123,9 +123,41 @@ const unusedImages = allImages.filter((r) => !referenced.has(r));
 usedImages.forEach((r) => copyFile(path.join(ROOT, r), path.join(DIST, r)));
 
 /* ---------------------------------------------------------------
+   무결성 검사 — 소스가 참조하는 에셋이 dist 에 전부 들어갔는가
+   (동적 경로 `${}` 로 만든 참조는 정적 스캔에 잡히지 않아 조용히 404 가 된다.
+    그런 실수를 배포 전에 반드시 실패로 만든다.)
+   --------------------------------------------------------------- */
+const DYNAMIC = /['"`]assets\/[^'"`]*\$\{/;
+const dynamicHits = [];
+for (const entry of fs.readdirSync(path.join(ROOT, 'src'), { withFileTypes: true, recursive: true })) {
+  if (entry.isDirectory()) continue;
+  const p = path.join(entry.parentPath ?? entry.path, entry.name);
+  if (!/\.(js|css)$/.test(p)) continue;
+  fs.readFileSync(p, 'utf8').split('\n').forEach((line, i) => {
+    if (DYNAMIC.test(line)) dynamicHits.push(`${rel(p)}:${i + 1}  ${line.trim()}`);
+  });
+}
+
+const missing = [...referenced].filter((r) => {
+  if (!fs.existsSync(path.join(ROOT, r))) return false; // 원본이 없는 건 아래 경고로 처리
+  return !fs.existsSync(path.join(DIST, r));
+});
+
+if (dynamicHits.length || missing.length) {
+  console.log(c.bad('\n무결성 검사 실패'));
+  dynamicHits.forEach((l) => console.log(`  ${c.bad('✗')} 동적 에셋 경로 (정적 스캔 불가): ${l}`));
+  missing.forEach((r) => console.log(`  ${c.bad('✗')} 참조되지만 dist 에 없음: ${r}`));
+  console.log(c.dim('\n  에셋 경로는 리터럴 문자열로 작성해야 배포본에 포함됩니다.\n'));
+  process.exit(1);
+}
+
+const broken = [...referenced].filter((r) => !fs.existsSync(path.join(ROOT, r)));
+
+/* ---------------------------------------------------------------
    3. 보고
    --------------------------------------------------------------- */
 console.log('\n[3/3] 결과');
+console.log(`  ${c.ok('✓')} 참조 에셋 ${referenced.size}건 전부 dist 에 포함됨`);
 
 const fonts = fs.readdirSync(path.join(DIST, 'assets/fonts'));
 const fontBytes = fonts.reduce((a, f) => a + fs.statSync(path.join(DIST, 'assets/fonts', f)).size, 0);
@@ -151,6 +183,11 @@ if (unusedImages.length) {
     byDir[d] = (byDir[d] || 0) + 1;
   });
   Object.entries(byDir).forEach(([d, n]) => console.log(`      ${c.dim(`${d}/ — ${n}개`)}`));
+}
+
+if (broken.length) {
+  console.log(`\n  ${c.warn('!')} 소스가 참조하지만 아직 파일이 없는 에셋 ${broken.length}건 (런타임 폴백으로 동작)`);
+  broken.forEach((r) => console.log(`      ${c.dim(r)}`));
 }
 
 console.log(`\n  dist/  ${copied}개 파일 · ${mb(bytes)}`);

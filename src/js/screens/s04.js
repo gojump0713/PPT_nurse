@@ -30,9 +30,17 @@ export function create() {
     h('span.s04__principle-line')
   );
 
+  // 상단 트랙 배경에 시뮬레이션 실습실 사진을 흐리게 (작업지시서 S04 이미지 활용 · 선택)
+  const clinicalWrap = h('div.s04__trackwrap',
+    h('div.s04__bg',
+      h('img', { src: 'assets/images/gen/s04-simulation-lab.webp', alt: '', loading: 'eager' })
+    ),
+    clinical
+  );
+
   const el = ScreenRoot(meta, { className: 's04' },
     gov,
-    h('div.s04__body', clinical, principle, exam)
+    h('div.s04__body', clinicalWrap, principle, exam)
   );
 
   return {

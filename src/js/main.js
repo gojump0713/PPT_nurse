@@ -9,7 +9,7 @@ import { mountTOC } from './engine/toc.js';
 import { mountNotes } from './engine/notes.js';
 import { mountNav } from './engine/nav.js';
 import { screens } from './screens/index.js';
-import { META, TOTAL_CLICKS } from '../data/screens.js';
+import { NUMBERED_TOTAL, TOTAL_CLICKS } from '../data/screens.js';
 
 async function boot() {
   const bootEl = document.getElementById('boot');
@@ -40,7 +40,7 @@ async function boot() {
   // 콘솔 안내 — 클릭 합계는 tools/check.mjs 가 설계값과 구현값을 대조한다.
   // (여기서 전 화면을 미리 생성해 세면 영상·이미지까지 선요청되므로 하지 않는다)
   console.info(
-    `%c영남이공대·영남대병원 발표 %c${META.length}화면 · 클릭 합계 ${TOTAL_CLICKS}회 (기준 13회 이하) · N: 발표자 노트`,
+    `%c영남이공대·영남대병원 발표 %c표지 + ${NUMBERED_TOTAL}화면 · 클릭 합계 ${TOTAL_CLICKS}회 (기준 13회 이하) · N: 발표자 노트`,
     'font-weight:700;color:#1c60ef', 'color:#95a3ab'
   );
 

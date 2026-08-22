@@ -7,7 +7,7 @@
  */
 
 import { h, pad2 } from '../lib/dom.js';
-import { PARTS } from '../../data/screens.js';
+import { PARTS, NUMBERED_TOTAL } from '../../data/screens.js';
 
 const IDLE_CURSOR_MS = 3000;
 const PULSE_AFTER_MS = 5000;
@@ -61,10 +61,12 @@ export function mountChrome(stageEl, deck) {
   const render = () => {
     const meta = deck.meta;
     const part = PARTS[meta.part];
-    partEl.textContent = part.label;
+    // 표지는 24화면 번호 체계 밖이므로 숫자 대신 COVER 만 표기한다
+    document.body.dataset.cover = meta.cover ? '1' : '0';
+    partEl.textContent = meta.cover ? 'COVER' : part.label;
     numEl.textContent = pad2(meta.id);
-    totalEl.textContent = ` / ${pad2(deck.total)}`;
-    progFill.style.width = `${((deck.index + 1) / deck.total) * 100}%`;
+    totalEl.textContent = ` / ${pad2(NUMBERED_TOTAL)}`;
+    progFill.style.width = `${(deck.index / (deck.total - 1)) * 100}%`;
     renderClickIndicator();
   };
 

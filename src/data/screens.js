@@ -16,6 +16,19 @@ export const PARTS = {
 
 export const META = [
   {
+    /* 표지 — 별도 사양서(표지.pdf) 기준. 24화면 번호 체계 밖의 SCREEN 00 이다.
+       페이지 인디케이터는 "00 / 24" 대신 COVER 로 표기하고, 검수 대상에서도 제외한다. */
+    id: 0, part: 'CBT', clicks: 0, cover: true,
+    title: '국시 시험도, 진료도 이제 ‘환경’이 경쟁력입니다',
+    governing: 'CBT와 VDI로 다시 설계하는 대학·병원의 디지털 전환',
+    notes: [
+      '오늘은 CBT와 VDI라는 두 가지 기술을 말씀드리려고 합니다. 그런데 기술 이야기부터 시작하지는 않겠습니다.',
+      '학생이 시험을 보는 환경과 의료진이 진료하는 환경은 전혀 달라 보이지만, 디지털 시대에는 한 가지 공통점이 있습니다.',
+      "이제는 시험도, 진료도 어떤 ‘환경’에서 이루어지는가가 경쟁력이 되고 있다는 것입니다.",
+    ],
+    next: '그 변화는 가장 먼저 학생들의 국가시험에서 시작됩니다.',
+  },
+  {
     id: 1, part: 'CBT', clicks: 1,
     title: '2028년 간호사 국시 CBT 전환',
     governing: '시험이 바뀌면, 준비하는 환경도 바뀌어야 합니다.',
@@ -283,6 +296,12 @@ export const META = [
 
 /** id → 메타 */
 export const metaOf = (id) => META.find((m) => m.id === id);
+
+/** 표지를 제외한 본편 24화면 */
+export const NUMBERED = META.filter((m) => !m.cover);
+
+/** 본편 화면 수 — 페이지 인디케이터의 분모 (NN / 24) */
+export const NUMBERED_TOTAL = NUMBERED.length;
 
 /** 전체 클릭 수 합계 — 검수 기준 ②(13회 이하) 자동 검증용 */
 export const TOTAL_CLICKS = META.reduce((sum, m) => sum + m.clicks, 0);

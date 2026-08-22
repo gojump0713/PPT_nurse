@@ -15,6 +15,9 @@ export const CONFIG = {
   /** S14 — CBT 운영 데모 영상 경로. 파일을 넣고 경로를 지정하면 자동 재생된다. */
   demoVideo: 'assets/video/cbt-demo.mp4',
 
+  /** SCREEN 00(표지) — 배경 루프 영상. 12~15초 무음. 없으면 정지 화면으로 폴백. */
+  coverVideo: 'assets/video/cover-loop.mp4',
+
   /** S18 — 글로벌 병원 수치 재검증 완료 여부 (미완료 시 각주에 재검증 표기 유지) */
   globalFiguresVerified: false,
 

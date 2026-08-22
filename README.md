@@ -5,8 +5,11 @@
 
 - 형식: 브라우저 Full Screen Presentation (PPT 아님, 웹사이트 아님)
 - 화면비 16:9, 기준 해상도 1920×1080, `transform: scale()` 반응 축소
-- 총 24 SCREEN / 3 PART (CBT · VDI · TILON)
-- 빌드 도구·외부 CDN·런타임 의존성 **없음** (ES 모듈 + 자체호스팅 웹폰트)
+- **표지(SCREEN 00)** + 본편 24 SCREEN / 3 PART (CBT · VDI · TILON)
+- 빌드 도구·외부 CDN·런타임 의존성 **없음** (ES 모듈 + 자체호스팅 웹폰트·영상)
+
+표지는 별도 사양서 `docs/표지.pdf` 를, 본편 24화면은 `docs/작업지시서_화면설계서.md` 를 따릅니다.
+표지는 24화면 번호 체계 밖이라 페이지 인디케이터에 `COVER` 로만 표시되고, 검수 기준의 화면 수·클릭 수에는 포함되지 않습니다.
 
 ---
 
@@ -52,7 +55,7 @@ GitHub Pages 로 배포합니다. 검수 실패 시 배포되지 않습니다.
 | `←` `PageUp` · 우클릭 | 이전 (스텝이 남아 있으면 한 단계 되돌림) |
 | `↓` `↑` | 스텝 무시하고 페이지 단위 이동 |
 | `ESC` | 전체 목차 오버레이 (24 썸네일, PART 색 구분) |
-| 숫자 + `Enter` | 페이지 점프 (예: `1` `5` `Enter` → SCREEN 15) |
+| 숫자 + `Enter` | 페이지 점프 (`0` `Enter` → 표지, `1` `5` `Enter` → SCREEN 15) |
 | `Home` / `End` | 첫 화면 / 마지막 화면 |
 | `F` | 전체화면 토글 |
 | `N` | **발표자 노트** (주요 발표 멘트 · 다음 화면 연결 멘트) |
@@ -60,7 +63,8 @@ GitHub Pages 로 배포합니다. 검수 실패 시 배포되지 않습니다.
 - 우하단에 `NN / 24` 와 PART 라벨이 고정 표시됩니다.
 - 클릭이 남은 화면은 `▸`, 소진되면 `다음 페이지 →` 로 바뀌고 5초 무동작 시 미세 펄스합니다.
 - 마우스를 3초간 움직이지 않으면 커서가 자동으로 숨습니다.
-- 주소창 해시로 딥링크됩니다 (`index.html#15`).
+- 주소창 해시로 딥링크됩니다 (`index.html#0` 표지, `index.html#15` SCREEN 15).
+- 표지에서는 클릭 인디케이터와 진행 바가 숨겨집니다(사양서 §13 — 발표자가 조작하지 않는 화면).
 
 ---
 
@@ -71,7 +75,8 @@ index.html                  진입점
 assets/
   fonts/                    A2Z(에이투지체) 7종 · NanumSquare Neo 4종 → WOFF2 (11MB → 2.5MB)
   images/brand|mascot|dept  ASCII 슬러그로 정규화 + manifest.json
-  video/                    CBT 데모 영상 배치 위치 (현재 비어 있음)
+  images/gen/               생성형 AI 이미지 (S04 · S07 · S15) — WebP 18.6MB → 0.12MB
+  video/cover-loop.mp4      표지 배경 루프 영상 15초 · 무음 · H.264
 src/
   css/
     tokens.css              컬러 · 타이포 스케일 · 모션 토큰
@@ -79,12 +84,13 @@ src/
     components.css          공통 컴포넌트 15종
     mocks.css               CBT 응시/관리 화면 목업
     chrome.css              페이지·클릭 인디케이터 · 목차 · 발표자 노트
+    screens/cover.css       표지(SCREEN 00) 스타일
     screens/part1|2|3.css   화면별 스타일
   js/
     main.js                 부트스트랩
     engine/                 deck(전환·스텝) · stage(스케일) · nav(조작) · toc · notes · chrome
     components/             하이퍼스크립트 기반 컴포넌트 · 아이콘 · 목업 · 레이더 · 세계지도
-    screens/s01…s24.js      화면 24개
+    screens/s00…s24.js      표지 + 본편 24화면
     lib/                    dom(h) · anim(Scheduler·countTo)
   data/
     screens.js              24화면 메타 (제목 · 거버닝 메시지 · 발표 멘트 · 클릭 수)
@@ -143,13 +149,19 @@ node tools/shoot.mjs --url https://gojump0713.github.io/PPT_nurse/   # 실제 �
 
 `src/data/config.js` 의 플래그로 관리합니다. 미완료 항목은 화면에 **교체 대기 배지**가 표시되어 리허설 때 놓치지 않습니다.
 
-| 항목 | 대상 | 플래그 |
+| 항목 | 대상 | 상태 |
 |---|---|---|
-| 제주대 매뉴얼 실제 화면 캡처 | S03 · S10 · S14 | `assetsFinal` |
-| CBT 운영 데모 영상 (20~30초 무음 루프) | S14 | `assets/video/cbt-demo.mp4` 배치 |
-| 글로벌 병원 수치 재검증 | S18 | `globalFiguresVerified` |
-| 국내 구축 실적 수치 확정 | S20 | `domesticFiguresConfirmed` |
-| 회사 연혁·인증 수치 확정 | S23 | `companyFiguresConfirmed` |
+| 표지 배경 루프 영상 | SCREEN 00 | **완료** — 생성형 AI 15초 무음 루프 |
+| 시뮬레이션 실습실 · 시험지 더미 · 대학/병원 실루엣 | S04 · S07 · S15 | **완료** — 생성형 AI |
+| 제주대 매뉴얼 실제 화면 캡처 | S03 · S10 · S14 | 대기 (`assetsFinal`) |
+| CBT 운영 데모 영상 (20~30초 무음 루프) | S14 | 대기 — `assets/video/cbt-demo.mp4` 배치 필요 |
+| 글로벌 병원 수치 재검증 | S18 | 대기 (`globalFiguresVerified`) |
+| 국내 구축 실적 수치 확정 | S20 | 대기 (`domesticFiguresConfirmed`) |
+| 회사 연혁·인증 수치 확정 | S23 | 대기 (`companyFiguresConfirmed`) |
+
+> **S14 데모 영상만은 생성형 AI로 만들지 않습니다.** 그 화면의 주장이 "제안이 아니라, 이미 대학에서
+> 운영 중인 환경입니다"이기 때문에, 영상은 연출이 아니라 제3자(제주대학교)의 실제 가동 시스템에 대한
+> 증거입니다. 합성하면 청중에게 조작된 증거를 보여주는 것이 됩니다. 틸론이 실제 화면을 녹화해 넣어야 합니다.
 
 자세한 교체 절차는 [`docs/ASSETS.md`](docs/ASSETS.md) 참조.
 
