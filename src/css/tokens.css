@@ -1,0 +1,117 @@
+/* =============================================================
+   tokens.css — 디자인 토큰
+   작업지시서 PART C-A "컨설팅 브리핑룸" 기준
+   ============================================================= */
+
+:root {
+  /* ---------- 스테이지 ---------- */
+  --stage-w: 1920px;
+  --stage-h: 1080px;
+  --stage-pad-x: 120px;
+  --stage-pad-y: 72px;
+
+  /* ---------- 컬러: 서피스 ---------- */
+  --c-bg: #0b1220;
+  --c-bg-deep: #060b14;
+  --c-card: #131c2e;
+  --c-card-2: #1a2437;
+  --c-line: rgba(149, 163, 171, 0.22);
+  --c-line-strong: rgba(149, 163, 171, 0.42);
+
+  /* ---------- 컬러: 텍스트 ---------- */
+  --c-text: #ffffff;
+  --c-muted: #95a3ab;
+  --c-dim: rgba(149, 163, 171, 0.6);
+
+  /* ---------- 컬러: PART 포인트 ---------- */
+  --c-cbt: #1c60ef;   /* PART 1 · 블루 */
+  --c-vdi: #0e9e8e;   /* PART 2 · 틸 */
+  --c-tilon: #f0b429; /* PART 3 · 골드 */
+  --c-danger: #e5484d;
+  --c-neutral: #5a6577; /* Before/현행 표현용 회색 */
+
+  /* 현재 PART 포인트 컬러 — 엔진이 PART 전환 시 교체 */
+  --c-accent: var(--c-cbt);
+  --c-accent-soft: rgba(28, 96, 239, 0.16);
+  --c-accent-line: rgba(28, 96, 239, 0.45);
+  --c-accent-glow: rgba(28, 96, 239, 0.35);
+
+  /* ---------- 타이포: 패밀리 ---------- */
+  --font-sans: 'A2Z', 'NanumSquareNeo', -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'NanumSquareNeo', 'A2Z', -apple-system, 'Segoe UI', sans-serif;
+
+  /* ---------- 타이포: 스케일 (작업지시서 §4) ---------- */
+  --fs-bignum-xl: 360px;   /* Big Number 최대 */
+  --fs-bignum: 280px;      /* Big Number 기본 */
+  --fs-bignum-sm: 240px;   /* Big Number 최소 */
+  --fs-num-lg: 120px;      /* 대비 숫자 (S02 등) */
+  --fs-num: 72px;
+  --fs-gov-lg: 56px;       /* 거버닝 메시지 최대 */
+  --fs-gov: 48px;
+  --fs-gov-sm: 44px;       /* 거버닝 메시지 최소 */
+  --fs-title: 28px;        /* 페이지 상단 제목 */
+  --fs-key-lg: 32px;       /* 핵심 키워드 카드 최대 */
+  --fs-key: 24px;          /* 핵심 키워드 카드 기본 */
+  --fs-body-lg: 22px;      /* 설명문 최대 */
+  --fs-body: 20px;         /* 설명문 기본 */
+  --fs-label: 17px;        /* 소형 라벨 */
+  --fs-note: 14px;         /* 출처·각주 */
+
+  /* ---------- 타이포: 웨이트 ---------- */
+  --fw-bignum: 800;
+  --fw-gov: 700;
+  --fw-title: 600;
+  --fw-key: 600;
+  --fw-body: 400;
+
+  /* ---------- 모션 (§2 · PART C-A) ---------- */
+  --ease: cubic-bezier(0.16, 0.84, 0.44, 1); /* ease-out 통일 */
+  --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
+  --t-page: 600ms;      /* 기본 페이지 전환 */
+  --t-bridge: 1200ms;   /* PART 브리지 전환 */
+  --t-reveal: 620ms;    /* 요소 등장 */
+  --t-fast: 320ms;
+  --reveal-shift: 20px; /* 등장 시 slide-up 거리 */
+
+  /* ---------- 등장 타이밍 (§2) ---------- */
+  --d-title: 0ms;
+  --d-gov: 400ms;
+  --d-body: 800ms;
+  --d-gap: 150ms;
+
+  /* ---------- 레이어 ---------- */
+  --z-stage: 10;
+  --z-chrome: 60;
+  --z-overlay: 80;
+  --z-toast: 90;
+
+  /* ---------- 반경·그림자 ---------- */
+  --r-sm: 6px;
+  --r-md: 12px;
+  --r-lg: 20px;
+  --shadow-card: 0 24px 60px rgba(0, 0, 0, 0.45);
+  --shadow-pop: 0 32px 80px rgba(0, 0, 0, 0.6);
+}
+
+/* PART별 포인트 컬러 스와핑 — <body data-part="..."> */
+body[data-part='CBT'] {
+  --c-accent: var(--c-cbt);
+  --c-accent-soft: rgba(28, 96, 239, 0.16);
+  --c-accent-line: rgba(28, 96, 239, 0.45);
+  --c-accent-glow: rgba(28, 96, 239, 0.35);
+  --c-bg: #0b1220;
+}
+body[data-part='VDI'] {
+  --c-accent: var(--c-vdi);
+  --c-accent-soft: rgba(14, 158, 142, 0.16);
+  --c-accent-line: rgba(14, 158, 142, 0.45);
+  --c-accent-glow: rgba(14, 158, 142, 0.35);
+  --c-bg: #08161c;
+}
+body[data-part='TILON'] {
+  --c-accent: var(--c-tilon);
+  --c-accent-soft: rgba(240, 180, 41, 0.16);
+  --c-accent-line: rgba(240, 180, 41, 0.45);
+  --c-accent-glow: rgba(240, 180, 41, 0.35);
+  --c-bg: #100e14;
+}

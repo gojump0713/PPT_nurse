@@ -1,0 +1,11 @@
+node_modules/
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+dist/
+.cache/
+
+# 자동 캡처 결과 (tools/shoot.mjs)
+tools/shots/

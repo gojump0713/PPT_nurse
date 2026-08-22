@@ -1,0 +1,257 @@
+/* =============================================================
+   base.css — 리셋 · 스테이지 · 페이지 전환 · 등장(reveal) 시스템
+   ============================================================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* 세로 스크롤 금지 (§1) */
+  background: var(--c-bg-deep);
+}
+
+body {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-body);
+  color: var(--c-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'tnum' 1;
+  transition: background-color var(--t-bridge) var(--ease);
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: default;
+}
+
+/* 발표 중 커서 자동 숨김 (§1) */
+body.is-idle,
+body.is-idle * {
+  cursor: none !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+::selection {
+  background: var(--c-accent);
+  color: #fff;
+}
+
+/* -------------------------------------------------------------
+   스테이지 — 1920×1080 고정 후 transform:scale() 반응 축소 (§1)
+   ------------------------------------------------------------- */
+#viewport {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: var(--c-bg);
+  transition: background-color var(--t-bridge) var(--ease);
+  overflow: hidden;
+}
+
+#stage {
+  position: relative;
+  width: var(--stage-w);
+  height: var(--stage-h);
+  flex: none;
+  transform-origin: center center;
+  will-change: transform;
+  z-index: var(--z-stage);
+}
+
+/* 배경 그라디언트 — PART 컬러가 은은하게 배어나오는 브리핑룸 톤 */
+#viewport::before {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(60% 55% at 50% 0%, var(--c-accent-soft) 0%, transparent 62%),
+    radial-gradient(45% 45% at 85% 100%, rgba(255, 255, 255, 0.035) 0%, transparent 70%);
+  opacity: 0.9;
+  pointer-events: none;
+  transition: background var(--t-bridge) var(--ease);
+}
+
+/* 미세 그레인 — 플랫한 다크 배경의 밴딩 방지 */
+#viewport::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* -------------------------------------------------------------
+   SCREEN — 페이지 전환 (§2: 0.6초 Fade + 20px Slide-up)
+   ------------------------------------------------------------- */
+.screen {
+  position: absolute;
+  inset: 0;
+  padding: var(--stage-pad-y) var(--stage-pad-x);
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(var(--reveal-shift));
+  transition:
+    opacity var(--t-page) var(--ease),
+    transform var(--t-page) var(--ease);
+}
+
+.screen.is-active {
+  opacity: 1;
+  transform: none;
+}
+
+.screen.is-leaving {
+  opacity: 0;
+  transform: translateY(calc(var(--reveal-shift) * -0.6));
+  pointer-events: none;
+}
+
+/* PART 브리지 전환 (14→15, 21→22) — 1.2초 전용 연출 (§2) */
+.screen.is-bridge-in {
+  transition:
+    opacity var(--t-bridge) var(--ease),
+    transform var(--t-bridge) var(--ease),
+    filter var(--t-bridge) var(--ease);
+  transform: scale(1.04);
+  filter: blur(6px);
+}
+.screen.is-bridge-in.is-active {
+  transform: none;
+  filter: none;
+}
+.screen.is-bridge-out {
+  transition:
+    opacity var(--t-bridge) var(--ease),
+    transform var(--t-bridge) var(--ease),
+    filter var(--t-bridge) var(--ease);
+  transform: scale(0.965);
+  filter: blur(8px);
+  opacity: 0;
+}
+
+/* 화면 본문 영역 — 헤더/푸터 사이를 채움 */
+.screen__body {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* -------------------------------------------------------------
+   reveal — 요소 등장 시스템
+   자바스크립트가 .is-in 을 붙이면 등장. 방향은 data-rv 로 지정.
+   ------------------------------------------------------------- */
+.rv {
+  opacity: 0;
+  transition:
+    opacity var(--t-reveal) var(--ease),
+    transform var(--t-reveal) var(--ease);
+  will-change: opacity, transform;
+}
+.rv[data-rv='up'] {
+  transform: translateY(var(--reveal-shift));
+}
+.rv[data-rv='down'] {
+  transform: translateY(calc(var(--reveal-shift) * -1));
+}
+.rv[data-rv='left'] {
+  transform: translateX(calc(var(--reveal-shift) * 2));
+}
+.rv[data-rv='right'] {
+  transform: translateX(calc(var(--reveal-shift) * -2));
+}
+.rv[data-rv='scale'] {
+  transform: scale(0.94);
+}
+.rv[data-rv='fade'] {
+  transform: none;
+}
+.rv.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* 퇴장 */
+.rv.is-out {
+  opacity: 0;
+  transform: translateY(calc(var(--reveal-shift) * -1));
+}
+
+/* -------------------------------------------------------------
+   공용 유틸
+   ------------------------------------------------------------- */
+.u-accent {
+  color: var(--c-accent);
+}
+.u-muted {
+  color: var(--c-muted);
+}
+.u-tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+.u-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.u-grow {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+.u-nowrap {
+  white-space: nowrap;
+}
+
+/* 접근성: 모션 최소화 환경에서는 이동 없이 페이드만 */
+@media (prefers-reduced-motion: reduce) {
+  .rv,
+  .screen {
+    transition-duration: 200ms !important;
+  }
+  .rv[data-rv] {
+    transform: none !important;
+  }
+}

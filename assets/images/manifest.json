@@ -1,0 +1,247 @@
+{
+  "brand/tilon-ci.png": {
+    "bytes": 16512,
+    "label": "틸론 CI 로고",
+    "source": "틸론 CI.png"
+  },
+  "brand/ync-logo.gif": {
+    "bytes": 10555,
+    "label": "영남이공대학교 로고",
+    "source": "영남이공대 로고.gif"
+  },
+  "dept/architecture.png": {
+    "bytes": 173625,
+    "label": "건축학과",
+    "source": "건축학과.png"
+  },
+  "dept/casino-surveillance.png": {
+    "bytes": 234321,
+    "label": "카지노&서베일런스전공",
+    "source": "카지노&서베일런스전공.png"
+  },
+  "dept/construction.png": {
+    "bytes": 165568,
+    "label": "건설시스템과",
+    "source": "건설시스템과.png"
+  },
+  "dept/cosmetics-chem.png": {
+    "bytes": 177640,
+    "label": "화장품화공계열",
+    "source": "화장품화공계열.png"
+  },
+  "dept/cyber-security.png": {
+    "bytes": 232075,
+    "label": "사이버보안과",
+    "source": "사이버보안과.png"
+  },
+  "dept/dental-hygiene.png": {
+    "bytes": 173049,
+    "label": "치위생과",
+    "source": "치위생과.png"
+  },
+  "dept/electric-automation.png": {
+    "bytes": 189076,
+    "label": "전기자동화과",
+    "source": "전기자동화과.png"
+  },
+  "dept/fashion-design.png": {
+    "bytes": 175813,
+    "label": "패션디자인마케팅과",
+    "source": "패션디자인마케팅과.png"
+  },
+  "dept/future-convergence.png": {
+    "bytes": 238710,
+    "label": "미래융합기술학부",
+    "source": "미래융합기술학부.png"
+  },
+  "dept/game-animation.png": {
+    "bytes": 187305,
+    "label": "게임애니메이션과",
+    "source": "게임애니메이션과.png"
+  },
+  "dept/global-bakery.png": {
+    "bytes": 157754,
+    "label": "글로벌베이커리과",
+    "source": "글로벌베이커리과.png"
+  },
+  "dept/global-culinary.png": {
+    "bytes": 139737,
+    "label": "글로벌외식조리과",
+    "source": "글로벌외식조리과.png"
+  },
+  "dept/global-leisure.png": {
+    "bytes": 148948,
+    "label": "글로벌레저서비스과",
+    "source": "글로벌레저서비스과.png"
+  },
+  "dept/health-admin.png": {
+    "bytes": 90925,
+    "label": "보건의료행정과",
+    "source": "보건의료행정과.png"
+  },
+  "dept/hotel-air-tourism.png": {
+    "bytes": 211529,
+    "label": "호텔·항공관광전공",
+    "source": "호텔·항공관광전공.png"
+  },
+  "dept/i-biz-accounting.png": {
+    "bytes": 161752,
+    "label": "i-경영회계계열",
+    "source": "i-경영회계계열.png"
+  },
+  "dept/ict-semiconductor.png": {
+    "bytes": 191609,
+    "label": "ICT반도체전자계열",
+    "source": "ICT반도체전자계열.png"
+  },
+  "dept/interior-design.png": {
+    "bytes": 168377,
+    "label": "인테리어디자인과",
+    "source": "인테리어디자인과.png"
+  },
+  "dept/k-beauty.png": {
+    "bytes": 153284,
+    "label": "K-뷰티과",
+    "source": "K-뷰티과.png"
+  },
+  "dept/modeltainer.png": {
+    "bytes": 163928,
+    "label": "모델테이너과",
+    "source": "모델테이너과.png"
+  },
+  "dept/nursing.png": {
+    "bytes": 145891,
+    "label": "간호학과",
+    "source": "간호학과.png"
+  },
+  "dept/park-hair.png": {
+    "bytes": 199838,
+    "label": "박승철헤어과",
+    "source": "박승철헤어과.png"
+  },
+  "dept/pet-health.png": {
+    "bytes": 185331,
+    "label": "반려동물보건과",
+    "source": "반려동물보건과.png"
+  },
+  "dept/pet-stylist.png": {
+    "bytes": 175818,
+    "label": "반려동물스타일리스트과",
+    "source": "반려동물스타일리스트과.png"
+  },
+  "dept/physical-therapy.png": {
+    "bytes": 148440,
+    "label": "물리치료과",
+    "source": "물리치료과.png"
+  },
+  "dept/public-procurement.png": {
+    "bytes": 146791,
+    "label": "공공조달학과",
+    "source": "공공조달학과.png"
+  },
+  "dept/service-mgmt.png": {
+    "bytes": 152383,
+    "label": "서비스매니지먼트전공",
+    "source": "서비스매니지먼트전공.png"
+  },
+  "dept/smart-e-vehicle.png": {
+    "bytes": 214027,
+    "label": "스마트e-자동차과",
+    "source": "스마트e-자동차과.png"
+  },
+  "dept/smart-machinery.png": {
+    "bytes": 153404,
+    "label": "스마트융합기계계열",
+    "source": "스마트융합기계계열.png"
+  },
+  "dept/social-welfare-svc.png": {
+    "bytes": 186569,
+    "label": "사회복지서비스과",
+    "source": "사회복지서비스과.png"
+  },
+  "dept/social-welfare.png": {
+    "bytes": 202805,
+    "label": "사회복지학과",
+    "source": "사회복지학과.png"
+  },
+  "dept/software-convergence.png": {
+    "bytes": 228730,
+    "label": "소프트웨어융합과",
+    "source": "소프트웨어융합과.png"
+  },
+  "dept/sports-rehab.png": {
+    "bytes": 167651,
+    "label": "스포츠재활과",
+    "source": "스포츠재활과.png"
+  },
+  "dept/visual-design.png": {
+    "bytes": 156978,
+    "label": "시각영상디자인과",
+    "source": "시각영상디자인과.png"
+  },
+  "dept/webtoon.png": {
+    "bytes": 179340,
+    "label": "웹툰과",
+    "source": "웹툰과.png"
+  },
+  "dept/welllife-tourism.png": {
+    "bytes": 192742,
+    "label": "웰라이프관광전공",
+    "source": "웰라이프관광전공.png"
+  },
+  "mascot/mascot-base.png": {
+    "bytes": 19244,
+    "label": "영남이공대 마스코트 기본형",
+    "source": "기본형.png"
+  },
+  "mascot/mascot-var1.png": {
+    "bytes": 20181,
+    "label": "마스코트 응용1",
+    "source": "응용1.png"
+  },
+  "mascot/mascot-var2.png": {
+    "bytes": 19056,
+    "label": "마스코트 응용2",
+    "source": "응용2.png"
+  },
+  "mascot/mascot-var3.png": {
+    "bytes": 18983,
+    "label": "마스코트 응용3",
+    "source": "응용3.png"
+  },
+  "mascot/turnaround-01.png": {
+    "bytes": 19244,
+    "label": "마스코트 턴어라운드 01",
+    "source": "turn-around 01.png"
+  },
+  "mascot/turnaround-02.png": {
+    "bytes": 14639,
+    "label": "마스코트 턴어라운드 02",
+    "source": "turn-around-02.png"
+  },
+  "mascot/turnaround-03.png": {
+    "bytes": 13617,
+    "label": "마스코트 턴어라운드 03",
+    "source": "turn-around-03.png"
+  },
+  "mascot/turnaround-04.png": {
+    "bytes": 14110,
+    "label": "마스코트 턴어라운드 04",
+    "source": "turn-around-04.png"
+  },
+  "org/international-college.png": {
+    "bytes": 1197234,
+    "label": "국제대학",
+    "source": "국제대학.png"
+  },
+  "org/job-plus-center.png": {
+    "bytes": 546872,
+    "label": "대학일자리플러스센터",
+    "source": "대학일자리플러스센터.png"
+  },
+  "org/remote-edu-center.png": {
+    "bytes": 504532,
+    "label": "원격교육지원센터",
+    "source": "원격교육지원센터.png"
+  }
+}

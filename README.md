@@ -1,1 +1,141 @@
-# PPT_nurse
+# 영남이공대 · 영남대병원 발표자료 (HTML Full Screen Presentation)
+
+2028년 간호사 국가시험 CBT 전환 대응과 의료 VDI 업무환경을 다루는 **24화면 브라우저 전체화면 발표자료**입니다.
+`작업지시서_화면설계서.md` 의 사양(PART A 공통 사양 · PART B 화면설계 · PART C 종합 정리)을 그대로 구현했습니다.
+
+- 형식: 브라우저 Full Screen Presentation (PPT 아님, 웹사이트 아님)
+- 화면비 16:9, 기준 해상도 1920×1080, `transform: scale()` 반응 축소
+- 총 24 SCREEN / 3 PART (CBT · VDI · TILON)
+- 빌드 도구·외부 CDN·런타임 의존성 **없음** (ES 모듈 + 자체호스팅 웹폰트)
+
+---
+
+## 실행
+
+정적 파일이지만 ES 모듈을 쓰므로 `file://` 이 아닌 로컬 서버로 열어야 합니다.
+
+```bash
+npm start          # http://localhost:5173
+# 또는
+python -m http.server 5173
+```
+
+발표장에서는 브라우저를 열고 **F** 키로 전체화면으로 전환하세요.
+
+## 조작
+
+| 키 | 동작 |
+|---|---|
+| `→` `Space` `PageDown` · 화면 클릭 | 다음 단계 또는 다음 페이지 |
+| `←` `PageUp` · 우클릭 | 이전 (스텝이 남아 있으면 한 단계 되돌림) |
+| `↓` `↑` | 스텝 무시하고 페이지 단위 이동 |
+| `ESC` | 전체 목차 오버레이 (24 썸네일, PART 색 구분) |
+| 숫자 + `Enter` | 페이지 점프 (예: `1` `5` `Enter` → SCREEN 15) |
+| `Home` / `End` | 첫 화면 / 마지막 화면 |
+| `F` | 전체화면 토글 |
+| `N` | **발표자 노트** (주요 발표 멘트 · 다음 화면 연결 멘트) |
+
+- 우하단에 `NN / 24` 와 PART 라벨이 고정 표시됩니다.
+- 클릭이 남은 화면은 `▸`, 소진되면 `다음 페이지 →` 로 바뀌고 5초 무동작 시 미세 펄스합니다.
+- 마우스를 3초간 움직이지 않으면 커서가 자동으로 숨습니다.
+- 주소창 해시로 딥링크됩니다 (`index.html#15`).
+
+---
+
+## 구조
+
+```
+index.html                  진입점
+assets/
+  fonts/                    A2Z(에이투지체) 7종 · NanumSquare Neo 4종 → WOFF2 (11MB → 2.5MB)
+  images/brand|mascot|dept  ASCII 슬러그로 정규화 + manifest.json
+  video/                    CBT 데모 영상 배치 위치 (현재 비어 있음)
+src/
+  css/
+    tokens.css              컬러 · 타이포 스케일 · 모션 토큰
+    base.css                리셋 · 스테이지 스케일링 · 페이지 전환 · reveal 시스템
+    components.css          공통 컴포넌트 15종
+    mocks.css               CBT 응시/관리 화면 목업
+    chrome.css              페이지·클릭 인디케이터 · 목차 · 발표자 노트
+    screens/part1|2|3.css   화면별 스타일
+  js/
+    main.js                 부트스트랩
+    engine/                 deck(전환·스텝) · stage(스케일) · nav(조작) · toc · notes · chrome
+    components/             하이퍼스크립트 기반 컴포넌트 · 아이콘 · 목업 · 레이더 · 세계지도
+    screens/s01…s24.js      화면 24개
+    lib/                    dom(h) · anim(Scheduler·countTo)
+  data/
+    screens.js              24화면 메타 (제목 · 거버닝 메시지 · 발표 멘트 · 클릭 수)
+    config.js               발표 전 교체 항목 플래그
+tools/
+  check.mjs                 최종 검수 3문항 자동 점검
+  shoot.mjs                 Chrome 헤드리스 자동 캡처 + 콘솔 오류 수집
+```
+
+**화면 모듈 계약** — `src/js/screens/sNN.js` 는 `create()` 하나만 노출합니다.
+
+```js
+export function create() {
+  return {
+    el,                  // .screen 루트 엘리먼트
+    enter(sch) {},       // 진입 자동 연출 (sch = Scheduler)
+    steps: [(sch) => {}],// 클릭으로 진행되는 단계. 길이 = 설계 클릭 수
+    resume(sch) {},      // (선택) 뒤로 이동 복원 후 루프 연출 재개
+    leave() {},          // (선택) 정리
+  };
+}
+```
+
+화면은 방문할 때마다 새로 만들어지므로 연출이 항상 처음부터 재생됩니다.
+`Scheduler` 가 타이머·rAF를 모두 쥐고 있어 화면 이탈 시 확실히 취소됩니다.
+
+---
+
+## 검수
+
+```bash
+npm run check           # 작업지시서 「구현 체크 기준 3문항」 자동 점검
+node tools/shoot.mjs    # 24화면 자동 캡처 → tools/shots/*.png + 콘솔 오류 리포트
+node tools/shoot.mjs 15 22 --steps 0   # 특정 화면 · 클릭 전 상태만
+```
+
+현재 상태
+
+| 기준 | 결과 |
+|---|---|
+| ① 발표 멘트 키워드의 화면 반영 | 24화면 전부 충족 |
+| ② 클릭 합계 ≤ 13회 | **11회** (설계 per-screen 합계와 일치) |
+| ③ HTML 고유 연출 5종 | 카운트 모핑(S02) · 수렴 모핑(S15·S22) · 실화면 영상(S14) · 지도 팝업(S18) · 자동 2막(S16) 모두 구현 |
+
+---
+
+## 발표 전 교체 항목
+
+`src/data/config.js` 의 플래그로 관리합니다. 미완료 항목은 화면에 **교체 대기 배지**가 표시되어 리허설 때 놓치지 않습니다.
+
+| 항목 | 대상 | 플래그 |
+|---|---|---|
+| 제주대 매뉴얼 실제 화면 캡처 | S03 · S10 · S14 | `assetsFinal` |
+| CBT 운영 데모 영상 (20~30초 무음 루프) | S14 | `assets/video/cbt-demo.mp4` 배치 |
+| 글로벌 병원 수치 재검증 | S18 | `globalFiguresVerified` |
+| 국내 구축 실적 수치 확정 | S20 | `domesticFiguresConfirmed` |
+| 회사 연혁·인증 수치 확정 | S23 | `companyFiguresConfirmed` |
+
+자세한 교체 절차는 [`docs/ASSETS.md`](docs/ASSETS.md) 참조.
+
+---
+
+## 폰트
+
+`작업지시서`는 Pretendard CDN을 제안했으나, **오프라인 발표장에서도 렌더링이 100% 동일해야 하므로**
+제공된 로컬 폰트를 WOFF2로 변환해 자체호스팅했습니다.
+
+- **A2Z (에이투지체)** 300~900 7단계 → 제목 · 본문 · UI
+- **NanumSquare Neo** 400/700/800/900 → Big Number · 디스플레이 숫자 (`tabular-nums`)
+
+원본 TTF/OTF 11.0MB → WOFF2 2.5MB.
+
+## 브라우저
+
+Chrome / Edge 최신 버전 기준으로 개발·검증했습니다.
+S16의 동선 애니메이션은 CSS `offset-path` 를 사용하므로 Chromium 계열 또는 Firefox가 필요합니다.
