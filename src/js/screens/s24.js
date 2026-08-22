@@ -6,8 +6,7 @@
 import { h, rv } from '../lib/dom.js';
 import { metaOf } from '../../data/screens.js';
 import { ScreenRoot } from '../components/screen.js';
-import { Governing, BigNumber, SourceFooter } from '../components/index.js';
-import { CONFIG } from '../../data/config.js';
+import { Governing, BigNumber } from '../components/index.js';
 
 const meta = metaOf(24);
 
@@ -65,17 +64,11 @@ export function create() {
   const keywordEls = KEYWORDS.map((k) => h('span.s24__kw', k));
   const keywords = h('div.s24__keywords', ...keywordEls);
 
-  const foot = SourceFooter(
-    CONFIG.domesticFiguresConfirmed
-      ? '기관 로고는 사용 권리 확인 완료 항목만 표기'
-      : '기관 수치 · 명칭은 영업부서 확정본 기준으로 최종 확인 필요 · 로고는 권리 확인 전 텍스트 표기'
-  );
-
+  // 발주 측 수정 지시 — 하단 확인 문구 삭제
   const el = ScreenRoot(meta, { className: 's24' },
     gov,
     h('div.s24__body', numsPanel, grid),
-    keywords,
-    foot
+    keywords
   );
 
   return {
@@ -96,7 +89,6 @@ export function create() {
       sch.at(4600, () => el.classList.remove('is-pulse'));
       sch.stagger(keywordEls, (k) => k.classList.add('is-in'), { start: 4400, gap: 180 });
       sch.at(4400, () => keywords.classList.add('is-in'));
-      sch.at(5300, () => foot.classList.add('is-in'));
     },
     steps: [],
   };

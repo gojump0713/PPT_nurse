@@ -1022,6 +1022,16 @@
     linear-gradient(180deg, rgba(6, 11, 20, 0.62) 0%, rgba(6, 11, 20, 0.22) 30%,
       rgba(6, 11, 20, 0.22) 70%, rgba(6, 11, 20, 0.66) 100%);
 }
+/* bright 모드 — 어둡게 하는 필터·스크림을 완화해 영상이 또렷하게 보인다 */
+.bgvid--bright video {
+  filter: saturate(0.95) brightness(0.96);
+}
+.bgvid--bright .bgvid__scrim {
+  background:
+    radial-gradient(ellipse at center, transparent 0%, rgba(6, 11, 20, 0.3) 86%),
+    linear-gradient(180deg, rgba(6, 11, 20, 0.38) 0%, rgba(6, 11, 20, 0.1) 30%,
+      rgba(6, 11, 20, 0.1) 70%, rgba(6, 11, 20, 0.42) 100%);
+}
 /* 배경 영상을 쓰는 화면은 헤더·본문을 영상 위 레이어로 올린다 */
 .screen.has-bgvid > .hdr,
 .screen.has-bgvid > .screen__body {

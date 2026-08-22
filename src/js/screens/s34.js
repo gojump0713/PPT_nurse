@@ -58,7 +58,7 @@ export function create() {
   // 발주 측 수정 지시 — CTA(데모 신청 · 기술 미팅) 삭제
 
   // 클로징 무드 배경 — S06 은하수 영상을 낮은 투명도로 재사용 (경로 리터럴 유지)
-  const bg = BgVideo('assets/video/bg-galaxy.mp4', { opacity: 0.2 });
+  const bg = BgVideo('assets/video/bg-galaxy.mp4', { opacity: 0.55, bright: true });
 
   const el = ScreenRoot(meta, { header: false, className: 's34 has-bgvid' },
     h('div.s34__tracks', left, converge, right, logo),

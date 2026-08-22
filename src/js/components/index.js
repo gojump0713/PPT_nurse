@@ -395,13 +395,14 @@ export function VideoPlayer({ src, poster, slides = [], captions = [], badge, st
    실패(파일 없음 · 자동재생 차단) 시 조용히 제거되어 기존 배경으로 폴백된다.
    호출부에서 src 를 리터럴로 넘겨야 빌드 정적 스캔에 잡힌다.
    --------------------------------------------------------------- */
-export function BgVideo(src, { opacity = 0.34 } = {}) {
+export function BgVideo(src, { opacity = 0.34, bright = false } = {}) {
   const video = h('video', {
     src, muted: true, loop: true, autoplay: true, playsInline: true, preload: 'auto',
   });
   video.setAttribute('muted', '');
   const el = h('div.bgvid', { style: { '--bgvid-opacity': String(opacity) } },
     video, h('div.bgvid__scrim'));
+  if (bright) el.classList.add('bgvid--bright'); // 밝기 필터·스크림 완화
 
   el.play = (sch) => {
     let ok = false;
