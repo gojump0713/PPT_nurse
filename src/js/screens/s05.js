@@ -38,7 +38,7 @@ export function create() {
   );
 
   // CBT 환경에서 응시 중인 학생 모습 — 무드 배경 영상 (경로 리터럴 유지)
-  const bg = BgVideo('assets/video/bg-cbt-student.mp4', { opacity: 0.7, bright: true });
+  const bg = BgVideo('assets/video/bg-cbt-student.mp4', { opacity: 0.88, bright: true });
 
   const el = ScreenRoot(meta, { className: 's05 has-bgvid' },
     h('div.s05__top', gov, badge),
