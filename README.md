@@ -122,7 +122,12 @@ export function create() {
 npm run check           # 작업지시서 「구현 체크 기준 3문항」 자동 점검
 node tools/shoot.mjs    # 24화면 자동 캡처 → tools/shots/*.png + 콘솔 오류 리포트
 node tools/shoot.mjs 15 22 --steps 0   # 특정 화면 · 클릭 전 상태만
+node tools/shoot.mjs --dist            # 배포 산출물 검증
+node tools/shoot.mjs --url https://gojump0713.github.io/PPT_nurse/   # 실제 배포본 검증
 ```
+
+`shoot.mjs` 는 JS 예외·콘솔 오류가 하나라도 있으면 exit 1 로 끝납니다.
+발표 전 교체 대기 항목(데모 영상 등)으로 인한 예상된 404 는 별도로 분리해 보고하고 실패로 치지 않습니다.
 
 현재 상태
 

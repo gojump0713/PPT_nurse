@@ -5,6 +5,7 @@
  *   node tools/shoot.mjs 1 2 15 22       # 특정 화면만
  *   node tools/shoot.mjs --steps 2       # 각 화면에서 스텝을 2회까지 진행한 뒤 캡처
  *   node tools/shoot.mjs --dist          # 소스 대신 배포 산출물(dist/)을 검증
+ *   node tools/shoot.mjs --url https://gojump0713.github.io/PPT_nurse/   # 실제 배포본 검증
  *
  * 결과: tools/shots/*.png  ·  콘솔 오류는 stdout 에 요약
  * 외부 의존 없음 (Node 내장 http/ws + 설치된 Chrome/Edge 사용)
@@ -130,8 +131,14 @@ const pages = argv
   .map(Number);
 const TARGETS = pages.length ? pages : Array.from({ length: 24 }, (_, i) => i + 1);
 
-const server = await serve();
+/* --url 이 주어지면 로컬 서버 대신 실제 배포본을 검증한다 */
+const urlFlagIdx = process.argv.indexOf('--url');
+const REMOTE = urlFlagIdx >= 0 ? process.argv[urlFlagIdx + 1].replace(/\/$/, '') : null;
+const baseUrl = REMOTE || `http://127.0.0.1:${PORT}`;
+
+const server = REMOTE ? null : await serve();
 fs.mkdirSync(OUT, { recursive: true });
+if (REMOTE) console.log(`대상: ${REMOTE}\n`);
 
 const bin = findBrowser();
 if (!bin) { console.error('Chrome/Edge 를 찾지 못했습니다.'); process.exit(1); }
@@ -179,7 +186,7 @@ let current = '-';
 
 for (const n of TARGETS) {
   current = `S${String(n).padStart(2, '0')}`;
-  await cdp.send('Page.navigate', { url: `http://127.0.0.1:${PORT}/index.html#${n}` });
+  await cdp.send('Page.navigate', { url: `${baseUrl}/index.html#${n}` });
   await sleep(3000); // 폰트 로딩 + 진입 연출
 
   // 스텝(클릭) 진행
@@ -200,10 +207,21 @@ for (const n of TARGETS) {
   console.log(`${current}  ${info.result.value}`);
 }
 
+/* 발표 전 교체 대기 항목 때문에 예상되는 요청 실패는 실패로 치지 않는다.
+   (S14 데모 영상은 없으면 이미지 슬라이드로 자동 폴백하도록 설계되어 있다) */
+const EXPECTED = [/assets\/video\/[^\s]*\.(mp4|webm)/];
+const expected = problems.filter((p) => EXPECTED.some((re) => re.test(p)));
+const real = problems.filter((p) => !EXPECTED.some((re) => re.test(p)));
+
 console.log('\n--- 콘솔 진단 ---');
-if (problems.length === 0) console.log('오류/경고 없음');
-else problems.forEach((p) => console.log(p));
+if (real.length === 0) console.log('오류/경고 없음');
+else real.forEach((p) => console.log(p));
+
+if (expected.length) {
+  console.log('\n--- 예상된 미확보 에셋 (폴백 동작) ---');
+  expected.forEach((p) => console.log(p));
+}
 
 chrome.kill();
-server.close();
-process.exit(0);
+if (server) server.close();
+process.exit(real.length ? 1 : 0);
