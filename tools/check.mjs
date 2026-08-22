@@ -1,4 +1,4 @@
-/**
+﻿/**
  * tools/check.mjs — 작업지시서 「구현 체크 기준 (최종 검수 3문항)」 자동 점검
  *
  *   node tools/check.mjs
@@ -21,6 +21,12 @@ const ROOT = path.resolve(__dirname, '..');
 
 const read = (p) => fs.readFileSync(path.join(ROOT, p), 'utf8');
 
+/** 메타 → 화면 모듈 경로. 인트로는 번호가 없어 별도 파일명을 쓴다. */
+const moduleOf = (m) =>
+  m.intro
+    ? 'src/js/screens/intro.js'
+    : `src/js/screens/s${String(m.id).padStart(2, '0')}.js`;
+
 /* ---------- 메타 로드 (정적 파싱 대신 동적 import) ---------- */
 const { META, TOTAL_CLICKS, NUMBERED_TOTAL } = await import(
   new URL('../src/data/screens.js', import.meta.url).href
@@ -36,7 +42,7 @@ const warn = (msg) => console.log(`  \x1b[33m!\x1b[0m ${msg}`);
    ===================================================================== */
 console.log('\n[검수 ②] 클릭 합계 13회 이하');
 const stepCounts = META.map((m) => {
-  const src = read(`src/js/screens/s${String(m.id).padStart(2, '0')}.js`);
+  const src = read(moduleOf(m));
   const block = src.slice(src.indexOf('steps: ['));
   // steps 배열 안의 최상위 화살표 함수 개수 = 구현된 클릭 수
   const body = block.slice(0, block.indexOf('\n  };'));
@@ -49,7 +55,7 @@ stepCounts.forEach((s) => {
     bad(`SCREEN ${String(s.id).padStart(2, '0')}: 설계 ${s.declared}회 ≠ 구현 ${s.implemented}회`);
   }
 });
-ok(`화면 구성: 표지(SCREEN 00) + 본편 ${NUMBERED_TOTAL}화면`);
+ok(`화면 구성: 인트로 + 표지(SCREEN 00) + 본편 ${NUMBERED_TOTAL}화면`);
 const implTotal = stepCounts.reduce((a, s) => a + s.implemented, 0);
 if (implTotal <= 13) ok(`구현 클릭 합계 ${implTotal}회 (설계 ${TOTAL_CLICKS}회) — 기준 13회 이하 충족`);
 else bad(`구현 클릭 합계 ${implTotal}회 — 기준 13회 초과`);
@@ -79,8 +85,7 @@ function keywords(notes) {
 
 let weak = 0;
 META.forEach((m) => {
-  const file = `src/js/screens/s${String(m.id).padStart(2, '0')}.js`;
-  const src = read(file) + read('src/data/screens.js');
+  const src = read(moduleOf(m)) + read('src/data/screens.js');
   const kws = keywords(m.notes);
   const hit = kws.filter((k) => src.includes(k));
   const rate = kws.length ? hit.length / kws.length : 1;
@@ -96,14 +101,17 @@ if (weak === 0) ok('전 화면에서 발표 멘트 키워드가 화면 텍스트
    ===================================================================== */
 console.log('\n[검수 ③] HTML이라서 가능한 연출 5종');
 const CHECKS = [
+  { name: '오프닝 8컷 자동 루프 (INTRO)', file: 'src/js/screens/intro.js', needle: 'INTRO_CUTS' },
+  { name: '표지 배경 영상 (S00)', file: 'src/js/screens/s00.js', needle: 'coverVideo' },
   { name: '카운트 모핑 (S02)', file: 'src/js/screens/s02.js', needle: 'countTo' },
-  { name: '수렴 모핑 (S15)', file: 'src/js/screens/s15.js', needle: 'is-merging' },
-  { name: '수렴 모핑 (S28)', file: 'src/js/screens/s28.js', needle: 'is-landing' },
   // S14 는 영상 대신 실제 운영 현장 사진으로 대체됨 (더 강한 증거)
   { name: '실운영 현장 사진 (S14)', file: 'src/js/screens/s14.js', needle: 'jeju-pharm-cbt' },
-  { name: '표지 배경 영상 (S00)', file: 'src/js/screens/s00.js', needle: 'coverVideo' },
-  { name: '지도 팝업 (S18)', file: 'src/js/screens/s18.js', needle: 'WorldMap' },
-  { name: '자동 2막 (S16)', file: 'src/js/screens/s16.js', needle: 'is-act2' },
+  { name: 'CBT 실구동 영상 (S15~S18)', file: 'src/js/screens/demo.js', needle: 'createDemo' },
+  { name: '수렴 모핑 (S19)', file: 'src/js/screens/s19.js', needle: 'is-merging' },
+  { name: '자동 2막 (S20)', file: 'src/js/screens/s20.js', needle: 'is-act2' },
+  { name: '지도 팝업 (S22)', file: 'src/js/screens/s22.js', needle: 'WorldMap' },
+  { name: '구축사례 슬라이드 (S25~S30)', file: 'src/js/screens/case.js', needle: 'createCase' },
+  { name: '수렴 모핑 (S32)', file: 'src/js/screens/s32.js', needle: 'is-landing' },
 ];
 CHECKS.forEach((c) => {
   if (read(c.file).includes(c.needle)) ok(c.name);
@@ -129,9 +137,9 @@ const { CONFIG } = await import(new URL('../src/data/config.js', import.meta.url
 console.log('\n[발표 전 교체 대기]');
 if (!CONFIG.assetsFinal) warn('응시·관리 화면 실제 캡처 미반영 (S03 · S10) — config.assetsFinal');
 if (!fs.existsSync(path.join(ROOT, CONFIG.coverVideo))) warn(`표지 배경 영상 없음 (${CONFIG.coverVideo}) — 정지 화면으로 폴백`);
-if (!CONFIG.globalFiguresVerified) warn('글로벌 병원 수치 재검증 미완료 (S18)');
-if (!CONFIG.domesticFiguresConfirmed) warn('국내 실적 수치 영업부서 확정 미완료 (S20)');
-if (!CONFIG.companyFiguresConfirmed) warn('회사 연혁 수치 확정 미완료 (S29)');
+if (!CONFIG.globalFiguresVerified) warn('글로벌 병원 수치 재검증 미완료 (S22)');
+if (!CONFIG.domesticFiguresConfirmed) warn('국내 실적 수치 영업부서 확정 미완료 (S24)');
+if (!CONFIG.companyFiguresConfirmed) warn('회사 연혁 수치 확정 미완료 (S33)');
 
 console.log(fail === 0 ? '\n\x1b[32m검수 통과\x1b[0m\n' : `\n\x1b[31m검수 실패 ${fail}건\x1b[0m\n`);
 process.exit(fail === 0 ? 0 : 1);

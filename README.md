@@ -1,23 +1,25 @@
 # 영남이공대 · 영남대병원 발표자료 (HTML Full Screen Presentation)
 
-2028년 간호사 국가시험 CBT 전환 대응과 의료 VDI 업무환경을 다루는 **24화면 브라우저 전체화면 발표자료**입니다.
+2028년 간호사 국가시험 CBT 전환 대응과 의료 VDI 업무환경을 다루는 **36화면 브라우저 전체화면 발표자료**입니다.
 `작업지시서_화면설계서.md` 의 사양(PART A 공통 사양 · PART B 화면설계 · PART C 종합 정리)을 그대로 구현했습니다.
 
 - 형식: 브라우저 Full Screen Presentation (PPT 아님, 웹사이트 아님)
 - 화면비 16:9, 기준 해상도 1920×1080, `transform: scale()` 반응 축소
-- **표지(SCREEN 00)** + 본편 30 SCREEN / 3 PART (CBT · VDI · TILON)
+- **오프닝 영상 + 표지(SCREEN 00)** + 본편 34 SCREEN / 3 PART (CBT · VDI · TILON)
 - 빌드 도구·외부 CDN·런타임 의존성 **없음** (ES 모듈 + 자체호스팅 웹폰트·영상)
 
 | 구간 | 내용 |
 |---|---|
+| `intro` | 오프닝 영상 8컷 자동 반복 (번호 없음) |
 | `00` | 표지 — 별도 사양서 `docs/표지.pdf` |
 | `01` ~ `14` | PART 1 · CBT |
-| `15` ~ `20` | PART 2 · VDI |
-| `21` ~ `26` | 주요 구축사례 6곳 (발주 측 제공 슬라이드) |
-| `27` | PART 2 마무리 — 우선 적용업무 선정 |
-| `28` ~ `30` | PART 3 · TILON |
+| `15` ~ `18` | CBT 실제 구동 영상 4편 (교수 2 · 학생 2) |
+| `19` ~ `24` | PART 2 · VDI |
+| `25` ~ `30` | 주요 구축사례 6곳 (발주 측 제공 슬라이드) |
+| `31` | PART 2 마무리 — 우선 적용업무 선정 |
+| `32` ~ `34` | PART 3 · TILON |
 
-본편 24화면(현 01~20 · 27~30)은 `docs/작업지시서_화면설계서.md` 를 따릅니다.
+본편 24화면(현 01~14 · 19~24 · 31~34)은 `docs/작업지시서_화면설계서.md` 를 따릅니다.
 표지는 번호 체계 밖이라 페이지 인디케이터에 `COVER` 로만 표시되고, 검수 기준의 화면 수·클릭 수에는 포함되지 않습니다.
 
 ---
@@ -51,7 +53,7 @@ npm run verify:dist  # 빌드 후 dist/ 를 헤드리스 브라우저로 렌더 
 
 - `tools/check.mjs` 검수를 통과하지 못하면 `dist/` 를 만들지 않고 중단합니다.
 - 소스에서 실제로 참조하는 에셋만 담습니다(현재 이미지 1개). 제외된 파일은 전부 콘솔에 출력됩니다 — 저장소에는 그대로 남습니다.
-- 산출물: **66개 파일 / 2.82 MB** (폰트 2.52 MB 포함)
+- 산출물: 폰트 2.5MB · 영상 21.8MB · 이미지 0.8MB 포함
 
 `main` 에 푸시하면 `.github/workflows/deploy.yml` 이 위 빌드를 그대로 실행하고
 GitHub Pages 로 배포합니다. 검수 실패 시 배포되지 않습니다.
@@ -63,17 +65,17 @@ GitHub Pages 로 배포합니다. 검수 실패 시 배포되지 않습니다.
 | `→` `Space` `PageDown` · 화면 클릭 | 다음 단계 또는 다음 페이지 |
 | `←` `PageUp` · 우클릭 | 이전 (스텝이 남아 있으면 한 단계 되돌림) |
 | `↓` `↑` | 스텝 무시하고 페이지 단위 이동 |
-| `ESC` | 전체 목차 오버레이 (24 썸네일, PART 색 구분) |
+| `ESC` | 전체 목차 오버레이 (36 썸네일, PART 색 구분) |
 | 숫자 + `Enter` | 페이지 점프 (`0` `Enter` → 표지, `1` `5` `Enter` → SCREEN 15) |
 | `Home` / `End` | 첫 화면 / 마지막 화면 |
 | `F` | 전체화면 토글 |
 | `N` | **발표자 노트** (주요 발표 멘트 · 다음 화면 연결 멘트) |
 
-- 우하단에 `NN / 24` 와 PART 라벨이 고정 표시됩니다.
+- 우하단에 `NN / 34` 와 PART 라벨이 고정 표시됩니다.
 - 클릭이 남은 화면은 `▸`, 소진되면 `다음 페이지 →` 로 바뀌고 5초 무동작 시 미세 펄스합니다.
 - 마우스를 3초간 움직이지 않으면 커서가 자동으로 숨습니다.
-- 주소창 해시로 딥링크됩니다 (`index.html#0` 표지, `index.html#15` SCREEN 15).
-- 표지에서는 클릭 인디케이터와 진행 바가 숨겨집니다(사양서 §13 — 발표자가 조작하지 않는 화면).
+- 주소창 해시로 딥링크됩니다 (`index.html#intro` 오프닝, `#0` 표지, `#15` SCREEN 15).
+- 오프닝·표지에서는 클릭 인디케이터와 진행 바가 숨겨집니다(사양서 §13 — 발표자가 조작하지 않는 화면).
 
 ---
 
@@ -84,8 +86,11 @@ index.html                  진입점
 assets/
   fonts/                    A2Z(에이투지체) 7종 · NanumSquare Neo 4종 → WOFF2 (11MB → 2.5MB)
   images/brand|mascot|dept  ASCII 슬러그로 정규화 + manifest.json
-  images/gen/               생성형 AI 이미지 (S04 · S07 · S15) — WebP 18.6MB → 0.12MB
-  video/cover-loop.mp4      표지 배경 루프 영상 15초 · 무음 · H.264
+  images/gen/               생성형 AI 이미지 (S04 · S07 · S19) — WebP 18.6MB → 0.12MB
+  images/ref/               발주 측 제공 실사진 · 구축사례 슬라이드
+  video/intro-cut1~8.mp4    오프닝 8컷 (각 6초 · 무음)
+  video/cover-loop.mp4      표지 배경 루프 15초 · 무음
+  video/demo-*.mp4          CBT 실구동 영상 4편 (S15~S18)
 src/
   css/
     tokens.css              컬러 · 타이포 스케일 · 모션 토큰
@@ -93,16 +98,21 @@ src/
     components.css          공통 컴포넌트 15종
     mocks.css               CBT 응시/관리 화면 목업
     chrome.css              페이지·클릭 인디케이터 · 목차 · 발표자 노트
-    screens/cover.css       표지(SCREEN 00) 스타일
+    screens/intro.css       오프닝 영상 루프
+    screens/cover.css       표지(SCREEN 00)
+    screens/demo.css        CBT 실구동 영상 화면
+    screens/case.css        구축사례 슬라이드 화면
     screens/part1|2|3.css   화면별 스타일
   js/
     main.js                 부트스트랩
     engine/                 deck(전환·스텝) · stage(스케일) · nav(조작) · toc · notes · chrome
     components/             하이퍼스크립트 기반 컴포넌트 · 아이콘 · 목업 · 레이더 · 세계지도
-    screens/s00…s24.js      표지 + 본편 24화면
+    screens/intro.js        오프닝 루프
+    screens/s00…s34.js      표지 + 본편 34화면
+    screens/demo.js·case.js 반복 화면 공용 팩토리
     lib/                    dom(h) · anim(Scheduler·countTo)
   data/
-    screens.js              24화면 메타 (제목 · 거버닝 메시지 · 발표 멘트 · 클릭 수)
+    screens.js              전 화면 메타 (제목 · 거버닝 메시지 · 발표 멘트 · 클릭 수)
     config.js               발표 전 교체 항목 플래그
 tools/
   check.mjs                 최종 검수 3문항 자동 점검
@@ -135,7 +145,7 @@ export function create() {
 
 ```bash
 npm run check           # 작업지시서 「구현 체크 기준 3문항」 자동 점검
-node tools/shoot.mjs    # 24화면 자동 캡처 → tools/shots/*.png + 콘솔 오류 리포트
+node tools/shoot.mjs    # 전 화면 자동 캡처 → tools/shots/*.png + 콘솔 오류 리포트
 node tools/shoot.mjs 15 22 --steps 0   # 특정 화면 · 클릭 전 상태만
 node tools/shoot.mjs --dist            # 배포 산출물 검증
 node tools/shoot.mjs --url https://gojump0713.github.io/PPT_nurse/   # 실제 배포본 검증
@@ -150,7 +160,7 @@ node tools/shoot.mjs --url https://gojump0713.github.io/PPT_nurse/   # 실제 �
 |---|---|
 | ① 발표 멘트 키워드의 화면 반영 | 전 화면 충족 |
 | ② 클릭 합계 ≤ 13회 | **12회** (설계 per-screen 합계와 일치) |
-| ③ HTML 고유 연출 | 카운트 모핑(S02) · 수렴 모핑(S15·S28) · 실운영 현장 사진(S14) · 표지 배경 영상(S00) · 지도 팝업(S18) · 자동 2막(S16) |
+| ③ HTML 고유 연출 | 오프닝 8컷 루프 · 표지 배경 영상 · 카운트 모핑(S02) · 실운영 사진(S14) · 실구동 영상(S15~18) · 수렴 모핑(S19·S32) · 자동 2막(S20) · 지도 팝업(S22) |
 
 ---
 
@@ -161,13 +171,15 @@ node tools/shoot.mjs --url https://gojump0713.github.io/PPT_nurse/   # 실제 �
 | 항목 | 대상 | 상태 |
 |---|---|---|
 | 제주대 약학대학 실제 운영 사진 | S14 | **완료** — 발주 측 제공 (응시생 식별정보 마스킹) |
-| 주요 구축사례 슬라이드 6장 | S21~S26 | **완료** — 발주 측 제공 |
+| 주요 구축사례 슬라이드 6장 | S25~S30 | **완료** — 발주 측 제공 |
+| CBT 실제 구동 영상 4편 | S15~S18 | **완료** — 발주 측 제공 (교수 계정명 마스킹) |
+| 오프닝 영상 8컷 | INTRO | **완료** — 발주 측 제공 |
 | 표지 배경 루프 영상 | SCREEN 00 | **완료** — 생성형 AI 15초 무음 루프 |
-| 시뮬레이션 실습실 · 시험지 더미 · 대학/병원 실루엣 | S04 · S07 · S15 | **완료** — 생성형 AI |
+| 시뮬레이션 실습실 · 시험지 더미 · 대학/병원 실루엣 | S04 · S07 · S19 | **완료** — 생성형 AI |
 | 학생 응시 / 교수 관리 화면 실제 캡처 | S03 · S10 | 대기 (`assetsFinal`) |
-| 글로벌 병원 수치 재검증 | S18 | 대기 (`globalFiguresVerified`) |
-| 국내 구축 실적 수치 확정 | S20 | 대기 (`domesticFiguresConfirmed`) |
-| 회사 연혁·인증 수치 확정 | S29 | 대기 (`companyFiguresConfirmed`) |
+| 글로벌 병원 수치 재검증 | S22 | 대기 (`globalFiguresVerified`) |
+| 국내 구축 실적 수치 확정 | S24 | 대기 (`domesticFiguresConfirmed`) |
+| 회사 연혁·인증 수치 확정 | S33 | 대기 (`companyFiguresConfirmed`) |
 
 > **S14는 생성형 AI로 만들지 않았습니다.** 그 화면의 주장이 "제안이 아니라, 이미 대학에서
 > 운영 중인 환경입니다"이기 때문에, 이 자리는 연출이 아니라 제3자(제주대학교)의 실제 가동 시스템에 대한
@@ -190,4 +202,4 @@ node tools/shoot.mjs --url https://gojump0713.github.io/PPT_nurse/   # 실제 �
 ## 브라우저
 
 Chrome / Edge 최신 버전 기준으로 개발·검증했습니다.
-S16의 동선 애니메이션은 CSS `offset-path` 를 사용하므로 Chromium 계열 또는 Firefox가 필요합니다.
+S20의 동선 애니메이션은 CSS `offset-path` 를 사용하므로 Chromium 계열 또는 Firefox가 필요합니다.

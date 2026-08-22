@@ -1,24 +1,24 @@
-/* =============================================================
-   part2.css — SCREEN 15 ~ 20 · 27 (브리지 ① · PART 2 · VDI)
-   S21~S26 은 구축사례 이미지 화면이라 screens/case.css 가 담당한다.
+﻿/* =============================================================
+   part2.css — SCREEN 19 ~ 24 · 31 (브리지 ① · PART 2 · VDI)
+   S25~S30 은 구축사례 이미지 화면이라 screens/case.css 가 담당한다.
    ============================================================= */
 
 /* -------------------------------------------------------------
-   S15 — 브리지 ① : 두 세계가 하나의 구조로
+   S19 — 브리지 ① : 두 세계가 하나의 구조로
    ------------------------------------------------------------- */
-.s15 .screen__body {
+.s19 .screen__body {
   position: relative;
 }
-.s15__hdr {
+.s19__hdr {
   flex: none;
 }
-.s15__parts {
+.s19__parts {
   display: flex;
   align-items: center;
   gap: 14px;
 }
-.s15__part,
-.s28__part {
+.s19__part,
+.s32__part {
   display: flex;
   align-items: center;
   gap: 9px;
@@ -35,47 +35,47 @@
     background-color 900ms var(--ease),
     opacity 900ms var(--ease);
 }
-.s15__part b,
-.s28__part b {
+.s19__part b,
+.s32__part b {
   font-family: var(--font-display);
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.06em;
   opacity: 0.75;
 }
-.s15__part.is-from {
+.s19__part.is-from {
   color: var(--c-cbt);
   border-color: rgba(28, 96, 239, 0.45);
   background: rgba(28, 96, 239, 0.12);
 }
-.s15__part.is-to {
+.s19__part.is-to {
   opacity: 0.35;
 }
-.s15.is-merging .s15__part.is-from {
+.s19.is-merging .s19__part.is-from {
   opacity: 0.28;
   color: var(--c-muted);
   border-color: var(--c-line);
   background: transparent;
 }
-.s15.is-merging .s15__part.is-to {
+.s19.is-merging .s19__part.is-to {
   opacity: 1;
   color: var(--c-vdi);
   border-color: rgba(14, 158, 142, 0.45);
   background: rgba(14, 158, 142, 0.12);
 }
-.s15__part-arrow,
-.s28__part-arrow {
+.s19__part-arrow,
+.s32__part-arrow {
   color: var(--c-line-strong);
 }
 
-.s15__split {
+.s19__split {
   position: absolute;
   inset: 96px 0 0;
   display: flex;
   align-items: stretch;
   gap: 0;
 }
-.s15__panel {
+.s19__panel {
   position: relative;
   flex: 1 1 0;
   display: flex;
@@ -87,23 +87,23 @@
     transform var(--t-bridge) var(--ease),
     filter var(--t-bridge) var(--ease);
 }
-.s15__panel.is-in {
+.s19__panel.is-in {
   opacity: 1;
 }
-.s15__panel--uni {
+.s19__panel--uni {
   border: 1px solid rgba(28, 96, 239, 0.4);
   background: linear-gradient(160deg, rgba(28, 96, 239, 0.18), rgba(28, 96, 239, 0.03));
   transform: translateX(-24px);
 }
-.s15__panel--hos {
+.s19__panel--hos {
   border: 1px solid rgba(14, 158, 142, 0.4);
   background: linear-gradient(200deg, rgba(14, 158, 142, 0.18), rgba(14, 158, 142, 0.03));
   transform: translateX(24px);
 }
-.s15__panel.is-in {
+.s19__panel.is-in {
   transform: none;
 }
-.s15__seam {
+.s19__seam {
   flex: 0 0 40px;
   align-self: stretch;
   background: linear-gradient(180deg, transparent, var(--c-line-strong), transparent);
@@ -111,27 +111,27 @@
   margin: 0 20px;
   transition: opacity var(--t-bridge) var(--ease);
 }
-.s15.is-merging .s15__panel--uni {
+.s19.is-merging .s19__panel--uni {
   transform: translateX(48%) scale(0.9);
   filter: blur(10px);
   opacity: 0;
 }
-.s15.is-merging .s15__panel--hos {
+.s19.is-merging .s19__panel--hos {
   transform: translateX(-48%) scale(0.9);
   filter: blur(10px);
   opacity: 0;
 }
-.s15.is-merging .s15__seam {
+.s19.is-merging .s19__seam {
   opacity: 0;
 }
 
-.s15__panel-bg {
+.s19__panel-bg {
   position: absolute;
   inset: 0;
   pointer-events: none;
   overflow: hidden;
 }
-.s15__silhouette {
+.s19__silhouette {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -147,13 +147,13 @@
   mask-image: linear-gradient(180deg, transparent 10%, #000 62%, #000 100%);
   -webkit-mask-image: linear-gradient(180deg, transparent 10%, #000 62%, #000 100%);
 }
-.s15__panel--uni .s15__silhouette {
+.s19__panel--uni .s19__silhouette {
   color: var(--c-cbt);
 }
-.s15__panel--hos .s15__silhouette {
+.s19__panel--hos .s19__silhouette {
   color: var(--c-vdi);
 }
-.s15__panel-inner {
+.s19__panel-inner {
   position: relative;
   z-index: 1;
   flex: 1 1 auto;
@@ -165,25 +165,25 @@
   padding: 40px;
   text-align: center;
 }
-.s15__panel-title {
+.s19__panel-title {
   font-size: 44px;
   font-weight: 800;
   letter-spacing: -0.02em;
 }
-.s15__panel--uni .s15__panel-title {
+.s19__panel--uni .s19__panel-title {
   color: var(--c-cbt);
 }
-.s15__panel--hos .s15__panel-title {
+.s19__panel--hos .s19__panel-title {
   color: var(--c-vdi);
 }
-.s15__items {
+.s19__items {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
   max-width: 560px;
 }
-.s15__item {
+.s19__item {
   padding: 11px 20px;
   border-radius: 100px;
   border: 1px solid var(--c-line);
@@ -197,15 +197,15 @@
     opacity 420ms var(--ease),
     transform 420ms var(--ease);
 }
-.s15__item.is-in {
+.s19__item.is-in {
   opacity: 1;
   transform: none;
 }
-.s15__panel-arrow {
+.s19__panel-arrow {
   font-size: 28px;
   color: var(--c-line-strong);
 }
-.s15__panel-result {
+.s19__panel-result {
   padding: 16px 30px;
   border-radius: var(--r-md);
   border: 1px solid currentColor;
@@ -217,20 +217,20 @@
     opacity 520ms var(--ease),
     transform 520ms var(--ease);
 }
-.s15__panel--uni .s15__panel-result {
+.s19__panel--uni .s19__panel-result {
   color: var(--c-cbt);
   background: rgba(28, 96, 239, 0.14);
 }
-.s15__panel--hos .s15__panel-result {
+.s19__panel--hos .s19__panel-result {
   color: var(--c-vdi);
   background: rgba(14, 158, 142, 0.14);
 }
-.s15__panel-result.is-in {
+.s19__panel-result.is-in {
   opacity: 1;
   transform: none;
 }
 
-.s15__merged {
+.s19__merged {
   position: absolute;
   inset: 96px 0 0;
   display: flex;
@@ -242,15 +242,15 @@
   pointer-events: none;
   transition: opacity 700ms var(--ease);
 }
-.s15.is-merged .s15__merged {
+.s19.is-merged .s19__merged {
   opacity: 1;
 }
-.s15__core {
+.s19__core {
   display: flex;
   align-items: center;
   gap: 20px;
 }
-.s15__core-node {
+.s19__core-node {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -268,41 +268,41 @@
     opacity 620ms var(--ease),
     transform 620ms var(--ease);
 }
-.s15__core-node.is-in {
+.s19__core-node.is-in {
   opacity: 1;
   transform: none;
 }
-.s15__core-icon {
+.s19__core-icon {
   color: var(--c-accent);
 }
-.s15__core-plus {
+.s19__core-plus {
   font-size: 34px;
   font-weight: 300;
   color: var(--c-line-strong);
 }
-.s15__gov {
+.s19__gov {
   max-width: 1380px;
 }
 
 /* -------------------------------------------------------------
-   S16 — 병원 평면도 2막
+   S20 — 병원 평면도 2막
    ------------------------------------------------------------- */
-.s16__top {
+.s20__top {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 40px;
 }
-.s16__top .gov {
+.s20__top .gov {
   max-width: 1000px;
 }
-.s16__acts {
+.s20__acts {
   display: flex;
   flex-direction: column;
   gap: 8px;
   flex: none;
 }
-.s16__act {
+.s20__act {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -318,32 +318,32 @@
     color 620ms var(--ease),
     background-color 620ms var(--ease);
 }
-.s16__act b {
+.s20__act b {
   font-family: var(--font-display);
   font-size: 13px;
   font-weight: 800;
   letter-spacing: 0.08em;
 }
-.s16.is-act1 .s16__act.is-a1 {
+.s20.is-act1 .s20__act.is-a1 {
   opacity: 1;
   color: #ff9a9c;
   border-color: rgba(229, 72, 77, 0.45);
   background: rgba(229, 72, 77, 0.1);
 }
-.s16.is-act2 .s16__act.is-a1 {
+.s20.is-act2 .s20__act.is-a1 {
   opacity: 0.3;
   color: var(--c-dim);
   border-color: var(--c-line);
   background: transparent;
 }
-.s16.is-act2 .s16__act.is-a2 {
+.s20.is-act2 .s20__act.is-a2 {
   opacity: 1;
   color: var(--c-accent);
   border-color: var(--c-accent-line);
   background: var(--c-accent-soft);
 }
 
-.s16__body {
+.s20__body {
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
@@ -352,14 +352,14 @@
   gap: 26px;
   min-height: 0;
 }
-.s16__planwrap {
+.s20__planwrap {
   position: relative;
   /* 평면도를 확대해 화면을 채운다. 좌표계(offset-path 포함)는 그대로 두고
-     시각적으로만 키우기 위해 내부 .s16__plan 에 scale 을 건다. */
+     시각적으로만 키우기 위해 내부 .s20__plan 에 scale 을 건다. */
   width: 1044px;
   height: 510px;
 }
-.s16__plan {
+.s20__plan {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -373,7 +373,7 @@
     linear-gradient(90deg, rgba(242, 242, 242, 0.03) 1px, transparent 1px) 0 0 / 30px 30px,
     var(--c-card);
 }
-.s16__room {
+.s20__room {
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -389,28 +389,28 @@
     opacity 480ms var(--ease),
     transform 480ms var(--ease);
 }
-.s16__room.is-in {
+.s20__room.is-in {
   opacity: 1;
   transform: none;
 }
-.s16__room-icon {
+.s20__room-icon {
   color: var(--c-accent);
   opacity: 0.9;
 }
-.s16__room-name {
+.s20__room-name {
   font-size: var(--fs-body);
   font-weight: 600;
   color: #b6c0c8;
 }
 
-.s16__route {
+.s20__route {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
 }
-.s16__route-ghost {
+.s20__route-ghost {
   stroke: rgba(229, 72, 77, 0.55);
   stroke-width: 10;
   stroke-linecap: round;
@@ -419,24 +419,24 @@
   stroke-dasharray: 6 16;
   transition: opacity 620ms var(--ease);
 }
-.s16.is-act1 .s16__route-ghost {
+.s20.is-act1 .s20__route-ghost {
   opacity: 1;
-  animation: s16-dash 2.4s linear infinite;
+  animation: S20-dash 2.4s linear infinite;
 }
-.s16.is-act2 .s16__route-ghost {
+.s20.is-act2 .s20__route-ghost {
   opacity: 0;
 }
-@keyframes s16-dash {
+@keyframes S20-dash {
   to { stroke-dashoffset: -44; }
 }
-.s16__route-line {
+.s20__route-line {
   stroke: var(--c-line-strong);
   stroke-width: 2;
   stroke-dasharray: 4 8;
   opacity: 0.6;
 }
 
-.s16__doctor {
+.s20__doctor {
   position: absolute;
   top: 0;
   left: 0;
@@ -444,14 +444,14 @@
   height: 0;
   offset-distance: 0%;
 }
-.s16.is-act1 .s16__doctor,
-.s16.is-act2 .s16__doctor {
-  animation: s16-walk 9s linear infinite;
+.s20.is-act1 .s20__doctor,
+.s20.is-act2 .s20__doctor {
+  animation: S20-walk 9s linear infinite;
 }
-@keyframes s16-walk {
+@keyframes S20-walk {
   to { offset-distance: 100%; }
 }
-.s16__doctor-pin {
+.s20__doctor-pin {
   position: absolute;
   left: -19px;
   top: -19px;
@@ -464,7 +464,7 @@
   color: #fff;
   box-shadow: 0 0 0 6px var(--c-accent-soft);
 }
-.s16__doctor-trail {
+.s20__doctor-trail {
   position: absolute;
   left: 24px;
   top: -14px;
@@ -473,14 +473,14 @@
   opacity: 0;
   transition: opacity 620ms var(--ease);
 }
-.s16.is-act1 .s16__doctor-trail {
+.s20.is-act1 .s20__doctor-trail {
   opacity: 1;
 }
-.s16.is-act2 .s16__doctor-trail {
+.s20.is-act2 .s20__doctor-trail {
   opacity: 0;
   transform: translateY(10px) scale(0.85);
 }
-.s16__trail-tag {
+.s20__trail-tag {
   padding: 4px 9px;
   border-radius: 4px;
   border: 1px solid rgba(229, 72, 77, 0.5);
@@ -489,14 +489,14 @@
   font-weight: 700;
   color: #ff9a9c;
   white-space: nowrap;
-  animation: s16-lag 1.4s var(--ease) infinite alternate;
+  animation: S20-lag 1.4s var(--ease) infinite alternate;
   animation-delay: var(--d);
 }
-@keyframes s16-lag {
+@keyframes S20-lag {
   from { transform: translateX(0); opacity: 0.95; }
   to { transform: translateX(-7px); opacity: 0.55; }
 }
-.s16__doctor-screen {
+.s20__doctor-screen {
   position: absolute;
   left: 24px;
   top: -13px;
@@ -514,11 +514,11 @@
   opacity: 0;
   transition: opacity 620ms var(--ease);
 }
-.s16.is-act2 .s16__doctor-screen {
+.s20.is-act2 .s20__doctor-screen {
   opacity: 1;
 }
 
-.s16__dock {
+.s20__dock {
   display: flex;
   align-items: center;
   gap: 26px;
@@ -530,33 +530,33 @@
     border-color 620ms var(--ease),
     box-shadow 620ms var(--ease);
 }
-.s16.is-act2 .s16__dock {
+.s20.is-act2 .s20__dock {
   border-color: var(--c-accent-line);
   box-shadow: 0 0 0 1px var(--c-accent-line) inset, 0 24px 60px -34px var(--c-accent-glow);
 }
-.s16__dock-server {
+.s20__dock-server {
   display: flex;
   align-items: center;
   gap: 14px;
   padding-right: 26px;
   border-right: 1px solid var(--c-line);
 }
-.s16__dock-icon {
+.s20__dock-icon {
   color: var(--c-accent);
 }
-.s16__dock-title {
+.s20__dock-title {
   font-size: var(--fs-key);
   font-weight: 700;
 }
-.s16__dock-sub {
+.s20__dock-sub {
   font-size: 14px;
   color: var(--c-muted);
 }
-.s16__dock-tags {
+.s20__dock-tags {
   display: flex;
   gap: 10px;
 }
-.s16__dock-tag {
+.s20__dock-tag {
   padding: 10px 18px;
   border-radius: 100px;
   border: 1px solid var(--c-accent-line);
@@ -570,15 +570,15 @@
     opacity 520ms var(--ease),
     transform 620ms var(--ease);
 }
-.s16__dock-tag.is-in {
+.s20__dock-tag.is-in {
   opacity: 1;
   transform: none;
 }
 
 /* -------------------------------------------------------------
-   S17 — VDI 4단계 + 분실 시나리오
+   S21 — VDI 4단계 + 분실 시나리오
    ------------------------------------------------------------- */
-.s17__body {
+.s21__body {
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
@@ -587,11 +587,11 @@
   margin-top: 22px;
   min-height: 0;
 }
-.s17__chain {
+.s21__chain {
   display: flex;
   align-items: stretch;
 }
-.s17__step {
+.s21__step {
   position: relative;
   flex: 1 1 0;
   display: flex;
@@ -611,41 +611,41 @@
     border-color 480ms var(--ease),
     background-color 480ms var(--ease);
 }
-.s17__step.is-lit {
+.s21__step.is-lit {
   opacity: 1;
   transform: none;
   border-color: var(--c-accent-line);
   background: linear-gradient(180deg, var(--c-accent-soft), transparent 74%), var(--c-card);
 }
-.s17__step-no {
+.s21__step-no {
   font-family: var(--font-display);
   font-size: 13px;
   font-weight: 800;
   letter-spacing: 0.1em;
   color: var(--c-accent);
 }
-.s17__step-icon {
+.s21__step-icon {
   color: #c3ccd3;
 }
-.s17__step.is-lit .s17__step-icon {
+.s21__step.is-lit .s21__step-icon {
   color: var(--c-accent);
 }
-.s17__step-title {
+.s21__step-title {
   font-size: var(--fs-key);
   font-weight: 700;
   word-break: keep-all;
 }
-.s17__step-sub {
+.s21__step-sub {
   font-size: var(--fs-label);
   color: var(--c-muted);
   word-break: keep-all;
 }
-.s17__link {
+.s21__link {
   flex: 0 0 54px;
   display: grid;
   place-items: center;
 }
-.s17__link span {
+.s21__link span {
   display: block;
   width: 100%;
   height: 2px;
@@ -653,7 +653,7 @@
   position: relative;
   overflow: hidden;
 }
-.s17__link span::after {
+.s21__link span::after {
   content: '';
   position: absolute;
   inset: 0;
@@ -661,11 +661,11 @@
   background: var(--c-accent);
   transition: width 480ms var(--ease);
 }
-.s17__link.is-lit span::after {
+.s21__link.is-lit span::after {
   width: 100%;
 }
 
-.s17__lost {
+.s21__lost {
   position: absolute;
   inset: 0;
   display: flex;
@@ -681,28 +681,28 @@
   transition: opacity 520ms var(--ease);
   pointer-events: none;
 }
-.s17.is-lost .s17__lost {
+.s21.is-lost .s21__lost {
   opacity: 1;
 }
-.s17__lost-x {
+.s21__lost-x {
   font-size: 54px;
   font-weight: 800;
   line-height: 1;
   color: var(--c-danger);
 }
-.s17__lost span:last-child {
+.s21__lost span:last-child {
   font-size: var(--fs-key);
   font-weight: 800;
   color: #ff9a9c;
 }
-.s17.is-lost .s17__step[data-i='0'] {
+.s21.is-lost .s21__step[data-i='0'] {
   filter: grayscale(0.6);
 }
-.s17.is-lost .s17__step[data-i='3'] {
+.s21.is-lost .s21__step[data-i='3'] {
   box-shadow: 0 0 0 2px var(--c-accent), 0 0 50px -10px var(--c-accent-glow);
 }
 
-.s17__verdict {
+.s21__verdict {
   display: flex;
   align-items: center;
   gap: 20px;
@@ -717,32 +717,32 @@
     opacity 620ms var(--ease),
     transform 620ms var(--ease);
 }
-.s17.is-safe .s17__verdict {
+.s21.is-safe .s21__verdict {
   opacity: 1;
   transform: none;
 }
-.s17__verdict-icon {
+.s21__verdict-icon {
   color: var(--c-accent);
   flex: none;
 }
-.s17__verdict-title {
+.s21__verdict-title {
   font-size: var(--fs-key-lg);
   font-weight: 800;
   letter-spacing: -0.015em;
 }
-.s17__verdict-sub {
+.s21__verdict-sub {
   font-size: var(--fs-body);
   color: var(--c-muted);
   margin-top: 4px;
 }
 
-.s17__effects {
+.s21__effects {
   flex: none;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 12px;
 }
-.s17__effect {
+.s21__effect {
   display: flex;
   align-items: center;
   gap: 11px;
@@ -759,11 +759,11 @@
     opacity 420ms var(--ease),
     transform 420ms var(--ease);
 }
-.s17__effect.is-in {
+.s21__effect.is-in {
   opacity: 1;
   transform: none;
 }
-.s17__effect-no {
+.s21__effect-no {
   width: 22px;
   height: 22px;
   display: grid;
@@ -777,9 +777,9 @@
 }
 
 /* -------------------------------------------------------------
-   S18 — 세계지도 + 팝업
+   S22 — 세계지도 + 팝업
    ------------------------------------------------------------- */
-.s18__map {
+.s22__map {
   position: relative;
   flex: 1 1 auto;
   min-height: 0;
@@ -842,7 +842,7 @@
   animation-duration: 1.4s;
 }
 
-.s18__purposes {
+.s22__purposes {
   flex: none;
   display: flex;
   align-items: center;
@@ -853,18 +853,18 @@
     opacity var(--t-reveal) var(--ease),
     transform var(--t-reveal) var(--ease);
 }
-.s18__purposes.is-in {
+.s22__purposes.is-in {
   opacity: 1;
   transform: none;
 }
-.s18__purposes-label {
+.s22__purposes-label {
   font-size: 14px;
   font-weight: 800;
   letter-spacing: 0.14em;
   color: var(--c-muted);
   margin-right: 8px;
 }
-.s18__purpose {
+.s22__purpose {
   flex: 1 1 0;
   display: flex;
   align-items: center;
@@ -881,12 +881,12 @@
     background-color 420ms var(--ease),
     color 420ms var(--ease);
 }
-.s18__purpose.is-lit {
+.s22__purpose.is-lit {
   border-color: var(--c-accent-line);
   background: linear-gradient(180deg, var(--c-accent-soft), transparent 76%), var(--c-card);
   color: #fff;
 }
-.s18__purpose-no {
+.s22__purpose-no {
   font-family: var(--font-display);
   font-size: 14px;
   font-weight: 800;
@@ -894,18 +894,18 @@
 }
 
 /* -------------------------------------------------------------
-   S19 — 플립 카드 5장
+   S23 — 플립 카드 5장
    ------------------------------------------------------------- */
-.s19 .gov {
+.s23 .gov {
   transition:
     opacity var(--t-reveal) var(--ease),
     transform var(--t-reveal) var(--ease),
     text-shadow 600ms var(--ease);
 }
-.s19 .gov.is-pulse {
+.s23 .gov.is-pulse {
   text-shadow: 0 0 42px var(--c-accent-glow);
 }
-.s19__row {
+.s23__row {
   flex: 1 1 auto;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -914,10 +914,10 @@
   margin: 40px 0 22px;
   min-height: 0;
 }
-.s19__row .flip {
+.s23__row .flip {
   height: 420px;
 }
-.s19__hint {
+.s23__hint {
   flex: none;
   text-align: center;
   font-size: var(--fs-note);
@@ -925,14 +925,14 @@
   opacity: 0;
   transition: opacity 520ms var(--ease);
 }
-.s19__hint.is-in {
+.s23__hint.is-in {
   opacity: 0.55;
 }
 
 /* -------------------------------------------------------------
-   S20 — 26곳 실적
+   S24 — 26곳 실적
    ------------------------------------------------------------- */
-.s20__body {
+.s24__body {
   flex: 1 1 auto;
   display: grid;
   grid-template-columns: 35fr 65fr;
@@ -940,58 +940,58 @@
   margin: 22px 0;
   min-height: 0;
 }
-.s20__nums {
+.s24__nums {
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 34px;
 }
-.s20__num-label {
+.s24__num-label {
   font-size: var(--fs-body);
   font-weight: 600;
   letter-spacing: 0.02em;
   color: var(--c-muted);
   margin-bottom: 6px;
 }
-.s20__num-block .bignum {
+.s24__num-block .bignum {
   color: #fff;
 }
-.s20__num-note {
+.s24__num-note {
   margin-top: 12px;
   font-size: var(--fs-body);
   color: #8e99a5;
 }
-.s20__num-block--sub {
+.s24__num-block--sub {
   padding-top: 28px;
   border-top: 1px solid var(--c-line);
 }
-.s20__sub-row {
+.s24__sub-row {
   display: flex;
   align-items: baseline;
   gap: 10px;
 }
-.s20__sub-unit {
+.s24__sub-unit {
   font-size: var(--fs-key);
   font-weight: 700;
   color: var(--c-accent);
 }
-.s20.is-pulse .s20__num-block--sub {
-  animation: s20-pulse 1.1s var(--ease) 1;
+.s24.is-pulse .s24__num-block--sub {
+  animation: S24-pulse 1.1s var(--ease) 1;
 }
-@keyframes s20-pulse {
+@keyframes S24-pulse {
   0% { transform: none; }
   30% { transform: translateX(8px); }
   100% { transform: none; }
 }
 
-.s20__grid {
+.s24__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   gap: 16px;
   min-height: 0;
 }
-.s20__group {
+.s24__group {
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -1005,36 +1005,36 @@
     opacity 520ms var(--ease),
     transform 520ms var(--ease);
 }
-.s20__group.is-in {
+.s24__group.is-in {
   opacity: 1;
   transform: none;
 }
-.s20__group.is-highlight {
+.s24__group.is-highlight {
   border-color: var(--c-accent-line);
   background: linear-gradient(180deg, var(--c-accent-soft), transparent 70%), var(--c-card);
 }
-.s20__group-head {
+.s24__group-head {
   display: flex;
   align-items: baseline;
   gap: 10px;
 }
-.s20__group-title {
+.s24__group-title {
   font-size: var(--fs-key);
   font-weight: 700;
   color: #dfe6ea;
 }
-.s20__group-count {
+.s24__group-count {
   font-family: var(--font-display);
   font-size: 20px;
   font-weight: 800;
   color: var(--c-accent);
 }
-.s20__group-items {
+.s24__group-items {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
-.s20__org {
+.s24__org {
   padding: 8px 15px;
   border-radius: 6px;
   border: 1px solid var(--c-line);
@@ -1044,7 +1044,7 @@
   color: #b6c0c8;
   white-space: nowrap;
 }
-.s20__group.is-highlight .s20__org {
+.s24__group.is-highlight .s24__org {
   border-color: var(--c-accent-line);
   background: var(--c-accent-soft);
   color: #fff;
@@ -1053,17 +1053,17 @@
   padding: 12px 22px;
 }
 
-.s20__keywords {
+.s24__keywords {
   flex: none;
   display: flex;
   gap: 12px;
   opacity: 0;
   transition: opacity var(--t-reveal) var(--ease);
 }
-.s20__keywords.is-in {
+.s24__keywords.is-in {
   opacity: 1;
 }
-.s20__kw {
+.s24__kw {
   flex: 1 1 0;
   text-align: center;
   padding: 14px 20px;
@@ -1080,7 +1080,7 @@
     border-color 420ms var(--ease),
     color 420ms var(--ease);
 }
-.s20__kw.is-in {
+.s24__kw.is-in {
   opacity: 1;
   transform: none;
   border-color: var(--c-accent-line);
@@ -1088,15 +1088,15 @@
 }
 
 /* -------------------------------------------------------------
-   S27 — 우선 적용업무 2×2
+   S31 — 우선 적용업무 2×2
    ------------------------------------------------------------- */
-.s27__top {
+.s31__top {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 40px;
 }
-.s27__counter {
+.s31__counter {
   flex: none;
   display: flex;
   align-items: baseline;
@@ -1109,17 +1109,17 @@
   opacity: 0;
   transition: opacity 520ms var(--ease);
 }
-.s27__counter.is-in {
+.s31__counter.is-in {
   opacity: 1;
 }
-.s27__counter-n {
+.s31__counter-n {
   font-family: var(--font-display);
   font-size: 26px;
   font-weight: 800;
   color: var(--c-accent);
 }
 
-.s27__grid {
+.s31__grid {
   flex: 1 1 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1128,7 +1128,7 @@
   margin: 24px 0;
   min-height: 0;
 }
-.s27__card {
+.s31__card {
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -1140,25 +1140,25 @@
     border-color 520ms var(--ease),
     background-color 520ms var(--ease);
 }
-.s27.is-expanded .s27__card {
+.s31.is-expanded .s31__card {
   border-color: var(--c-accent-line);
   background: linear-gradient(180deg, var(--c-accent-soft), transparent 56%), var(--c-card);
 }
-.s27__card-head {
+.s31__card-head {
   display: flex;
   align-items: center;
   gap: 14px;
 }
-.s27__icon {
+.s31__icon {
   color: var(--c-accent);
   flex: none;
 }
-.s27__card-title {
+.s31__card-title {
   font-size: 32px;
   font-weight: 800;
   letter-spacing: -0.02em;
 }
-.s27__card-count {
+.s31__card-count {
   margin-left: auto;
   font-family: var(--font-display);
   font-size: 15px;
@@ -1170,17 +1170,17 @@
   opacity: 0;
   transition: opacity 420ms var(--ease);
 }
-.s27.is-expanded .s27__card-count {
+.s31.is-expanded .s31__card-count {
   opacity: 1;
   border-color: var(--c-accent-line);
   color: var(--c-accent);
 }
-.s27__items {
+.s31__items {
   display: flex;
   flex-wrap: wrap;
   gap: 9px;
 }
-.s27__item {
+.s31__item {
   display: flex;
   align-items: center;
   gap: 9px;
@@ -1198,17 +1198,17 @@
     opacity 380ms var(--ease),
     transform 380ms var(--ease);
 }
-.s27__item.is-in {
+.s31__item.is-in {
   opacity: 1;
   transform: none;
 }
-.s27__check {
+.s31__check {
   font-size: 13px;
   font-weight: 800;
   color: var(--c-accent);
 }
 
-.s27__cta {
+.s31__cta {
   flex: none;
   display: flex;
   justify-content: center;
@@ -1218,7 +1218,7 @@
     opacity var(--t-reveal) var(--ease),
     transform var(--t-reveal) var(--ease);
 }
-.s27__cta.is-in {
+.s31__cta.is-in {
   opacity: 1;
   transform: none;
 }

@@ -1,0 +1,82 @@
+/* =============================================================
+   intro.css — 표지 앞 오프닝 영상 루프 (번호 없음)
+   ============================================================= */
+
+.intro {
+  padding: 0;
+  overflow: hidden;
+  background: #000;
+}
+.intro .screen__body {
+  position: relative;
+  padding: 0;
+}
+
+.intro__stage {
+  position: absolute;
+  inset: 0;
+  background: #000;
+}
+.intro__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 320ms var(--ease);
+}
+.intro__video.is-front {
+  opacity: 1;
+}
+
+/* 8컷 진행 표시 — 어트랙트 루프라 아주 작게 */
+.intro__dots {
+  position: absolute;
+  left: 50%;
+  bottom: 44px;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 7px;
+  z-index: 2;
+}
+.intro__dot {
+  width: 22px;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.22);
+  transition: background-color 320ms var(--ease);
+}
+.intro__dot.is-on {
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.intro__hint {
+  position: absolute;
+  right: 56px;
+  bottom: 40px;
+  z-index: 2;
+  padding: 9px 18px;
+  border-radius: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(6px);
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.72);
+  opacity: 0;
+  transition: opacity 700ms var(--ease);
+}
+.intro__hint.is-in {
+  opacity: 1;
+  animation: intro-hint 3.2s var(--ease-soft) infinite;
+}
+@keyframes intro-hint {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+
+/* 인트로에서는 상단 진행 바까지 완전히 숨긴다 */
+body[data-intro='1'] .deck-progress,
+body[data-intro='1'] .page-indicator {
+  opacity: 0;
+}

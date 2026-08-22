@@ -129,9 +129,12 @@ const STEPS = stepsFlagIdx >= 0 ? parseInt(argv[stepsFlagIdx + 1], 10) : 99;
 const pages = argv
   .filter((a, i) => /^\d+$/.test(a) && !(stepsFlagIdx >= 0 && i === stepsFlagIdx + 1))
   .map(Number);
-/* 기본 대상은 표지(0) 포함 전 화면. 화면 수는 메타에서 가져와 하드코딩을 피한다. */
+/* 대상은 배열 인덱스로 다룬다. 인자로는 SCREEN 번호를 받고(인덱스 = 번호 + 1),
+   인자가 없으면 인트로·표지 포함 전 화면을 캡처한다. */
 const { META } = await import(new URL('../src/data/screens.js', import.meta.url).href);
-const TARGETS = pages.length ? pages : META.map((m) => m.id);
+const TARGETS = pages.length
+  ? pages.map((n) => n + 1).filter((i) => i >= 0 && i < META.length)
+  : META.map((_, i) => i);
 
 /* --url 이 주어지면 로컬 서버 대신 실제 배포본을 검증한다 */
 const urlFlagIdx = process.argv.indexOf('--url');
@@ -187,8 +190,10 @@ await cdp.send('Emulation.setDeviceMetricsOverride', {
 let current = '-';
 
 for (const n of TARGETS) {
-  current = `S${String(n).padStart(2, '0')}`;
-  await cdp.send('Page.navigate', { url: `${baseUrl}/index.html#${n}` });
+  const m = META[n];
+  current = m.intro ? 'INTRO' : `S${String(m.id).padStart(2, '0')}`;
+  const hash = m.intro ? 'intro' : String(m.id);
+  await cdp.send('Page.navigate', { url: `${baseUrl}/index.html#${hash}` });
   await sleep(3000); // 폰트 로딩 + 진입 연출
 
   // 스텝(클릭) 진행

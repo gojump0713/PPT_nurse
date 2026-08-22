@@ -18,9 +18,9 @@ export function mountTOC(deck) {
         },
       },
     },
-      h('div.toc__num', m.cover ? '표지' : pad2(m.id)),
-      h('div.toc__label', m.cover ? '국시 시험도, 진료도 이제 ‘환경’이 경쟁력입니다' : m.title),
-      h('div.toc__badge', m.cover ? 'COVER' : `${PARTS[m.part].label}${m.clicks ? ` · 클릭 ${m.clicks}` : ''}`)
+      h('div.toc__num', m.intro ? '인트로' : m.cover ? '표지' : pad2(m.id)),
+      h('div.toc__label', m.title),
+      h('div.toc__badge', m.intro ? 'OPENING' : m.cover ? 'COVER' : `${PARTS[m.part].label}${m.clicks ? ` · 클릭 ${m.clicks}` : ''}`)
     )
   );
 

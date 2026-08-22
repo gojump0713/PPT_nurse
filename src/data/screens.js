@@ -1,5 +1,5 @@
 /**
- * screens.js — 24개 SCREEN 메타데이터 (작업지시서 PART B 기준)
+ * screens.js — 화면 메타데이터 (인트로 + 표지 + 본편 34화면)
  *
  * 여기에는 "말"만 담는다: 제목 · 거버닝 메시지 · 발표 멘트 · 연결 멘트 · 클릭 수.
  * 화면 구성/애니메이션은 src/js/screens/sNN.js 가 담당한다.
@@ -15,6 +15,19 @@ export const PARTS = {
 };
 
 export const META = [
+  {
+    /* 인트로 — 표지 앞 오프닝 루프. 번호 체계 밖(id -1)이라 인디케이터에 숫자가 없다.
+       청중 입장 시간에 틀어 두고, 클릭하면 표지로 넘어간다. */
+    id: -1, part: 'CBT', clicks: 0, cover: true, intro: true,
+    title: '오프닝 영상',
+    governing: '영남이공대학교 브랜드 필름 — 8컷 자동 반복',
+    notes: [
+      '청중이 입장하는 동안 자동 반복 재생됩니다. 발표자가 조작할 것은 없습니다.',
+      '시작할 준비가 되면 클릭 한 번으로 표지로 넘어갑니다.',
+      '컷 8편이 끝나면 자동으로 1편으로 돌아가 계속 반복됩니다.',
+    ],
+    next: '(클릭 — 표지로)',
+  },
   {
     /* 표지 — 별도 사양서(표지.pdf) 기준. 24화면 번호 체계 밖의 SCREEN 00 이다.
        페이지 인디케이터는 "00 / 24" 대신 COVER 로 표기하고, 검수 대상에서도 제외한다. */
@@ -180,10 +193,60 @@ export const META = [
       '학생은 튜토리얼로 체험하고, 응시하고, 검토하고, 제출합니다. 교수는 출제부터 채점까지 이 안에서 끝냅니다.',
       '보건의약 계열에서 검증된 이 구성을, 간호·보건 분야로 확장하자는 것이 오늘 제안입니다.',
     ],
-    next: '여기까지가 학생의 시험 이야기였습니다. 그런데 방금 보신 이 구조 — 데이터는 서버에, 화면만 사용자에게 — 어디서 더 절실할까요? 병원입니다.',
+    next: '사진만으로는 부족하실 겁니다. 실제로 어떻게 돌아가는지, 화면 그대로 보여드리겠습니다.',
+  },
+
+  /* ---------------------------------------------------------------
+     SCREEN 15 ~ 18 — CBT 실제 구동 영상 (발주 측 제공 녹화본)
+     교수 화면 2편 → 학생 화면 2편. 자동 재생 · 반복 없음.
+     --------------------------------------------------------------- */
+  {
+    id: 15, part: 'CBT', clicks: 0, demo: true,
+    title: 'CBT 구동 — 교수 문제 등록',
+    governing: '문제은행에 문항을 등록하는 실제 과정입니다.',
+    notes: [
+      '교수님 화면입니다. 문항을 새로 만들어 문제은행에 넣는 과정을 그대로 녹화한 것입니다.',
+      '보기 구성, 정답 지정, 분류까지 한 화면에서 끝납니다.',
+      '한 번 넣은 문항은 다음 시험에서 다시 꺼내 씁니다.',
+    ],
+    next: '등록한 문항으로 시험을 만들어 배포하는 과정입니다.',
   },
   {
-    id: 15, part: 'VDI', clicks: 1, bridge: true,
+    id: 16, part: 'CBT', clicks: 0, demo: true,
+    title: 'CBT 구동 — 교수 문제 배포',
+    governing: '시험을 구성하고 응시자에게 배포하는 실제 과정입니다.',
+    notes: [
+      '시험 제목, 응시 방식, 제한 시간, 부가 기능을 정하고 문항을 담습니다.',
+      '계산기나 메모장 같은 도구를 켤지 끌지도 여기서 정합니다.',
+      '배포 버튼 하나로 응시 대상 전원에게 나갑니다.',
+    ],
+    next: '이제 학생 쪽 화면입니다.',
+  },
+  {
+    id: 17, part: 'CBT', clicks: 0, demo: true,
+    title: 'CBT 구동 — 학생 응시 ①',
+    governing: '학생이 실제로 시험을 치르는 화면입니다.',
+    notes: [
+      '학생이 로그인해서 시험에 들어가는 장면입니다.',
+      '문항을 읽고, 답을 고르고, 다음 문항으로 넘어갑니다.',
+      '앞서 말씀드린 9가지 낯선 행동이 여기 전부 들어 있습니다.',
+    ],
+    next: '검토하고 제출하는 마지막 단계입니다.',
+  },
+  {
+    id: 18, part: 'CBT', clicks: 0, demo: true,
+    title: 'CBT 구동 — 학생 응시 ②',
+    governing: '검토와 최종 제출까지, 시험 한 회차가 화면 안에서 끝납니다.',
+    notes: [
+      '미응답 문항을 확인하고, 표시해 둔 문항으로 돌아가 답을 고칩니다.',
+      '제출을 누르면 채점은 자동입니다.',
+      '이 전 과정을 학생이 국가시험 전에 여러 번 겪게 하자는 것이 오늘 제안입니다.',
+    ],
+    next: '여기까지가 학생의 시험 이야기였습니다. 그런데 방금 보신 이 구조 — 데이터는 서버에, 화면만 사용자에게 — 어디서 더 절실할까요? 병원입니다.',
+  },
+
+  {
+    id: 19, part: 'VDI', clicks: 1, bridge: true,
     title: '시험정보 보호 → 의료정보 보호',
     governing: '사용자는 자유롭게 일하되, 중요한 데이터는 통제된 환경 안에 머물러야 합니다.',
     notes: [
@@ -194,7 +257,7 @@ export const META = [
     next: '그럼 병원의 현실부터 보겠습니다. 의료진의 하루는 이미 이동의 연속입니다.',
   },
   {
-    id: 16, part: 'VDI', clicks: 0,
+    id: 20, part: 'VDI', clicks: 0,
     title: '이동하는 진료, 상주하는 데이터',
     governing: '업무는 이동해야 하지만, 데이터까지 이동할 필요는 없습니다.',
     notes: [
@@ -205,7 +268,7 @@ export const META = [
     next: '이 두 번째 그림을 가능하게 하는 구조가 VDI입니다.',
   },
   {
-    id: 17, part: 'VDI', clicks: 1,
+    id: 21, part: 'VDI', clicks: 1,
     title: '데이터 중앙화 VDI 업무환경',
     governing: '사람의 실수를 탓하는 보안이 아니라, 실수해도 데이터가 보호되는 환경입니다.',
     notes: [
@@ -216,7 +279,7 @@ export const META = [
     next: '이 방향이 우리만의 판단인지, 세계의 병원들은 어떻게 하고 있는지 보겠습니다.',
   },
   {
-    id: 18, part: 'VDI', clicks: 2,
+    id: 22, part: 'VDI', clicks: 2,
     title: '글로벌 병원의 VDI 운영 사례',
     governing: '솔루션은 달라도 목적은 같습니다 — 의료정보 보호 · 이동성 · 업무 연속성 · 표준화.',
     notes: [
@@ -227,7 +290,7 @@ export const META = [
     next: '그런데 이 병원들이 산 것은 사실 VDI가 아닙니다.',
   },
   {
-    id: 19, part: 'VDI', clicks: 0,
+    id: 23, part: 'VDI', clicks: 0,
     title: 'VDI 5개 기능의 진료 효과 전환',
     governing: '좋은 IT는, 의료진이 IT를 의식하지 않게 만드는 IT입니다.',
     notes: [
@@ -238,7 +301,7 @@ export const META = [
     next: '그리고 이 번역을, 틸론은 국내 의료 현장에서 이미 여러 번 해왔습니다.',
   },
   {
-    id: 20, part: 'VDI', clicks: 0,
+    id: 24, part: 'VDI', clicks: 0,
     title: '의료기관 26곳 VDI 구축 실적',
     governing: '병원마다 규모는 달라도 요구는 같습니다 — 환자정보 보호와 업무 연속성.',
     notes: [
@@ -254,7 +317,7 @@ export const META = [
      이미지 한 장이 곧 화면이므로 클릭은 없고, 발표 멘트만 노트로 제공한다.
      --------------------------------------------------------------- */
   {
-    id: 21, part: 'VDI', clicks: 0, caseSlide: true,
+    id: 25, part: 'VDI', clicks: 0, caseSlide: true,
     title: '주요 구축사례 — 건강보험심사평가원',
     governing: '대용량 진료정보를 외부기관과 안전하게 공유하기 위한 VDI 기반 개방 환경.',
     notes: [
@@ -265,7 +328,7 @@ export const META = [
     next: '다음은 대학병원입니다.',
   },
   {
-    id: 22, part: 'VDI', clicks: 0, caseSlide: true,
+    id: 26, part: 'VDI', clicks: 0, caseSlide: true,
     title: '주요 구축사례 — 가천대 길병원',
     governing: '재택근무 의료진이 원내 EMR · PACS 에 접속하기 위한 업무망 VD 구축.',
     notes: [
@@ -276,7 +339,7 @@ export const META = [
     next: '같은 구조를 공공병원에서도 씁니다.',
   },
   {
-    id: 23, part: 'VDI', clicks: 0, caseSlide: true,
+    id: 27, part: 'VDI', clicks: 0, caseSlide: true,
     title: '주요 구축사례 — 국민건강보험 일산병원',
     governing: '재택 의료진의 원내 시스템 접속을 VPN 에서 VDI 로 전환.',
     notes: [
@@ -287,7 +350,7 @@ export const META = [
     next: '중앙대학교병원 사례입니다.',
   },
   {
-    id: 24, part: 'VDI', clicks: 0, caseSlide: true,
+    id: 28, part: 'VDI', clicks: 0, caseSlide: true,
     title: '주요 구축사례 — 중앙대학교병원',
     governing: '인터넷망과 업무망을 분리하고 그 사이를 VDI 로 잇는 구성.',
     notes: [
@@ -298,7 +361,7 @@ export const META = [
     next: '지방의료원 사례도 있습니다.',
   },
   {
-    id: 25, part: 'VDI', clicks: 0, caseSlide: true,
+    id: 29, part: 'VDI', clicks: 0, caseSlide: true,
     title: '주요 구축사례 — 성남시의료원',
     governing: '허용된 인원만 접근하게 하는 망분리 보안 시스템 구축.',
     notes: [
@@ -309,7 +372,7 @@ export const META = [
     next: '마지막으로 명지병원입니다.',
   },
   {
-    id: 26, part: 'VDI', clicks: 0, caseSlide: true,
+    id: 30, part: 'VDI', clicks: 0, caseSlide: true,
     title: '주요 구축사례 — 명지병원',
     governing: '언제 어디서든 업무를 이어가는 스마트워크 환경.',
     notes: [
@@ -320,7 +383,7 @@ export const META = [
     next: '그렇다면 영남대병원에서는, 어디부터 시작하는 게 맞을까요?',
   },
   {
-    id: 27, part: 'VDI', clicks: 1,
+    id: 31, part: 'VDI', clicks: 1,
     title: '영남대병원 우선 적용업무 선정',
     governing: '"도입할 것인가"가 아니라, "어떤 업무부터 전환할 것인가"를 찾는 것이 먼저입니다.',
     notes: [
@@ -331,7 +394,7 @@ export const META = [
     next: '마지막으로 — 오늘 왜 시험 이야기와 병원 이야기를 한 자리에서 드렸는지, 그 답을 말씀드리겠습니다.',
   },
   {
-    id: 28, part: 'TILON', clicks: 0, bridge: true,
+    id: 32, part: 'TILON', clicks: 0, bridge: true,
     title: 'CBT·VDI 공통 기반 구조',
     governing: '사람은 자유롭게 배우고 일하되, 데이터와 환경은 안전하게 — 두 제안은 하나의 기반 위에 있습니다.',
     notes: [
@@ -342,7 +405,7 @@ export const META = [
     next: '그 기반을 25년 동안 만들어 온 회사가 틸론입니다.',
   },
   {
-    id: 29, part: 'TILON', clicks: 0,
+    id: 33, part: 'TILON', clicks: 0,
     title: '가상화 원천기술 25년, 틸론',
     governing: '틸론은 2001년부터 기술로, 일하고 배우는 방식을 바꿔온 회사입니다.',
     notes: [
@@ -353,7 +416,7 @@ export const META = [
     next: '마지막 한 장으로 오늘 말씀을 정리하겠습니다.',
   },
   {
-    id: 30, part: 'TILON', clicks: 0,
+    id: 34, part: 'TILON', clicks: 0,
     title: '학생·의료진 디지털 환경 제안',
     governing: '미래의 환경은 도입하는 것이 아니라, 지금부터 준비하는 것입니다.',
     notes: [

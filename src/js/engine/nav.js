@@ -142,19 +142,23 @@ export function mountNav(deck, { toc, notes }) {
     else deck.prev();
   }, { passive: true });
 
-  /* ---------- 해시 딥링크 (#0 → 표지, #7 → SCREEN 07) ---------- */
+  /* ---------- 해시 딥링크 (#intro, #0 → 표지, #7 → SCREEN 07) ----------
+     인트로가 배열 맨 앞(index 0)이므로 SCREEN 번호 N 의 인덱스는 N + 1 이다. */
   const fromHash = () => {
     const raw = String(location.hash).replace('#', '');
     if (raw === '') return null;
+    if (raw === 'intro') return 0;
     const n = parseInt(raw, 10);
-    return Number.isFinite(n) && n >= 0 && n < deck.total ? n : null;
+    if (!Number.isFinite(n)) return null;
+    const i = n + 1;
+    return i >= 0 && i < deck.total ? i : null;
   };
   window.addEventListener('hashchange', () => {
     const n = fromHash();
     if (n !== null && n !== deck.index) deck.goTo(n, { immediate: true });
   });
   deck.onChange(() => {
-    const want = `#${deck.index}`;
+    const want = deck.index === 0 ? '#intro' : `#${deck.index - 1}`;
     if (location.hash !== want) history.replaceState(null, '', want);
   });
 

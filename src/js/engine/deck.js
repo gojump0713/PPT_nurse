@@ -13,11 +13,11 @@ import { META, PARTS } from '../../data/screens.js';
 
 /**
  * PART 브리지: 1.2초 전용 전환을 쓰는 "출발 화면 번호" (§2)
- *   14 → 15 (CBT → VDI),  27 → 28 (VDI → TILON)
+ *   18 → 19 (CBT → VDI),  31 → 32 (VDI → TILON)
  * 배열 인덱스가 아니라 SCREEN 번호로 판정한다. 표지·구축사례가 끼어들면서
  * 인덱스가 밀려도 흔들리지 않게 하기 위함.
  */
-const BRIDGE_FROM = new Set([14, 27]);
+const BRIDGE_FROM = new Set([18, 31]);
 
 export class Deck {
   /**
@@ -160,10 +160,13 @@ export class Deck {
   first() { this.goTo(0); }
   last() { this.goTo(this.total - 1); }
 
-  /** SCREEN 번호로 점프 (0 = 표지, 1~24 = 본편). 번호와 배열 인덱스가 1:1 대응한다. */
+  /**
+   * SCREEN 번호로 점프. 0 = 표지, 1~34 = 본편.
+   * 배열 맨 앞에 인트로(id -1)가 있으므로 인덱스는 번호 + 1 이다.
+   */
   jump(pageNo) {
     const n = Number(pageNo);
-    const i = Math.max(0, Math.min(this.total - 1, Number.isFinite(n) ? n : 0));
+    const i = Math.max(0, Math.min(this.total - 1, (Number.isFinite(n) ? n : 0) + 1));
     this.goTo(i, { immediate: true });
   }
 }
