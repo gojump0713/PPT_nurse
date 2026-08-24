@@ -8,7 +8,7 @@
 import { h, rv } from '../lib/dom.js';
 import { metaOf } from '../../data/screens.js';
 import { ScreenRoot } from '../components/screen.js';
-import { Governing } from '../components/index.js';
+import { Governing, BgVideo } from '../components/index.js';
 import { icons } from '../components/icons.js';
 
 const meta = metaOf(19);
@@ -79,18 +79,24 @@ export function create() {
     h('p.s19__bottom-sub', '대학은 시험정보를 보호하고, 병원은 환자정보를 보호합니다.')
   );
 
-  const el = ScreenRoot(meta, { header: false, className: 's19' },
+  // 배경 영상 — 데이터가 통제된 환경으로 수렴하는 무드 (경로 리터럴: 빌드 정적 스캔 대상)
+  // 배경이지만 영상이 충분히 보이도록 밝기 필터 + 높은 불투명도로 노출한다.
+  const bg = BgVideo('assets/video/bg-bridge-secure.mp4', { opacity: 0.85, bright: true });
+
+  const el = ScreenRoot(meta, { header: false, className: 's19 has-bgvid' },
     header,
     h('div.s19__split', uni, h('div.s19__seam'), hos),
     bottom,
     merged
   );
+  el.appendChild(bg); // 풀블리드 배경 — 콘텐츠(z-index 1) 뒤(z-index 0)에 깔린다
 
   return {
     el,
     enter(sch) {
       // 진입 시점에는 아직 PART 1 — 클릭으로 PART 2 로 넘어간다
       document.body.dataset.part = 'CBT';
+      sch.at(0, () => bg.play(sch));
       sch.at(0, () => header.classList.add('is-in'));
       sch.at(500, () => uni.classList.add('is-in'));
       sch.at(700, () => hos.classList.add('is-in'));
@@ -104,6 +110,9 @@ export function create() {
         hos.querySelector('.s19__panel-result').classList.add('is-in');
       });
       sch.at(2600, () => bottom.classList.add('is-in'));
+    },
+    leave() {
+      bg.stop();
     },
     steps: [
       // 클릭 1회: 패널 수렴 모핑(1.2s) + 공통 구조 등장 + 배경 톤 전환 + PART 교체

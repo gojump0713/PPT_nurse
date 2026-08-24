@@ -6,7 +6,7 @@
 import { h, rv } from '../lib/dom.js';
 import { metaOf } from '../../data/screens.js';
 import { ScreenRoot } from '../components/screen.js';
-import { Governing, Track } from '../components/index.js';
+import { Governing, Track, BgVideo } from '../components/index.js';
 import { icons } from '../components/icons.js';
 
 const meta = metaOf(4);
@@ -38,14 +38,20 @@ export function create() {
     clinical
   );
 
-  const el = ScreenRoot(meta, { className: 's04' },
+  // 배경 영상 — 간호 임상실습 무드 (경로 리터럴: 빌드 정적 스캔 대상)
+  // 배경이지만 영상이 충분히 보이도록 밝기 필터 + 높은 불투명도로 노출한다.
+  const bg = BgVideo('assets/video/bg-nursing-clinical.mp4', { opacity: 0.85, bright: true });
+
+  const el = ScreenRoot(meta, { className: 's04 has-bgvid' },
     gov,
     h('div.s04__body', clinicalWrap, principle, exam)
   );
+  el.appendChild(bg); // 풀블리드 배경 — 콘텐츠(z-index 1) 뒤(z-index 0)에 깔린다
 
   return {
     el,
     enter(sch) {
+      sch.at(0, () => bg.play(sch));
       sch.at(0, () => el.headerEl.classList.add('is-in'));
       sch.at(400, () => gov.classList.add('is-in'));
       // 두 트랙 동시 진행 — 나란히 움직여야 같은 원리임이 말 없이 전달된다
@@ -54,6 +60,9 @@ export function create() {
         exam.play(sch, { start: 900, gap: 600 })
       );
       sch.at(end + 300, () => principle.classList.add('is-in'));
+    },
+    leave() {
+      bg.stop();
     },
     steps: [],
   };

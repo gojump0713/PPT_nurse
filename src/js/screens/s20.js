@@ -7,7 +7,7 @@
 import { h, rv } from '../lib/dom.js';
 import { metaOf } from '../../data/screens.js';
 import { ScreenRoot } from '../components/screen.js';
-import { Governing } from '../components/index.js';
+import { Governing, BgVideo } from '../components/index.js';
 import { icons } from '../components/icons.js';
 
 const meta = metaOf(20);
@@ -82,23 +82,31 @@ export function create() {
     h('p.s20__closing-sub', '병원의 과제는 ‘어디서나 일하는 것’이 아니라 ‘어디서나 안전하게 일하는 것’입니다.')
   );
 
-  const el = ScreenRoot(meta, { className: 's20' },
+  // 배경 영상 — 병원 복도를 오가는 의료진(이동성) 무드 (경로 리터럴: 빌드 정적 스캔 대상)
+  const bg = BgVideo('assets/video/bg-hospital-corridor.mp4', { opacity: 0.85, bright: true });
+
+  const el = ScreenRoot(meta, { className: 's20 has-bgvid' },
     h('div.s20__top', gov, acts),
     h('div.s20__body', rv('up', 'div.s20__planwrap', plan), dock),
     closing
   );
+  el.appendChild(bg); // 풀블리드 배경 — 콘텐츠(z-index 1) 뒤(z-index 0)에 깔린다
 
   const planwrap = el.querySelector('.s20__planwrap');
 
   return {
     el,
     enter(sch) {
+      sch.at(0, () => bg.play(sch));
       sch.at(0, () => el.headerEl.classList.add('is-in'));
       sch.at(400, () => gov.classList.add('is-in'));
       sch.at(760, () => planwrap.classList.add('is-in'));
       sch.stagger(roomEls, (r) => r.classList.add('is-in'), { start: 900, gap: 130 });
       // 1막 시작 — 의료진 이동 + 데이터 꼬리 잔상 (2막은 클릭으로)
       sch.at(1600, () => el.classList.add('is-act1'));
+    },
+    leave() {
+      bg.stop();
     },
     steps: [
       // 클릭 1회: 2막 — 데이터 회수 → 중앙 고정 → 화면만 동행 + 하단 문구

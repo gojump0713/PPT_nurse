@@ -6,7 +6,7 @@
 import { h, rv } from '../lib/dom.js';
 import { metaOf } from '../../data/screens.js';
 import { ScreenRoot } from '../components/screen.js';
-import { Governing } from '../components/index.js';
+import { Governing, BgVideo } from '../components/index.js';
 import { icons } from '../components/icons.js';
 
 const meta = metaOf(12);
@@ -57,15 +57,20 @@ export function create() {
     h('span.s12__f.is-result', 'University CBT Platform')
   );
 
-  const el = ScreenRoot(meta, { className: 's12' },
+  // 배경 영상 — 시험을 떠받치는 인프라(데이터센터) 무드 (경로 리터럴: 빌드 정적 스캔 대상)
+  const bg = BgVideo('assets/video/bg-datacenter.mp4', { opacity: 0.85, bright: true });
+
+  const el = ScreenRoot(meta, { className: 's12 has-bgvid' },
     gov,
     h('div.s12__body', layer1, gap, layer2, note),
     formula
   );
+  el.appendChild(bg); // 풀블리드 배경 — 콘텐츠(z-index 1) 뒤(z-index 0)에 깔린다
 
   return {
     el,
     enter(sch) {
+      sch.at(0, () => bg.play(sch));
       sch.at(0, () => el.headerEl.classList.add('is-in'));
       sch.at(400, () => gov.classList.add('is-in'));
       // ① 층 1만 공중에 뜬 상태
@@ -73,6 +78,9 @@ export function create() {
       // ② 하부 균열 · 경고 점멸
       sch.at(1500, () => gap.classList.add('is-cracked'));
       sch.stagger(warnEls, (w) => w.classList.add('is-in'), { start: 1900, gap: 380 });
+    },
+    leave() {
+      bg.stop();
     },
     steps: [
       // 클릭 1회: 층 2 결합 + 안정화 + 결합식 점등
