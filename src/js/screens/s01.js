@@ -23,7 +23,8 @@ export function create() {
   const shift = rv('up', 'p.s01__shift',
     '기존 과목 중심 평가 ', h('span.s01__shift-arrow', '→'), ' 통합적 간호역량 중심 평가체계로 변화'
   );
-  const lines = h('div.s01__lines', sub, gov, shift);
+  const closing = rv('up', 'p.s01__closing', '지금 재학 중인 학생들이 바로 이 시험의 첫 응시 세대입니다.');
+  const lines = h('div.s01__lines', sub, gov, shift, closing);
 
   const foot = SourceFooter([
     h('span.s01__foot-line', '한국보건의료인국가시험원, 2025년 11월 17일 발표'),
@@ -45,7 +46,8 @@ export function create() {
       sch.at(1800, () => sub.classList.add('is-in'));
       sch.at(2800, () => gov.classList.add('is-in'));
       sch.at(3600, () => shift.classList.add('is-in'));
-      sch.at(4200, () => foot.classList.add('is-in'));
+      sch.at(4200, () => closing.classList.add('is-in'));
+      sch.at(4800, () => foot.classList.add('is-in'));
     },
     leave() {
       bg.stop();

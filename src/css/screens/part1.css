@@ -82,6 +82,15 @@
   color: var(--c-accent);
 }
 
+/* 맨 아래 마무리 문장 — 재학생이 첫 응시 세대임을 강조 */
+.s01__closing {
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--c-text);
+}
+
 .s01__ask {
   position: absolute;
   top: 50%;
@@ -1511,6 +1520,28 @@
 }
 .s11__expand-arrow {
   color: var(--c-line-strong);
+}
+
+/* 맨 아래 요약 문장 — 문제은행이 대학 평가자산으로 축적되는 흐름 */
+.s11__closing {
+  flex: none;
+  margin-top: 14px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: var(--c-muted);
+  opacity: 0;
+  transition: opacity var(--t-reveal) var(--ease);
+}
+.s11__closing.is-in {
+  opacity: 1;
+}
+.s11__closing-key {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--c-accent);
 }
 
 /* -------------------------------------------------------------

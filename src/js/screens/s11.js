@@ -84,11 +84,17 @@ export function create() {
 
   const foot = SourceFooter('시험이 끝나도 문제와 데이터는 대학에 남아야 합니다');
 
+  const closing = h('div.s11__closing',
+    h('strong.s11__closing-key', '문제은행'),
+    ' - 문항이 과목별로 쌓이고, 재활용되고, 응시 결과 쌓이면서 좋은 문항을 데이터로 검증, 쓸수록 좋아지는 대학의 평가자산으로 축적'
+  );
+
   const el = ScreenRoot(meta, { className: 's11' },
     gov,
     h('div.s11__body', left, h('div.s11__bridge', h('span.s11__bridge-line')), right),
     expand,
-    foot
+    foot,
+    closing
   );
 
   return {
@@ -110,6 +116,7 @@ export function create() {
       );
       sch.at(4200, () => expand.classList.add('is-in'));
       sch.at(5600, () => foot.classList.add('is-in'));
+      sch.at(5900, () => closing.classList.add('is-in'));
     },
     steps: [],
   };

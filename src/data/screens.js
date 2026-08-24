@@ -65,7 +65,7 @@ export const META = [
   },
   {
     id: 3, part: 'CBT', clicks: 0,
-    title: '시험 당일 첫 CBT 경험 차단',
+    title: 'CBT는 시험 당일 처음 경험해서는 안 됩니다.',
     governing: 'CBT에서는 ‘아는 것’과 함께 ‘시험환경에 익숙한 것’이 중요합니다.',
     notes: [
       '국가시험 당일은 학생 인생에서 가장 긴장되는 95분입니다.',
