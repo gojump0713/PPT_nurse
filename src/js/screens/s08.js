@@ -86,9 +86,12 @@ export function create() {
   );
   const formula = h('div.s08__formula', ...formulaEls);
 
+  const caption = h('div.s08__caption', '공정한 시험은 모든 좌석에 동일한 시험환경이 배포되는 것');
+
   const el = ScreenRoot(meta, { className: 's08' },
     h('div.s08__top', gov, counter),
     grid,
+    caption,
     formula
   );
 
